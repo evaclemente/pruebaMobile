@@ -1,1 +1,21 @@
 
+#avatar {
+  position:absolute;
+  z-index:1;
+  left:100px;
+  top:200px;
+  width: 100%;
+  height: 200px;
+  // border-style: solid;
+  // border-color: #000;
+  // border-width: 2px;
+}
+
+#cabeza {
+  z-index:auto;
+  // La cabeza se coloca en la posición 0,0 del bloque que contiene
+  // la imagen (bloque "avatar")
+  left:0px;
+  top:0px;
+  position:absolute;
+}
