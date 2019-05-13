@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController } from '@ionic/angular';
-// import {PeloComponent} from '../pelo/pelo.component';
+import {ActivatedRoute} from '@angular/router';
 import { from } from 'rxjs';
 
 @Component({
@@ -10,12 +10,8 @@ import { from } from 'rxjs';
 })
 export class HomePage {
 
- // webpelos: PeloComponent;
 
   constructor(public navCtrl: NavController) {}
 
-//  MuestraPelos() {
-//    this.webpelos = PeloComponent;
-//  }
 
 }
