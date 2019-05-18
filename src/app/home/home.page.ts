@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import {ActivatedRoute} from '@angular/router';
 import { from } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -11,7 +12,14 @@ import { from } from 'rxjs';
 export class HomePage {
 
 
-  constructor(public navCtrl: NavController) {}
+  constructor(private router: Router) {}
+
+  IrAPelos() {
+    console.log('Entro a pelos');
+   // this.navCtrl.navigateRoot('/pages/pelo');
+    this.router.navigate(['/details']);
+  }
+
 
 
 }

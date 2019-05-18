@@ -3,9 +3,7 @@ import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-// import {NavController} from '@ionic/angular';
-
-
+import {MDCTabScroller} from '@material/tab-scroller';
 
 import { HomePage } from './home.page';
 import { from } from 'rxjs';
@@ -15,7 +13,6 @@ import { from } from 'rxjs';
     CommonModule,
     FormsModule,
     IonicModule,
-    // NavController,
     RouterModule.forChild([
       {
         path: '',

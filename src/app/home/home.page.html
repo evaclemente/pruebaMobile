@@ -7,15 +7,40 @@
 </ion-header>
 
 <ion-content>
-
-
+     
 </ion-content>
 
 <div id="avatar">
+
   <img id="cabeza" src="assets/img/cabeza.png"/>
+  
 </div>
 
-<ion-tabs>
+<ion-tabs >
+
+  <ion-tab-bar>
+
+    <ion-button color="secondary" [routerLink]="['/details']" routerLinkActive="router-link-active" >
+      Butt 1
+    </ion-button>
+              
+    <ion-button (click)="IrAPelos();" >
+      Butt 2
+    </ion-button>
+              
+    <ion-button [routerLink]="['/details']" routerLinkActive="router-link-active" >
+      Butt 3
+    </ion-button>
+
+  </ion-tab-bar>
+
+      
+</ion-tabs>
+
+
+<!--<ion-tabs>
+
+
 
   <ion-tab-bar>
 
@@ -27,7 +52,9 @@
           
     </ion-tab-button>
 
-    <ion-tab-button tab="Pelo" [routerLink]="['./pages/pelo']" routerLinkActive="router-link-active" routerDirection="root">
+    (click) = "IrAPelos();"
+
+    <ion-tab-button  routerLink="/pelo" tab="Pelo" >
 
       <ion-label>Peinado</ion-label>
       <ion-icon name="pricetag"></ion-icon>
@@ -45,16 +72,18 @@
 
       <ion-label>Boca</ion-label>
       <ion-icon name="happy"></ion-icon>
-      <!--<ion-badge>6</ion-badge>-->
+      <ion-badge>6</ion-badge>
       
     </ion-tab-button>
 
 
   </ion-tab-bar>
-
     
 
-</ion-tabs>
+</ion-tabs>-->
+
+
+
 
 <!--<ion-tabs>
 

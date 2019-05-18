@@ -1,0 +1,19 @@
+{
+    "pelos": [
+                { "identificador": "p1" ,"fichero": "assets/img/pelo1.png"},
+                { "identificador": "p2" ,"fichero": "assets/img/pelo2.png"},
+                { "identificador": "p3" ,"fichero": "assets/img/pelo3.png"}
+              ],
+   "gafas": [
+                { "identificador": "g1" ,"fichero": "assets/img/gafas1.png"}
+              ],
+    "bocas": [
+                { "identificador": "b1" ,"fichero": "assets/img/boca2.png"},
+                { "identificador": "b2" ,"fichero": "assets/img/boca1.png"}
+              ],
+    "ojos": [
+                { "identificador": "o1" ,"fichero": "assets/img/ojos1.png"},
+                { "identificador": "o2" ,"fichero": "assets/img/ojos2.png"}
+              ]
+  }
+  
