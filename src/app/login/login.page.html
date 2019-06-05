@@ -1,0 +1,69 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>login</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <form [formGroup]=”myForm” (ngSubmit)=”saveData()”>
+
+    <ion-list>
+        
+      <ion-item>
+        
+        <ion-icon name="person" item-start></ion-icon>
+        <ion-label stacked>Usuario:</ion-label>
+        <ion-input formControlName="user" type="text" placeholder="Usuario"></ion-input>
+        
+      </ion-item>
+        
+      <ion-item>
+        
+        <ion-icon name="eye" item-start></ion-icon>
+        <ion-label stacked>Contraseña:</ion-label>
+        <ion-input formControlName="password" placeholder="Contraseña"></ion-datetime>
+        
+      </ion-item>
+
+      <ion-row radio-group formControlName="rol">
+
+        <ion-col>
+
+          <ion-item>
+
+            <ion-icon name="woman" item-start></ion-icon>
+            <ion-label>Alumno</ion-label>
+            <ion-radio value="2"></ion-radio>
+
+          </ion-item>
+
+        </ion-col>
+
+        <ion-col>
+
+          <ion-item>
+
+            <ion-icon name="man" item-start></ion-icon>
+            <ion-label>Profesor</ion-label>
+            <ion-radio value="1"></ion-radio>
+
+          </ion-item>
+
+        </ion-col>
+
+      </ion-row>
+        
+    </ion-list>
+
+    <div>
+
+      <button ion-button blocktype="submit"[disabled]="!myForm.valid">
+        Guardar
+      </button>
+
+    </div>
+        
+  </form>     
+
+</ion-content>

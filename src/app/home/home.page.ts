@@ -16,8 +16,7 @@ export class HomePage {
 
   IrAPelos() {
     console.log('Entro a pelos');
-   // this.navCtrl.navigateRoot('/pages/pelo');
-    this.router.navigate(['/details']);
+    this.router.navigate(['/pelo']);
   }
 
 
