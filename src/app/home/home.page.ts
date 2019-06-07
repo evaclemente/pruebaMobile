@@ -19,6 +19,10 @@ export class HomePage {
     this.router.navigate(['/pelo']);
   }
 
+  IrALogin() {
+    console.log('Entro al Login');
+    this.router.navigate(['/login']);
+  }
 
 
 }
