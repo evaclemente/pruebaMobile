@@ -11,10 +11,10 @@
 
     <h2>LISTA DE ALUMNOS</h2>
       
-    <ul *ngFor="let item of list">
+    <ul *ngFor="let persona of lista">
       
       <li *ngIf="persona.rol === 'Alumno'">
-        Nombre: {{persona.nombre}} - Puntos: {{persona.puntos}}
+        Nombre: {{persona.nombre}} - Puntos: {{persona.puntos}} - Pelo: {{persona.pelo}}
       </li>
       
     </ul>
