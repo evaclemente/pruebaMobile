@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>lista</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+
+  <div>
+
+    <h2>LISTA DE ALUMNOS</h2>
+      
+    <ul *ngFor="let item of list">
+      
+      <li *ngIf="persona.rol === 'Alumno'">
+        Nombre: {{persona.nombre}} - Puntos: {{persona.puntos}}
+      </li>
+      
+    </ul>
+      
+      
+  </div>
+</ion-content>

@@ -5,8 +5,9 @@ import { FormGroup } from '@angular/forms';
 import { NavController } from '@ionic/angular';
 import { DbServiceService } from '../db-service.service';
 import { Persona } from '../Persona';
+import { Router } from '@angular/router';
 import { from } from 'rxjs';
- // import { from } from 'rxjs';
+
 
 @Component({
   selector: 'app-login',
@@ -22,16 +23,29 @@ export class LoginPage implements OnInit {
   rol: string;
   puntos: number;
 
-  constructor(private dbService: DbServiceService) { } // this.myForm = this.createMyForm();
+  constructor(private dbService: DbServiceService,
+              private router: Router) { } // this.myForm = this.createMyForm();
 
   ngOnInit() {
   }
 
   Mostrar() {
     this.dbService.dameTodos()
-    .subscribe(lista => this.lista = lista);
+    .subscribe(lista => {
+                          this.lista = lista;
+                          console.log ('Ya está aquí la lista');
+                          console.log (this.lista);
+                        }
+
+              );
+
+    console.log ('Ya me he suscrito');
   }
 
+  IrALista() {
+    console.log('Voy a Mostrar la lista');
+    this.router.navigate(['/lista']);
+  }
  // private createMyForm() {
    // return this.formBuilder.group({
   //     user: ['', Validators.required],
