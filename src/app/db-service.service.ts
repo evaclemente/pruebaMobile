@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, of, from } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import {PersonaComponent} from './persona/persona.component';
+// import {PersonaComponent} from './persona/persona.component';
 import { Persona } from './Persona';
 // Las librerías importadas son para poder realizar operaciones Http
 
@@ -27,6 +27,17 @@ export class DbServiceService {
     return this.http.get<Persona[]>(this.APIUrl);
   }
 
+  // Autentificar(nombre: string, pass: string): Persona {
+  //   let user: Persona[] = [];
+  //   user = this.lista.filter(persona => persona.nombre === nombre && persona.pass === pass);
+
+  //   if (user.length === 0) {
+  //     return null;
+  //   } else {
+  //     return user[0];
+  //   }
+
+  // }
   // Mostrar (): Persona[] {
     // return this.lista;
   // }

@@ -3,6 +3,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 // También tengo que disponer de IonicPage, NavController y Component
 import { NavController } from '@ionic/angular';
+import { DbServiceService } from '../db-service.service';
+import { Persona } from '../Persona';
+import { from } from 'rxjs';
+ // import { from } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -12,10 +16,20 @@ import { NavController } from '@ionic/angular';
 export class LoginPage implements OnInit {
 
   myForm: FormGroup;
+  lista: Persona[];
+  nombre: string;
+  pass: string;
+  rol: string;
+  puntos: number;
 
-  constructor() { } // this.myForm = this.createMyForm();
+  constructor(private dbService: DbServiceService) { } // this.myForm = this.createMyForm();
 
   ngOnInit() {
+  }
+
+  Mostrar() {
+    this.dbService.dameTodos()
+    .subscribe(lista => this.lista = lista);
   }
 
  // private createMyForm() {
@@ -26,8 +40,8 @@ export class LoginPage implements OnInit {
   //     rol: ['', Validators.required]});
   // }
 
-  saveData() {
-    console.log(this.myForm.value);
-  }
+  // saveData() {
+  //   console.log(this.myForm.value);
+  // }
 
 }
