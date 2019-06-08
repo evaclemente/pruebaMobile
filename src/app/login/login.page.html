@@ -4,13 +4,13 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content vertical="center">
 
   <ion-list>
     <ion-item>
 
       <ion-icon name="person" item-start></ion-icon>
-      <ion-label stacked>Usuario:</ion-label>
+      <ion-label stacked>Usuario: </ion-label>
       <ion-input type="text" placeholder="Usuario" [(ngModel)]="binding"></ion-input>
 
     </ion-item>
@@ -18,18 +18,20 @@
     <ion-item>
 
       <ion-icon name="eye" item-start></ion-icon>
-      <ion-label stacked>Fecha de nacimiento:</ion-label>
-      <ion-datetime placeholder="Contraseña"></ion-datetime>
+      <ion-label stacked>Contraseña: </ion-label>
+      <ion-input placeholder="Contraseña"></ion-input>
 
     </ion-item>
 
-    <ion-row>
+
+    <!--
+      <ion-row>
 
       <ion-col>
 
         <ion-item>
 
-          <ion-icon name="woman" item-start></ion-icon>
+          <ion-icon name="people" item-start></ion-icon>
           <ion-label>Alumno</ion-label>
           <ion-radio value="2"></ion-radio>
 
@@ -50,13 +52,16 @@
 
       </ion-col>
     </ion-row>
+
+    -->
+    
   </ion-list>
 
   <div>
 
-    <button>
-      Guardar
-    </button>
+    <ion-button color= "primary" expand = "block">
+      Iniciar sesión
+    </ion-button>
 
   </div>
 

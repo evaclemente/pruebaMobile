@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of, from } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {PersonaComponent} from './persona/persona.component';
+import { Persona } from './Persona';
 // Las librerías importadas son para poder realizar operaciones Http
 
 @Injectable({
@@ -26,4 +27,20 @@ export class DbServiceService {
     return this.http.get<Persona[]>(this.APIUrl);
   }
 
+  // Mostrar (): Persona[] {
+    // return this.lista;
+  // }
+
+  // Incrementar (nombre: string): Persona[] {
+   // this.lista.filter(persona => persona.nombre === nombre)[0].puntos ++;
+   // return this.lista;
+  // }
+
+  // Eliminar(nombre: string): Persona [] {
+  //   this.lista = this.lista
+  // }
+
+  // DamePersona(nombre: string): Observable<Persona> {
+  //   return this.http.get<Persona>(this.APIUrl + '/nombre');
+  // }
 }

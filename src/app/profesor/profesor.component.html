@@ -1,0 +1,29 @@
+<!--
+
+
+
+
+
+-->
+
+<button (click)="Mostrar()">Mostrar lista de alumnos</button>
+<button (click)="OrdenarPuntos()">Ordenar por puntos</button>
+
+<div>
+
+  <h2>LISTA DE ALUMNOS</h2>
+
+  <ul *ngFor="let item of list">
+
+    <li *ngIf="persona.rol === 'Alumno'">
+      Nombre: {{persona.nombre}} - Puntos: {{persona.puntos}}
+      <button (click)="Incrementar(persona.nombre)">Añadir punto</button>
+      <button (click)="Eliminar(persona.nombre)">Eliminar</button>
+    </li>
+
+  </ul>
+
+
+</div>
+
+<h2>Introducir nuevo alumno</h2>
