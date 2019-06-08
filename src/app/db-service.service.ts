@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, of, from } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Persona } from './persona';
+import {PersonaComponent} from './persona/persona.component';
 // Las librerías importadas son para poder realizar operaciones Http
 
 @Injectable({

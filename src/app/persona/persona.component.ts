@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Persona } from '../Persona';
+import { from } from 'rxjs';
 
 @Component({
   selector: 'app-persona',
@@ -9,6 +11,8 @@ export class PersonaComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {}
+  ngOnInit() {
+
+  }
 
 }
