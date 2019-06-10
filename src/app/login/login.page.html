@@ -11,7 +11,7 @@
 
       <ion-icon name="person" item-start></ion-icon>
       <ion-label stacked>Usuario: </ion-label>
-      <ion-input type="text" placeholder="Usuario" [(ngModel)]="binding"></ion-input>
+      <ion-input id="nombre" type="text" placeholder="Usuario" [(ngModel)]="nombre"></ion-input>
 
     </ion-item>
 
@@ -19,7 +19,7 @@
 
       <ion-icon name="eye" item-start></ion-icon>
       <ion-label stacked>Contraseña: </ion-label>
-      <ion-input placeholder="Contraseña"></ion-input>
+      <ion-input id="pass" placeholder="Contraseña" [(ngModel)]="pass"></ion-input>
 
     </ion-item>
 
@@ -59,7 +59,7 @@
 
   <div>
 
-    <ion-button color= "primary" expand = "block">
+    <ion-button color= "primary" expand = "block" (click)="Autentificar();">
       Iniciar sesión
     </ion-button>
 

@@ -16,6 +16,7 @@ import { from } from 'rxjs';
 })
 export class LoginPage implements OnInit {
 
+  usuario: Persona;
   myForm: FormGroup;
   lista: Persona[];
   nombre: string;
@@ -58,4 +59,26 @@ export class LoginPage implements OnInit {
   //   console.log(this.myForm.value);
   // }
 
+  Autentificar() {
+    console.log(this.nombre);
+    console.log(this.pass);
+    this.dbService.DamePersona(this.nombre)
+                  .subscribe(persona => {
+                                         if (persona != null) {
+
+                                          if (persona.rol === 'Profesor') {
+                                            this.router.navigate(['/profesor']);
+                                          } else {
+                                            this.router.navigate(['/alumno']);
+                                          }
+                                         }
+
+    });
+  }
+
 }
+
+// (persona => persona.nombre === nombre
+//   && persona.pass === persona.pass
+//   );
+//   console.log.

@@ -51,7 +51,17 @@ export class DbServiceService {
   //   this.lista = this.lista
   // }
 
-  // DamePersona(nombre: string): Observable<Persona> {
-  //   return this.http.get<Persona>(this.APIUrl + '/nombre');
+  DamePersona(nombre: string): Observable<Persona> {
+    console.log(nombre);
+    return this.http.get<Persona>(this.APIUrl + '/' + nombre);
+  }
+
+  // Autentificar(nombre: string, pass: string): Persona {
+  //   let usuario: Persona[] = [];
+
+  //   usuario = this.http.get(persona => persona.nombre === nombre
+  //     && persona.pass === pass
+  //                           );
+
   // }
 }
