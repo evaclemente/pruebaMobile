@@ -54,6 +54,7 @@ export class DbServiceService {
   DamePersona(nombre: string): Observable<Persona> {
     console.log(nombre);
     return this.http.get<Persona>(this.APIUrl + '/' + nombre);
+    console.log(Persona);
   }
 
   // Autentificar(nombre: string, pass: string): Persona {

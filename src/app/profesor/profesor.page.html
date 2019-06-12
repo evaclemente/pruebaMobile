@@ -1,9 +1,33 @@
+
 <ion-header>
-  <ion-toolbar>
-    <ion-title>¡Bienvenido, profesor!</ion-title>
-  </ion-toolbar>
-</ion-header>
+    <ion-toolbar>
+      <ion-title>¡Bienvenido {{nombre}}! </ion-title>
+      <ion-back-button defaultHref="home"></ion-back-button>
+    </ion-toolbar>
+  </ion-header>
 
 <ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-button color= "success" expand = "block">
+        Mi perfil
+      </ion-button>
+    </ion-item>
+    <ion-item>
+      <ion-button>
+        Galería de material
+      </ion-button>
+    </ion-item>
+    <ion-item>
+      <ion-button color= "success" expand = "block" (click) = "IraClases();">
+        Mis clases
+      </ion-button>
+    </ion-item>
+    <ion-item>
+        <ion-button color= "success" expand = "block" (click)="IrALista();">
+          Listado de alumnos
+        </ion-button>
+    </ion-item>
 
+  </ion-list>
 </ion-content>

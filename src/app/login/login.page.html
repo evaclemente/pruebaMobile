@@ -12,6 +12,7 @@
       <ion-icon name="person" item-start></ion-icon>
       <ion-label stacked>Usuario: </ion-label>
       <ion-input id="nombre" type="text" placeholder="Usuario" [(ngModel)]="nombre"></ion-input>
+      <app-profesor [nombre]="nombre"></app-profesor>
 
     </ion-item>
 

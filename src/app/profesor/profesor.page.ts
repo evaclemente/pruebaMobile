@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-
+import { Component, OnInit, Input } from '@angular/core';
+import { Persona } from '../Persona';
+import { Router } from '@angular/router';
+import { from } from 'rxjs';
 @Component({
   selector: 'app-profesor',
   templateUrl: './profesor.page.html',
@@ -7,9 +9,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfesorPage implements OnInit {
 
-  constructor() { }
+  usuario: Persona;
+  @Input() nombre: string;
+  pass: string;
+  constructor(private router: Router) { }
 
-  ngOnInit() {
+  ngOnInit() { console.log (this.nombre);
   }
 
+  IraClases() {
+    this.router.navigate(['/clases']);
+  }
+
+  IrALista() {
+    console.log('Voy a Mostrar la lista');
+    this.router.navigate(['/lista']);
+  }
 }

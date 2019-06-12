@@ -7,6 +7,7 @@ import { DbServiceService } from '../db-service.service';
 import { Persona } from '../Persona';
 import { Router } from '@angular/router';
 import { from } from 'rxjs';
+import {ProfesorPage} from '../profesor/profesor.page';
 
 
 @Component({
@@ -63,7 +64,7 @@ export class LoginPage implements OnInit {
     console.log(this.nombre);
     console.log(this.pass);
     this.dbService.DamePersona(this.nombre)
-                  .subscribe(persona => {
+                  .subscribe(persona => {console.log(persona);
                                          if (persona != null) {
 
                                           if (persona.rol === 'Profesor') {
