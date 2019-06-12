@@ -10,7 +10,7 @@ import { from } from 'rxjs';
 export class ProfesorPage implements OnInit {
 
   usuario: Persona;
-  @Input() nombre: string;
+  nombre: string;
   pass: string;
   constructor(private router: Router) { }
 
@@ -24,5 +24,8 @@ export class ProfesorPage implements OnInit {
   IrALista() {
     console.log('Voy a Mostrar la lista');
     this.router.navigate(['/lista']);
+  }
+  IrALogin() {
+    this.router.navigate(['/login']);
   }
 }
