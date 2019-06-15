@@ -24,5 +24,10 @@ export class HomePage {
     this.router.navigate(['/login']);
   }
 
+  IrAOjos() {
+    console.log('Me voy a Ojos');
+    this.router.navigate(['/ojos']);
+  }
+
 
 }

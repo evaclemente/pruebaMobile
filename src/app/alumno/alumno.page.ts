@@ -14,34 +14,19 @@ export class AlumnoPage implements OnInit {
 
   @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
 
-  // pages = [
-  //   {
-  //     title: 'Ver listado',
-  //     url: 'alumno/lista'
-  //   }
-  // ];
 
-  // selectedPath = '';
-
-  constructor() {}
+  constructor(private router: Router) {}
 
 
   ngOnInit() {
   }
 
-  // openFirst() {
-  //   this.menu.enable(true, 'first');
-  //   this.menu.open('first');
-  // }
+ IrAHome() {
+  this.router.navigate(['/home']);
+ }
 
-  // openEnd() {
-  //   this.menu.open('end');
-  // }
-
-  // openCustom() {
-  //   this.menu.enable(true, 'custom');
-  //   this.menu.open('custom');
-  // }
-
+ IrALogin() {
+  this.router.navigate(['/login']);
+}
 
 }

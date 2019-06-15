@@ -1,68 +1,14 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-      Bienvenido a mi App!
+      Mi avatar
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
 
-  <ion-list>
-    <ion-item>
-    
-      <ion-icon name="person" item-start></ion-icon>
-      <ion-label stacked>Usuario:</ion-label>
-      <ion-input type="text" placeholder="Usuario" [(ngModel)]="binding"></ion-input>
-    
-    </ion-item>
-    
-    <ion-item>
-    
-          <ion-icon name="eye" item-start></ion-icon>
-          <ion-label stacked>Fecha de nacimiento:</ion-label>
-          <ion-datetime placeholder="Contraseña"></ion-datetime>
-    
-    </ion-item>
-    
-    <ion-row>
-    
-      <ion-col>
-    
-        <ion-item>
-    
-          <ion-icon name="woman" item-start></ion-icon>
-          <ion-label>Alumno</ion-label>
-          <ion-radio value="2"></ion-radio>
-    
-        </ion-item>
-    
-    
-      </ion-col>
-    
-      <ion-col>
-    
-        <ion-item>
-    
-          <ion-icon name="man" item-start></ion-icon>
-          <ion-label>Profesor</ion-label>
-          <ion-radio value="1"></ion-radio>
-    
-        </ion-item>
-    
-      </ion-col>
 
-    </ion-row>
-
-  </ion-list>
-    
-  <div>
-    
-    <button>
-      Guardar
-    </button>
-    
-  </div>
   
 </ion-content>
 
@@ -83,16 +29,18 @@
 
   <ion-tab-bar>
 
-    <ion-button color="secondary" [routerLink]="['/details']">
-      Button 1
+    <ion-button color="tertiary" (click)="IrAOjos();">
+      <ion-icon id="ojos" name="eye"></ion-icon>
+      Ojos
     </ion-button>
               
-    <ion-button (click)="IrAPelos();" >
-      Butt 2
+    <ion-button color="tertiary" (click)="IrAPelos();" >
+      <ion-icon id="ojos" name="cut" ></ion-icon>
+      Peinado
     </ion-button>
               
-    <ion-button (click)="IrALogin();">
-      Butt 3
+    <ion-button color="tertiary" (click)="IrALogin();">
+      <ion-icon id="ojos" name="cut" ></ion-icon>
     </ion-button>
 
   </ion-tab-bar>
@@ -192,4 +140,71 @@
 
     </ion-tab-bar>
 
-  </ion-tabs>-->
+  </ion-tabs>
+
+
+
+warning
+
+
+
+  <ion-list>
+    <ion-item>
+    
+      <ion-icon name="person" item-start></ion-icon>
+      <ion-label stacked>Usuario:</ion-label>
+      <ion-input type="text" placeholder="Usuario" [(ngModel)]="binding"></ion-input>
+    
+    </ion-item>
+    
+    <ion-item>
+    
+          <ion-icon name="eye" item-start></ion-icon>
+          <ion-label stacked>Fecha de nacimiento:</ion-label>
+          <ion-datetime placeholder="Contraseña"></ion-datetime>
+    
+    </ion-item>
+    
+    <ion-row>
+    
+      <ion-col>
+    
+        <ion-item>
+    
+          <ion-icon name="woman" item-start></ion-icon>
+          <ion-label>Alumno</ion-label>
+          <ion-radio value="2"></ion-radio>
+    
+        </ion-item>
+    
+    
+      </ion-col>
+    
+      <ion-col>
+    
+        <ion-item>
+    
+          <ion-icon name="man" item-start></ion-icon>
+          <ion-label>Profesor</ion-label>
+          <ion-radio value="1"></ion-radio>
+    
+        </ion-item>
+    
+      </ion-col>
+
+    </ion-row>
+
+  </ion-list>
+    
+  <div>
+    
+    <button>
+      Guardar
+    </button>
+    
+  </div>
+
+
+
+
+-->
