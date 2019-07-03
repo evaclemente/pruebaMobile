@@ -48,17 +48,7 @@ export class LoginPage implements OnInit {
     console.log('Voy a Mostrar la lista');
     this.router.navigate(['/lista']);
   }
- // private createMyForm() {
-   // return this.formBuilder.group({
-  //     user: ['', Validators.required],
-  //     password: ['', Validators.required],
-  //     // passwordConfirmation: ['', Validators.required],
-  //     rol: ['', Validators.required]});
-  // }
 
-  // saveData() {
-  //   console.log(this.myForm.value);
-  // }
 
   Autentificar() {
     console.log(this.nombre);
@@ -76,6 +66,10 @@ export class LoginPage implements OnInit {
 
     });
   }
+
+ // Seleccionar(persona: Persona) {
+   // this.usuarioSeleccionado = persona;
+ // }
 
 }
 

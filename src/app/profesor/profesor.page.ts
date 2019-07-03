@@ -9,15 +9,15 @@ import { from } from 'rxjs';
 })
 export class ProfesorPage implements OnInit {
 
-  usuario: Persona;
-  nombre: string;
+  @Input() nombre: string;
+  // nombre: string;
   pass: string;
   constructor(private router: Router) { }
 
   ngOnInit() { console.log (this.nombre);
   }
 
-  IraClases() {
+  IrAClases() {
     this.router.navigate(['/clases']);
   }
 
@@ -25,7 +25,12 @@ export class ProfesorPage implements OnInit {
     console.log('Voy a Mostrar la lista');
     this.router.navigate(['/lista']);
   }
+
   IrALogin() {
     this.router.navigate(['/login']);
+  }
+
+  IrAGaleria() {
+    this.router.navigate(['/galeria']);
   }
 }

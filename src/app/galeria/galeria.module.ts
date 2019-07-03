@@ -1,16 +1,16 @@
-import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
-import { LoginPage } from './login.page';
+import { GaleriaPage } from './galeria.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: LoginPage
+    component: GaleriaPage
   }
 ];
 
@@ -21,7 +21,6 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [LoginPage],
-  schemas: [NO_ERRORS_SCHEMA]
+  declarations: [GaleriaPage]
 })
-export class LoginPageModule {}
+export class GaleriaPageModule {}

@@ -12,7 +12,16 @@
       <ion-icon name="person" item-start></ion-icon>
       <ion-label stacked>Usuario: </ion-label>
       <ion-input id="nombre" type="text" placeholder="Usuario" [(ngModel)]="nombre"></ion-input>
-      <!--<app-profesor [nombre]="nombre"></app-profesor>-->
+    
+      <!--Enviamos información entre componentes de la siguiente manera:
+          entre los símbolos "<>" coloco el selector del componente al que 
+          quiero enviarle los datos.
+
+          Después entre corchetes, colocamos la variable que va a ser el input
+          en el componente profesor en este caso, y tras el igual, entre comillas llamamos 
+          a la variable del componente en el que estamos actualmente.
+      -->
+      <app-profesor [nombre]="nombre"></app-profesor>
 
     </ion-item>
 
@@ -90,6 +99,8 @@
 
 
 </ion-content>
+
+<h2>Detalles del usuario</h2>
 
 
 <!--          <button (click)="Incrementar(persona.nombre)">Añadir punto</button>

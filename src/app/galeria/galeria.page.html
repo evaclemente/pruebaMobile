@@ -1,0 +1,18 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Galería de material</ion-title>
+    <ion-back-button defaultHref="profesor"></ion-back-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <!--Este input nos va a permitir cargar imágenes de la carpeta que queramos, por defecto se abre el escritorio-->
+  <ion-item>
+    <!--Poner el id como inp para el input, la función activar input va ligada a ese id siempre-->
+    <input #file id="inp" type="file" accept='image/*' (change)="Mostrar($event)" style="display:none">
+    <ion-button (click)="ActivarInput();">Logo</ion-button>
+    <ion-img item-right [src]="logo"></ion-img>
+  </ion-item>
+
+</ion-content>
