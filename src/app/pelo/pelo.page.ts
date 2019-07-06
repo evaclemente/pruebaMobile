@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-// import { NavController, NavParams } from '@ionic/angular';
+import { DatosService } from '../datos.service';
+import { from } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-pelo',
@@ -20,7 +22,11 @@ export class PeloPage implements OnInit {
   // Necesito usar el protocolo http para cargar el fichero,
   // así que en el contructor coloco un procedimiento http privado
 
-  constructor(private http: HttpClient) {
+  constructor(
+    private http: HttpClient,
+    private datosService: DatosService,
+    private router: Router
+              ) {
   }
 
   ngOnInit() {
@@ -115,6 +121,20 @@ export class PeloPage implements OnInit {
    // var imgtick = document.createElement('img');
    // imgtick.src = 'assets/img/tick.png';
    // document.getElementById('elementosPelo').appendChild(imgtick);
+
+  }
+
+  PasarDatosPelo() {
+
+    if (this.HayPelo) {
+
+      this.datosService.sendObjectSource(this.PeloSeleccionado);
+      this.router.navigate(['/home']);
+
+    } else {
+
+      console.log('No has seleccionado ningún pelo');
+    }
 
   }
 
