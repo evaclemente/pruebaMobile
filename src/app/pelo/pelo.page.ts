@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+// import { NavController, NavParams } from '@ionic/angular';
 
 @Component({
   selector: 'app-pelo',
@@ -13,11 +14,14 @@ export class PeloPage implements OnInit {
   elementosPelo: any;
   pelo: number = 0;
   estadoPelo: boolean [];
+  PeloSeleccionado: string = null;
+  HayPelo: boolean = false;
 
   // Necesito usar el protocolo http para cargar el fichero,
   // así que en el contructor coloco un procedimiento http privado
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
   ngOnInit() {
     console.log('Empiezo a cargar elementos');
@@ -65,11 +69,54 @@ export class PeloPage implements OnInit {
       // Coloco el nombre del fichero en el que está la imágen
 
       imagen.src = this.elementosPelo.pelos[i].fichero;
+
+      imagen.onclick = (function(elemento, i, estado) {
+        return function() {
+          console.log ('Elemento ' + elemento);
+          console.log('Id ' + i);
+          console.log('Estado ' + estado);
+          // console.log('¿Tenemos pelo? ' + true);
+
+          if (estado) {
+            // Si la imágen ya estaba seleccionada cuando se clica sobre ella,
+            // hay que quitarle el recuadro de selección
+            document.getElementById(elemento).style.backgroundColor = 'white';
+            this.HayPelo = false;
+            this.PeloSeleccionado = null;
+            estado = false;
+
+            console.log('¿Tenemos pelo? ' + this.HayPelo);
+            console.log('Mi pelo es ' + this.PeloSeleccionado);
+
+          } else {
+
+            document.getElementById(elemento).style.backgroundColor = 'green';
+            this.HayPelo = true;
+            estado = true;
+            this.PeloSeleccionado = elemento;
+
+            console.log('¿Tenemos pelo? ' + this.HayPelo);
+            console.log('Mi pelo es ' + this.PeloSeleccionado);
+
+          }
+
+        };
+      })(this.elementosPelo.pelos[i].identificador, i, this.estadoPelo[i]);
+
+
       // coloco la imágen en el bloque de elementos
 
+
       document.getElementById('elementosPelo').appendChild(imagen);
+
     }
 
+
+   // var imgtick = document.createElement('img');
+   // imgtick.src = 'assets/img/tick.png';
+   // document.getElementById('elementosPelo').appendChild(imgtick);
+
   }
+
 
 }
