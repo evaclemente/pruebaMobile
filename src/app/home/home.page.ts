@@ -4,6 +4,7 @@ import {ActivatedRoute} from '@angular/router';
 import { from } from 'rxjs';
 import { Router } from '@angular/router';
 import { DatosService } from '../datos.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-home',
@@ -12,17 +13,27 @@ import { DatosService } from '../datos.service';
 })
 export class HomePage {
 
+  todoselementos: any;
+  indexpelo: any;
+  ojos: any;
+  complementos: any;
 
   constructor(
     private router: Router,
-    private datosService: DatosService
+    private datosService: DatosService,
+    private http: HttpClient
   ) {
 
   }
 
   // tslint:disable-next-line:use-life-cycle-interface
   ngOnInit() {
-    this.datosService.$getObjectSource.subscribe(data => console.log(data));
+    this.http.get('assets/elementos.json', {responseType: 'json'})
+    .subscribe(data => { this.todoselementos = data; });
+    this.datosService.$getObjectSource.subscribe(data => { console.log(data);
+                                                           this.indexpelo = data;
+                                                           this.ColocoPelo(this.indexpelo);
+                                                          });
   }
 
   IrAPelos() {
@@ -38,6 +49,22 @@ export class HomePage {
   IrAOjos() {
     console.log('Me voy a Ojos');
     this.router.navigate(['/ojos']);
+  }
+
+  ColocoPelo(ident: number) {
+
+    console.log('Entro a colocar el pelo');
+    var imagen = document.createElement('img');
+
+    imagen.style.position = 'absolute';
+    imagen.style.zIndex = '1';
+    imagen.src = this.todoselementos.pelos[ident].fichero;
+
+
+    imagen.style.left = '0px';
+    imagen.style.top = '0px';
+    document.getElementById('avatar').appendChild(imagen);
+
   }
 
 

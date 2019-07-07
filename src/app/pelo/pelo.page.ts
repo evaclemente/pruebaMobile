@@ -16,8 +16,8 @@ export class PeloPage implements OnInit {
   elementosPelo: any;
   pelo: number = 0;
   estadoPelo: boolean [];
-  PeloSeleccionado: string = null;
-  HayPelo: boolean = false;
+  PeloSeleccionado: number = 1;
+  HayPelo: boolean = true;
 
   // Necesito usar el protocolo http para cargar el fichero,
   // así que en el contructor coloco un procedimiento http privado
@@ -33,6 +33,7 @@ export class PeloPage implements OnInit {
     console.log('Empiezo a cargar elementos');
     // Leo primero el fichero que contiene todos los elementos
 
+   // this.HayPelo = true;
     this.http.get('assets/elementos.json', {responseType: 'json'})
     .subscribe(data => {
                           // me guardos los elementos
@@ -42,6 +43,7 @@ export class PeloPage implements OnInit {
                           // coloco los elementos donde toca
                           this.estadoPelo = Array (this.elementosPelo.pelos.length).fill (false);
                           this.ColocarPelos();
+                          // this.PasarDatosPelo();
                         });
   }
 
@@ -49,6 +51,7 @@ export class PeloPage implements OnInit {
 
     console.log('Entro: ' + this.elementosPelo);
     var i: number;
+
 
     // El fichero elementos.json contiene los elementos de
     // pelo, gafas, ojos, boca que usaremos para construir el avatar.
@@ -59,6 +62,8 @@ export class PeloPage implements OnInit {
       var imagen = document.createElement('img'); // creo una imágen
       imagen.id = this.elementosPelo.pelos[i].identificador;
       console.log (i + ' ' + this.elementosPelo.pelos[i].identificador);
+     // return this.HayPelo;
+     // return this.PeloSeleccionado;
 
       // Coloco la imágen sobre el bloque
       // Adaptamos todas las imágenes al ancho del bloque,
@@ -100,6 +105,7 @@ export class PeloPage implements OnInit {
             this.HayPelo = true;
             estado = true;
             this.PeloSeleccionado = elemento;
+            // this.datosService.sendObjectSource(elemento);
 
             console.log('¿Tenemos pelo? ' + this.HayPelo);
             console.log('Mi pelo es ' + this.PeloSeleccionado);
@@ -107,11 +113,11 @@ export class PeloPage implements OnInit {
           }
 
         };
+
       })(this.elementosPelo.pelos[i].identificador, i, this.estadoPelo[i]);
 
 
       // coloco la imágen en el bloque de elementos
-
 
       document.getElementById('elementosPelo').appendChild(imagen);
 
@@ -121,10 +127,19 @@ export class PeloPage implements OnInit {
    // var imgtick = document.createElement('img');
    // imgtick.src = 'assets/img/tick.png';
    // document.getElementById('elementosPelo').appendChild(imgtick);
+    console.log(this.PeloSeleccionado);
+    console.log(this.HayPelo);
+  }
 
+
+  DatosSeleccionados(tipopelo, status){
+    this.HayPelo = status;
+    this.PeloSeleccionado = tipopelo;
   }
 
   PasarDatosPelo() {
+
+    console.log(this.HayPelo);
 
     if (this.HayPelo) {
 
