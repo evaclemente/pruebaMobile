@@ -18,6 +18,7 @@ export class PeloPage implements OnInit {
   estadoPelo: boolean [];
   PeloSeleccionado: number = 1;
   HayPelo: boolean = true;
+  tipo: string = 'pelos';
 
   // Necesito usar el protocolo http para cargar el fichero,
   // así que en el contructor coloco un procedimiento http privado
@@ -81,7 +82,7 @@ export class PeloPage implements OnInit {
 
       imagen.src = this.elementosPelo.pelos[i].fichero;
 
-      imagen.onclick = (function(elemento, i, estado) {
+      imagen.onclick = ( function(elemento, i, estado) {
         return function() {
           console.log ('Elemento ' + elemento);
           console.log('Id ' + i);
@@ -132,7 +133,7 @@ export class PeloPage implements OnInit {
   }
 
 
-  DatosSeleccionados(tipopelo, status){
+  DatosSeleccionados(tipopelo, status) {
     this.HayPelo = status;
     this.PeloSeleccionado = tipopelo;
   }
@@ -143,7 +144,7 @@ export class PeloPage implements OnInit {
 
     if (this.HayPelo) {
 
-      this.datosService.sendObjectSource(this.PeloSeleccionado);
+      this.datosService.sendObjectSource(this.PeloSeleccionado, this.tipo);
       this.router.navigate(['/home']);
 
     } else {

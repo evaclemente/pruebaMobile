@@ -14,9 +14,10 @@ import { HttpClient } from '@angular/common/http';
 export class HomePage {
 
   todoselementos: any;
-  indexpelo: any;
+  indexpelo: number =  0;
   ojos: any;
   complementos: any;
+  objetoseleccionado: string;
 
   constructor(
     private router: Router,
@@ -29,10 +30,11 @@ export class HomePage {
   // tslint:disable-next-line:use-life-cycle-interface
   ngOnInit() {
     this.http.get('assets/elementos.json', {responseType: 'json'})
-    .subscribe(data => { this.todoselementos = data; });
+    .subscribe(data => { this.todoselementos = data;
+                         this.datosService.ColocoPelo(this.indexpelo, this.todoselementos); });
     this.datosService.$getObjectSource.subscribe(data => { console.log(data);
-                                                           this.indexpelo = data;
-                                                           this.ColocoPelo(this.indexpelo);
+                                                           // this.indexpelo = data[1];
+                                                           // this.objetoseleccionado = data[2];
                                                           });
   }
 
@@ -50,23 +52,6 @@ export class HomePage {
     console.log('Me voy a Ojos');
     this.router.navigate(['/ojos']);
   }
-
-  ColocoPelo(ident: number) {
-
-    console.log('Entro a colocar el pelo');
-    var imagen = document.createElement('img');
-
-    imagen.style.position = 'absolute';
-    imagen.style.zIndex = '1';
-    imagen.src = this.todoselementos.pelos[ident].fichero;
-
-
-    imagen.style.left = '0px';
-    imagen.style.top = '0px';
-    document.getElementById('avatar').appendChild(imagen);
-
-  }
-
 
 
 }
