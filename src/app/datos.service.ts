@@ -39,7 +39,7 @@ export class DatosService {
       imagen.style.position = 'absolute';
       imagen.style.zIndex = '1';
 
- 
+
 
       console.log('Entro a colocar pelo');
 
@@ -58,11 +58,11 @@ export class DatosService {
 
   }
 
-  ColocoOjos(ident: any, elementos: any, tipo: string) {
+  ColocoOjos(ident: any, elementos: any) {
 
 
     if (ident === null) {
-      console.log('No has seleccionado ningún pelo');
+      console.log('No has seleccionado ningunos ojos');
     } else {
 
       var imagen = document.createElement('img');
@@ -72,11 +72,11 @@ export class DatosService {
 
  
 
-      console.log('Entro a colocar pelo');
+      console.log('Entro a colocar los ojos');
 
       console.log('Estos son los elementos: ' + elementos);
 
-      imagen.src = elementos.pelos[ident].fichero;
+      imagen.src = elementos.ojos[ident].fichero;
 
 
       imagen.style.left = '0px';

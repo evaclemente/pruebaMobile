@@ -18,6 +18,7 @@ export class HomePage {
   ojos: any;
   complementos: any;
   objetoseleccionado: string;
+  indexojos: number = 0;
 
   constructor(
     private router: Router,
@@ -31,7 +32,8 @@ export class HomePage {
   ngOnInit() {
     this.http.get('assets/elementos.json', {responseType: 'json'})
     .subscribe(data => { this.todoselementos = data;
-                         this.datosService.ColocoPelo(this.indexpelo, this.todoselementos); });
+                         this.datosService.ColocoPelo(0, this.todoselementos);
+                         this.datosService.ColocoOjos(0, this.todoselementos); });
     this.datosService.$getObjectSource.subscribe(data => { console.log(data);
                                                            // this.indexpelo = data[1];
                                                            // this.objetoseleccionado = data[2];
@@ -51,6 +53,11 @@ export class HomePage {
   IrAOjos() {
     console.log('Me voy a Ojos');
     this.router.navigate(['/ojos']);
+  }
+
+  IrAAlumno() {
+    console.log('Me voy a Alumno');
+    this.router.navigate(['/alumno']);
   }
 
 

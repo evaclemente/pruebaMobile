@@ -51,27 +51,51 @@
 
 -->
 
+<ion-side-menu>
+
+
+  <ion-side-menu>
+      <ion-content>
+        <ion-list>
+          <ion-item>  JK        </ion-item>
+          <ion-item>GH          </ion-item>
+        </ion-list>
+      </ion-content>
+  </ion-side-menu>
+
+  <ion-side-menu-content>
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>¡Bienvenido! </ion-title>
+        <ion-button slot="end" color= "danger" (click)="IrALogin();"><ion-icon name="power"></ion-icon></ion-button>
+                                        
+      </ion-toolbar>
+        
+          
+        
+    </ion-header>
+
+
+    <ion-button color= "warning" expand = "block">
+        Mi perfil
+    </ion-button>
+         
+         
+    <ion-button color= "warning" expand = "block" (click)="IrAHome();">
+        Mis clases
+    </ion-button>
+
+  </ion-side-menu-content>
+    
+  
+
+      
+    
+      
+</ion-side-menu>
+
 
 
 <!--<ion-back-button defaultHref="home"></ion-back-button>-->
 
-<ion-header>
-  <ion-toolbar>
-    <ion-title>¡Bienvenido! </ion-title>
-    <ion-button slot="end" color= "danger" (click)="IrALogin();"><ion-icon name="power"></ion-icon></ion-button>
-  </ion-toolbar>
-</ion-header>
 
-
-<ion-content>
-
-  <ion-button color= "warning" expand = "block">
-    Mi perfil
-  </ion-button>
- 
- 
-  <ion-button color= "warning" expand = "block" (click)="IrAHome();">
-    Mis clases
-  </ion-button>
-
-</ion-content>

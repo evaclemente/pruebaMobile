@@ -16,7 +16,7 @@ export class PeloPage implements OnInit {
   elementosPelo: any;
   pelo: number = 0;
   estadoPelo: boolean [];
-  PeloSeleccionado: number = 1;
+  PeloSeleccionado: number = 0;
   HayPelo: boolean = true;
   tipo: string = 'pelos';
 

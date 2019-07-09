@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule, Router } from '@angular/router';
@@ -11,8 +11,18 @@ import { from } from 'rxjs';
 
 const routes: Routes = [
   {
-    path: '',
-    component: AlumnoPage
+    path: 'alumno',
+    component: AlumnoPage,
+    children: [
+      {
+        path: 'home',
+        loadChildren: './home/home.module#HomePageModule'
+      },
+      {
+        path: '',
+        redirectTo: '/alumno/home'
+      }
+    ]
   }
 ];
 
@@ -23,6 +33,7 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [AlumnoPage]
+  declarations: [AlumnoPage],
+  schemas: [NO_ERRORS_SCHEMA]
 })
 export class AlumnoPageModule {}

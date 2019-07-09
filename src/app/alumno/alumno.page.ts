@@ -15,18 +15,41 @@ export class AlumnoPage implements OnInit {
   @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
 
 
-  constructor(private router: Router) {}
+ pages = [
+   {
+     title: 'Home',
+     url: '/alumno/home'
+   }
+ ];
+
+ selectedPath = '';
+
+  constructor(private router: Router,
+              private menuCtrl: MenuController) {
+    this.router.events.subscribe((event: RouterEvent) => {
+                                  this.selectedPath = event.url;
+    });
+  }
 
 
   ngOnInit() {
   }
 
- IrAHome() {
-  this.router.navigate(['/home']);
- }
+  IrAHome() {
+    this.router.navigate(['/home']);
+  }
 
- IrALogin() {
-  this.router.navigate(['/login']);
+  IrALogin() {
+    this.router.navigate(['/login']);
+  }
+
+  toggleMenu() {
+
+    this.menuCtrl.toggle('menuAlumno');
+  }
+
 }
 
-}
+
+
+

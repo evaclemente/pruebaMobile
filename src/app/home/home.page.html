@@ -3,6 +3,7 @@
     <ion-title>
       Mi avatar
     </ion-title>
+    <ion-back-button defaultHref="Alumno" (click)="IrAAlumno();"></ion-back-button>
   </ion-toolbar>
 </ion-header>
 
@@ -31,16 +32,20 @@
 
     <ion-button color="tertiary" (click)="IrAOjos();">
       <ion-icon id="ojos" name="eye"></ion-icon>
-      Ojos
+     
     </ion-button>
               
     <ion-button color="tertiary" (click)="IrAPelos();" >
       <ion-icon id="ojos" name="cut" ></ion-icon>
-      Peinado
+   
     </ion-button>
               
     <ion-button color="tertiary" (click)="IrALogin();">
-      <ion-icon id="ojos" name="cut" ></ion-icon>
+      <ion-icon id="ojos" name="color-palette" ></ion-icon>
+    </ion-button>
+
+    <ion-button color="tertiary">
+      <ion-icon id="gafas" name="glasses"></ion-icon>
     </ion-button>
 
   </ion-tab-bar>
