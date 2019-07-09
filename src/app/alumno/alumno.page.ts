@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuController } from '@ionic/angular';
+import { MenuController, NavController } from '@ionic/angular';
 import { Router, RouterEvent } from '@angular/router';
 import { IonInfiniteScroll } from '@ionic/angular';
 import { ViewChild } from '@angular/core';
@@ -25,10 +25,9 @@ export class AlumnoPage implements OnInit {
  selectedPath = '';
 
   constructor(private router: Router,
-              private menuCtrl: MenuController) {
-    this.router.events.subscribe((event: RouterEvent) => {
-                                  this.selectedPath = event.url;
-    });
+              public menuCtrl: MenuController,
+              public popoverController: MenuController,
+              public navController: NavController) {
   }
 
 
@@ -45,6 +44,7 @@ export class AlumnoPage implements OnInit {
 
   toggleMenu() {
 
+    this.menuCtrl.enable(true);
     this.menuCtrl.toggle('menuAlumno');
   }
 

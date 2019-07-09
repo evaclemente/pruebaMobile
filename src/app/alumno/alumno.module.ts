@@ -11,18 +11,8 @@ import { from } from 'rxjs';
 
 const routes: Routes = [
   {
-    path: 'alumno',
-    component: AlumnoPage,
-    children: [
-      {
-        path: 'home',
-        loadChildren: './home/home.module#HomePageModule'
-      },
-      {
-        path: '',
-        redirectTo: '/alumno/home'
-      }
-    ]
+    path: '',
+    component: AlumnoPage
   }
 ];
 
