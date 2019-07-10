@@ -5,53 +5,96 @@
     </ion-title>
     <ion-back-button defaultHref="Alumno" (click)="IrAAlumno();"></ion-back-button>
   </ion-toolbar>
+
+  
 </ion-header>
+
+
+
 
 <ion-content>
 
+  <body>
 
-  
+    <div id="avatar">
+
+      <img id="cabeza" src="assets/img/cabeza.png"/>
+              
+    </div>
+
+  </body>
+
+  <div id="botones">
+
+    <ion-button color="tertiary" (click)="IrAOjos();" expand="block">
+      OJOS
+      <ion-icon id="ojos" name="eye"></ion-icon>
+    </ion-button>
+    
+    
+    
+      
+    
+    
+    
+    <ion-button color="tertiary" (click)="IrAPelos();" expand="block" >
+      PEINADOS
+      <ion-icon id="ojos" name="cut" ></ion-icon>
+    </ion-button>
+   
+    
+    <ion-button color="tertiary" expand="block">
+      COMPLEMENTOS
+      <ion-icon id="gafas" name="glasses"></ion-icon>
+    </ion-button>
+    
+    
+    
+    
+    <ion-button color="tertiary" (click)="IrALogin();" expand="block">
+      VOZ PERSONALIZADA
+      <ion-icon id="ojos" name="color-palette" ></ion-icon>
+    </ion-button>
+    
+  </div>
+
 </ion-content>
 
 
 
-
-
-
-
-
-<div id="avatar">
-
-  <img id="cabeza" src="assets/img/cabeza.png"/>
+                
   
-</div>
+                
+  
+    
+  
 
-<ion-tabs >
+
+
+
+
+  
+
+
+
+
+
+<!--
+
+  <ion-tabs >
 
   <ion-tab-bar>
 
-    <ion-button color="tertiary" (click)="IrAOjos();">
-      <ion-icon id="ojos" name="eye"></ion-icon>
-     
-    </ion-button>
-              
-    <ion-button color="tertiary" (click)="IrAPelos();" >
-      <ion-icon id="ojos" name="cut" ></ion-icon>
-   
-    </ion-button>
-              
-    <ion-button color="tertiary" (click)="IrALogin();">
-      <ion-icon id="ojos" name="color-palette" ></ion-icon>
-    </ion-button>
-
-    <ion-button color="tertiary">
-      <ion-icon id="gafas" name="glasses"></ion-icon>
-    </ion-button>
+    
 
   </ion-tab-bar>
 
       
 </ion-tabs>
+
+-->
+
+
 
 
 <!--<ion-tabs>

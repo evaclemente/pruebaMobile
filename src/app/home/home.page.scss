@@ -3,7 +3,7 @@
   position:absolute;
   z-index:1;
   left:100px;
-  top:200px;
+  top:70px;
   width: 100%;
   height: 200px;
   // border-style: solid;
@@ -20,6 +20,10 @@
   position:absolute;
 }
 
+#botones {
+  position: relative;
+  top:270px;
+}
 .fixed[scrollx=true], div[scrolly=true] {
   position: relative;
   overflow: hidden;
