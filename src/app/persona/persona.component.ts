@@ -20,7 +20,7 @@ export class PersonaComponent implements OnInit {
 
   Mostrar() {
     console.log ('Entro a mostrar');
-    this.persona = new Persona ('Juan', 'JJJ', 'Alumno', 10);
+    // this.persona = new Persona ('Juan', 'JJJ', 'Alumno', 10);
   }
 
 }

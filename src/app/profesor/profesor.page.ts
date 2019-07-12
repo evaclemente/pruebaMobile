@@ -45,4 +45,9 @@ export class ProfesorPage implements OnInit {
   IrAGaleria() {
     this.router.navigate(['/galeria']);
   }
+
+  MostrarDatosPerfil() {
+    this.datosService.sendObjectSource(this.usuario);
+    this.router.navigate(['/miperfil']);
+  }
 }

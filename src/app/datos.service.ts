@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { from } from 'rxjs';
+// import { from } from 'rxjs';
 import { Http, ResponseContentType } from '@angular/http';
 import { Persona } from './Persona';
 import { Observable, of, from } from 'rxjs';
