@@ -2,6 +2,9 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Persona } from '../Persona';
 import { Router } from '@angular/router';
 import { from } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { DatosService } from '../datos.service';
+import { DbServiceService } from '../db-service.service';
 @Component({
   selector: 'app-profesor',
   templateUrl: './profesor.page.html',
@@ -9,13 +12,22 @@ import { from } from 'rxjs';
 })
 export class ProfesorPage implements OnInit {
 
-  @Input() nombre: string;
-  // nombre: string;
+  usuario: Persona;
   pass: string;
-  constructor(private router: Router) { }
+  constructor(private router: Router,
+              private http: HttpClient,
+              private datosService: DatosService,
+              private dbService: DbServiceService) { }
 
-  ngOnInit() { console.log (this.nombre);
-  }
+  ngOnInit( ) {
+    this.datosService.$getObjectSource.subscribe(persona => { this.usuario = persona;
+                                                              console.log(this.usuario.nombre);
+                                                              console.log(this.usuario.pass);
+                                                              console.log(this.usuario.rol);
+                                                              console.log(this.usuario.voz);
+                                                              });
+   }
+
 
   IrAClases() {
     this.router.navigate(['/clases']);

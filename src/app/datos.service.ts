@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { from } from 'rxjs';
 import { Http, ResponseContentType } from '@angular/http';
+import { Persona } from './Persona';
+import { Observable, of, from } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -22,9 +24,13 @@ export class DatosService {
   constructor(private http: Http) { }
 
   sendObjectSource(data: any) {
-    console.log('Estoy enviando los datos');
+    console.log('Estoy enviando estos datos: ' + data);
     this.objectSource.next(data);
-    this.objectSource.next(clase);
+  }
+
+  EnviarPersona(persona: Persona) {
+    console.log('Estos son los datos de mi persona: ' + persona);
+    this.objectSource.next(persona);
   }
 
   ColocoPelo(ident: any, elementos: any) {

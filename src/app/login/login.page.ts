@@ -61,6 +61,8 @@ export class LoginPage implements OnInit {
     console.log(this.pass);
     this.dbService.DamePersona(this.nombre)
                   .subscribe(persona => {console.log(persona);
+                                         this.usuario = persona;
+                                         this.datosService.EnviarPersona(persona);
                                          if (persona != null) {
 
                                           if (persona.rol === 'Profesor') {
