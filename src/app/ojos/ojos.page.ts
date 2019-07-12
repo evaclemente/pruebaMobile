@@ -119,7 +119,7 @@ export class OjosPage implements OnInit {
 
     if (this.HayOjos) {
 
-      this.datosService.sendObjectSource(this.OjosSeleccionados, this.tipo);
+      this.datosService.sendObjectSource(this.OjosSeleccionados);
       this.router.navigate(['/home']);
 
     } else {

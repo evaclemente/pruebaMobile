@@ -11,7 +11,7 @@ import { Persona } from './Persona';
 export class DbServiceService {
 
   // Declaro como string la URL de la BDD a la que me quiero conectar
-  private APIUrl = 'http://[::1]:3000/personas';
+  private APIUrl = 'http://localhost:3000/api/Personas';
 
   // Inserto en el constructor el servicio Http para poder hacer las operaciones necesarias
   constructor(private http: HttpClient) { }

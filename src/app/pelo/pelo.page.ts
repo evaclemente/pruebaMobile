@@ -144,7 +144,7 @@ export class PeloPage implements OnInit {
 
     if (this.HayPelo) {
 
-      this.datosService.sendObjectSource(this.PeloSeleccionado, this.tipo);
+      this.datosService.sendObjectSource(this.PeloSeleccionado);
       this.router.navigate(['/home']);
 
     } else {

@@ -21,7 +21,7 @@ export class DatosService {
   $getObjectSource = this.objectSource.asObservable();
   constructor(private http: Http) { }
 
-  sendObjectSource(data: any, clase: string) {
+  sendObjectSource(data: any) {
     console.log('Estoy enviando los datos');
     this.objectSource.next(data);
     this.objectSource.next(clase);

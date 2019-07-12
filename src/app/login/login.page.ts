@@ -8,6 +8,10 @@ import { Persona } from '../Persona';
 import { Router } from '@angular/router';
 import { from } from 'rxjs';
 import {ProfesorPage} from '../profesor/profesor.page';
+// Importo el servicio que me va a permitir pasar datos entre páginas
+import { DatosService } from '../datos.service';
+// El protocolo httpClient lo necesito para poder usar siempre un servicio, por eso lo importo
+import { HttpClient } from '@angular/common/http';
 
 
 @Component({
@@ -26,7 +30,9 @@ export class LoginPage implements OnInit {
   puntos: number;
 
   constructor(private dbService: DbServiceService,
-              private router: Router) { } // this.myForm = this.createMyForm();
+              private router: Router,
+              private datosService: DatosService,
+              private http: HttpClient) { } // this.myForm = this.createMyForm();
 
   ngOnInit() {
   }
