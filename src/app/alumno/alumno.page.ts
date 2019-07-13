@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuController, NavController } from '@ionic/angular';
-import { Router, RouterEvent } from '@angular/router';
+import { Router, RouterEvent, ActivatedRoute } from '@angular/router';
 import { IonInfiniteScroll } from '@ionic/angular';
 import { ViewChild } from '@angular/core';
 import { from } from 'rxjs';
+import { DbServiceService } from '../db-service.service';
+import { Persona } from '../Persona';
 
 @Component({
   selector: 'app-alumno',
@@ -13,6 +15,9 @@ import { from } from 'rxjs';
 export class AlumnoPage implements OnInit {
 
   @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
+
+  alumno: Persona;
+  nuevoPass: string;
 
 
  pages = [
@@ -27,11 +32,18 @@ export class AlumnoPage implements OnInit {
   constructor(private router: Router,
               public menuCtrl: MenuController,
               public popoverController: MenuController,
-              public navController: NavController) {
+              public navController: NavController,
+              private route: ActivatedRoute,
+              private dbService: DbServiceService) {
   }
 
 
   ngOnInit() {
+    const nombre = this.route.snapshot.paramMap.get('nombre');
+    this.dbService.DamePersona(nombre)
+    .subscribe(alumno => {console.log('Este es el nombre: ' + alumno.nombre);
+                          this.alumno = alumno; });
+
   }
 
   IrAHome() {

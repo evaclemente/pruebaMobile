@@ -21,6 +21,7 @@ export class DbServiceService {
   // La siguiente función lama a un observable de la lista de personas
   // Por esto mismo hemos importado arriba la clase Observable
 
+
   dameTodos(): Observable<Persona[]> {
     // La operacion get del protocolo http devuelve lo que tiene
     // entre "< >", en este caso una lista de personas.
@@ -55,6 +56,11 @@ export class DbServiceService {
     console.log(nombre);
     return this.http.get<Persona>(this.APIUrl + '/' + nombre);
     console.log(Persona);
+  }
+
+  Eliminar(nombre: string): Persona[] {
+    console.log('Voy a eliminar a : ' + nombre);
+    this.http.delete
   }
 
   // Autentificar(nombre: string, pass: string): Persona {
