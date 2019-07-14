@@ -5,15 +5,40 @@
   </ion-toolbar>
 </ion-header>
 
+<ion-footer>
+
+  <ion-toolbar>
+    <div class="ion-padding">
+      <ion-button expand="block" type="submit" class="ion-no-margin" (click)="Pon(); VolverALista();">Añadir persona</ion-button>
+    </div>
+  </ion-toolbar>
+      
+</ion-footer>
+
 <ion-content fullscreen>
 
-  <form>
+ 
     <ion-list lines="full" class="ion-no-margin ion-no-padding">
       <ion-item>
         <ion-label position="stacked">Nombre <ion-text color="danger">*</ion-text></ion-label>
-        <ion-input required type="text" oninput="handleFirstNameValue(event)"></ion-input>
+        <ion-input [(ngModel)]="nombre"></ion-input>
       </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Contraseña <ion-text color="danger">*</ion-text></ion-label>
+        <ion-input [(ngModel)]="pass"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>Rol</ion-label>
+        
+        <ion-select [(ngModel)]="rol">
+            
+          <ion-select-option value="Alumno">Alumno</ion-select-option>
+          <ion-select-option value="Profesor">Profesor</ion-select-option>
+            
+        </ion-select>
+        
+      </ion-item>
+     
     </ion-list>
-  </form>
 
 </ion-content>
