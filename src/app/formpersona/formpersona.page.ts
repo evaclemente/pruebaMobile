@@ -12,7 +12,7 @@ import { FormGroup } from '@angular/forms';
   styleUrls: ['./formpersona.page.scss'],
 })
 export class FormpersonaPage implements OnInit {
-
+ lista: Persona[];
  nombre: string;
  pass: string;
  rol: any;
@@ -32,11 +32,21 @@ export class FormpersonaPage implements OnInit {
                                           false,
                                           false,
                                           false,
-                                          false));
+                                          false)).subscribe(() => this.Mostrar());
   }
 
   VolverALista() {
     this.router.navigate(['/lista']);
   }
 
+  Mostrar() {
+
+    console.log('Voy a pedir');
+    this.dbService.dameTodos()
+    .subscribe(lista => {
+                          this.lista = lista;
+                          console.log('Ya ha llegado');
+                          console.log(this.lista);
+                        });
+  }
 }
