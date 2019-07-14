@@ -28,9 +28,9 @@ export class DatosService {
     this.objectSource.next(data);
   }
 
-  EnviarPersona(persona: Persona) {
-    console.log('Estos son los datos de mi persona: ' + persona);
-    this.objectSource.next(persona);
+  EnviarPersona(nombre: string) {
+    console.log('Estos son los datos de mi persona: ' + nombre);
+    this.objectSource.next(nombre);
   }
 
   ColocoPelo(ident: any, elementos: any) {

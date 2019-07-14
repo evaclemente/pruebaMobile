@@ -11,15 +11,67 @@
   <div>
 
     <h2>LISTA DE ALUMNOS</h2>
+
+  
+      <ion-item>
+       <ion-row>
+
+         <div><ion-col>Nombre</ion-col></div>
+         <div><ion-col>Contraseña</ion-col></div>
+         <div><ion-col>Rol</ion-col></div>
+        
+        </ion-row>
+      </ion-item>  
+
+      <ion-list *ngFor="let persona of lista">
+
+        
+          
+        <li *ngIf="persona.rol === 'Alumno'">
+
+          <ion-item>
+
+            <ion-row>
+
+              <ion-col class="col">{{persona.nombre}}</ion-col>
+              <ion-col class="col">{{persona.pass}}</ion-col>
+              <ion-col class="col">{{persona.rol}}</ion-col>
+                                       
+            </ion-row>
+                   
+          </ion-item>
+          
+
+        </li>
+            
+      </ion-list>
       
-    <ul *ngFor="let persona of lista">
-      
-      <li *ngIf="persona.rol === 'Alumno'">
-        Nombre: {{persona.nombre}} - Puntos: {{persona.puntos}} - Pelo: {{persona.pelo}}
-      </li>
-      
-    </ul>
+    
       
       
   </div>
+
+  
+
+  
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-tabs>
+      <ion-tab-bar slot="bottom">
+        <ion-item>
+          <ion-button (click)="FormAñadir();">
+           Añadir
+          </ion-button>
+        </ion-item>
+        <ion-item>
+          <ion-button>
+            Eliminar
+          </ion-button>
+        </ion-item>
+      </ion-tab-bar>
+    </ion-tabs>
+  </ion-toolbar>
+    
+</ion-footer>

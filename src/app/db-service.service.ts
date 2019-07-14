@@ -58,17 +58,15 @@ export class DbServiceService {
     console.log(Persona);
   }
 
-  Eliminar(nombre: string): Persona[] {
-    console.log('Voy a eliminar a : ' + nombre);
-    this.http.delete
+  // Añadir una persona a la BBDD es una operación post
+  // requiere la URL y en este caso la persona que debemos añadir
+
+  // Esta función también devulve un observable de cualquier tipo
+  // Va a ser un método usado únicamente por el profesor
+
+  PonPersona(persona: Persona): Observable<any> {
+    return this.http.post<any>(this.APIUrl, persona);
   }
 
-  // Autentificar(nombre: string, pass: string): Persona {
-  //   let usuario: Persona[] = [];
 
-  //   usuario = this.http.get(persona => persona.nombre === nombre
-  //     && persona.pass === pass
-  //                           );
-
-  // }
 }

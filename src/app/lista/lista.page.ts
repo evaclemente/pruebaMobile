@@ -5,6 +5,8 @@ import { DbServiceService } from '../db-service.service';
 // import { NavController, NavParams } from '@ionic/angular';
 import { from } from 'rxjs';
 import { LoginPage } from '../login/login.page';
+import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-lista',
   templateUrl: './lista.page.html',
@@ -18,7 +20,9 @@ export class ListaPage implements OnInit {
   rol: string;
   puntos: number;
 
-  constructor(private dbService: DbServiceService) {
+  constructor(private dbService: DbServiceService,
+              private router: Router,
+              private http: HttpClient) {
     // this.lista = navParams.get('lista');
   }
 
@@ -32,6 +36,23 @@ export class ListaPage implements OnInit {
               );
   }
 
+  Mostrar() {
+    console.log('Voy a pedir');
+    this.dbService.dameTodos()
+    .subscribe(lista => {
+                          this.lista = lista;
+                          console.log('Ya ha llegado');
+                          console.log(this.lista);
+                        });
+  }
 
+  Pon(persona: Persona) {
+    this.dbService.PonPersona (persona).subscribe(() => this.Mostrar());
+  }
+
+  FormAñadir() {
+    console.log('Me voy al formulario para añadir personas');
+    this.router.navigate(['/formpersona']);
+  }
 
 }
