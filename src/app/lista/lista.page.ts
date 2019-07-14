@@ -1,12 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Persona } from '../Persona';
 import { DbServiceService } from '../db-service.service';
-// import { from } from 'rxjs';
-// import { NavController, NavParams } from '@ionic/angular';
-import { from } from 'rxjs';
 import { LoginPage } from '../login/login.page';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+
 @Component({
   selector: 'app-lista',
   templateUrl: './lista.page.html',
@@ -50,7 +48,7 @@ export class ListaPage implements OnInit {
     this.dbService.PonPersona (persona).subscribe(() => this.Mostrar());
   }
 
-  FormAñadir() {
+  IrAForm() {
     console.log('Me voy al formulario para añadir personas');
     this.router.navigate(['/formpersona']);
   }

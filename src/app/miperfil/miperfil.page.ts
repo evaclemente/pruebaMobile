@@ -27,7 +27,7 @@ export class MiperfilPage implements OnInit {
     if (this.nombre === null) {
 
       this.datosService.$getObjectSource.subscribe(nombre => {this.nombre = nombre;
-        console.log('Se llama: ' + this.nombre);
+                                                              console.log('Se llama: ' + this.nombre);
       });
     } else {
       console.log('Ya tengo nombre: ' + this.nombre);
