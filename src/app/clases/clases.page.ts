@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PopoverController } from '@ionic/angular';
 
 @Component({
   selector: 'app-clases',
@@ -13,9 +14,31 @@ export class ClasesPage implements OnInit {
     { val: 'Mushroom', isChecked: false }
   ];
 
-  constructor() { }
+  constructor( private popOver: PopoverController) { }
 
   ngOnInit() {
+  }
+
+  DesplegaMenu() {
+
+    // const popoverController = document.querySelector('ion-popover-controller');
+    this.popOver.create({
+      component: 'PersonaComponent',
+      translucent: true
+    });
+
+    return this.popOver.getTop();
+
+  }
+
+  myFunction() {
+    var x = document.getElementById('myLinks');
+    console.log('Esto funciona');
+    if (x.style.display === 'block') {
+      x.style.display = 'none';
+    } else {
+      x.style.display = 'block';
+    }
   }
 
 }
