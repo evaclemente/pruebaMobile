@@ -23,7 +23,7 @@
 
 
   <ion-list>
-      <ion-list-header>Permisos</ion-list-header>
+      <ion-list-header>Clases que administro</ion-list-header>
     
 
        <!--   <ion-item>
@@ -47,20 +47,25 @@
             </ion-select>
           </ion-item> -->
 
-     <ion-button (click)="DesplegaMenu();">1er ejemplo</ion-button>  
+     
 
      <div class="topnav">
-      <a href="#home" class="active">
+      <!--<a href="#home" class="active">
         Logo
-      </a>
+      </a>-->
       
-      <ion-button (click)="myFunction();" slot="end">
-        <ion-icon name="menu"></ion-icon>
+      <ion-button (click)="myFunction();" slot="end" expand="block">
+        FÍSICA
       </ion-button>
       <div id="myLinks">
-        <ion-button href="#news">News</ion-button>
-        <ion-button href="#contact">Contact</ion-button>
-        <ion-button href="#about">About</ion-button>
+
+        <ion-item lines="inset">
+          <ion-button href="#news" fill="clear" color="dark" (click)="IrALista();">Ver lista de alumnos</ion-button>
+        </ion-item>
+        <ion-item lines="inset">
+          <ion-button href="#contact" fill="clear" color="dark">Juego de Avatares</ion-button>
+        </ion-item>
+      
       </div>
     </div>
     </ion-list>

@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
+import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { DbServiceService } from '../db-service.service';
 
 @Component({
   selector: 'app-clases',
@@ -14,7 +17,10 @@ export class ClasesPage implements OnInit {
     { val: 'Mushroom', isChecked: false }
   ];
 
-  constructor( private popOver: PopoverController) { }
+  constructor( private popOver: PopoverController,
+               private router: Router,
+               private http: HttpClient,
+               private dbService: DbServiceService) { }
 
   ngOnInit() {
   }
@@ -39,6 +45,11 @@ export class ClasesPage implements OnInit {
     } else {
       x.style.display = 'block';
     }
+  }
+
+  IrALista() {
+    console.log('Voy a Mostrar la lista');
+    this.router.navigate(['/lista']);
   }
 
 }
