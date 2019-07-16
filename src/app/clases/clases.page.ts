@@ -52,4 +52,9 @@ export class ClasesPage implements OnInit {
     this.router.navigate(['/lista']);
   }
 
+  IrAAvatares() {
+    console.log('Voy al juego de avatares');
+    this.router.navigate(['/avatares']);
+  }
+
 }

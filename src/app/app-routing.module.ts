@@ -13,7 +13,8 @@ const routes: Routes = [
   { path: 'clases', loadChildren: './clases/clases.module#ClasesPageModule' },
   { path: 'ojos', loadChildren: './ojos/ojos.module#OjosPageModule' },
   { path: 'galeria', loadChildren: './galeria/galeria.module#GaleriaPageModule' },  { path: 'miperfil', loadChildren: './miperfil/miperfil.module#MiperfilPageModule' },
-  { path: 'formpersona', loadChildren: './formpersona/formpersona.module#FormpersonaPageModule' }
+  { path: 'formpersona', loadChildren: './formpersona/formpersona.module#FormpersonaPageModule' },
+  { path: 'avatares', loadChildren: './avatares/avatares.module#AvataresPageModule' }
 
 
 

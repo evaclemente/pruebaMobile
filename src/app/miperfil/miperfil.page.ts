@@ -24,8 +24,8 @@ export class MiperfilPage implements OnInit {
   ngOnInit() {
 
 
-    if (this.nombre === null) {
-
+    if (this.nombre === undefined) {
+      this.usuario = new Persona ('Miguel', 'MMM' , 'Profesor', false, false, false, false);
       this.datosService.$getObjectSource.subscribe(nombre => {this.nombre = nombre;
                                                               console.log('Se llama: ' + this.nombre);
       });
@@ -34,7 +34,7 @@ export class MiperfilPage implements OnInit {
     }
 
 
-    if (this.usuario === null) {
+    if (this.usuario === undefined) {
 
      this.dbService.DamePersona(this.nombre)
       .subscribe(usuario => {console.log('Este es el nombre: ' + usuario.nombre);

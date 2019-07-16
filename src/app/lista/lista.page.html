@@ -1,14 +1,18 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>lista</ion-title>
-    <ion-back-button defaultHref="profesor"></ion-back-button>
   </ion-toolbar>
 </ion-header>
 
 <ion-footer>
   <ion-toolbar>
-    <ion-button (click)="IrAForm();">Añadir</ion-button>
-    <ion-button>Eliminar</ion-button>
+    <ion-segment color="success">
+      
+      <ion-segment-button (click)="IrAForm();" color="success">Añadir</ion-segment-button>
+      <ion-segment-button>Eliminar</ion-segment-button>
+      <ion-segment-button defaultHref="profesor" (click)="VolverAClases();">Cerrar</ion-segment-button>
+    </ion-segment>
+      
   </ion-toolbar>
     
 </ion-footer>

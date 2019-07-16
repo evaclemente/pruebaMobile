@@ -23,7 +23,7 @@ export class ProfesorPage implements OnInit {
 
   // private route: ActivatedRoute
   ngOnInit( ) {
-    this.usuario = new Persona ('AAA', 'bbb' , 'Alumno', false, false, false, false);
+    this.usuario = new Persona ('Miguel', 'MMM' , 'Profesor', false, false, false, false);
     this.datosService.$getObjectSource.subscribe(nombre => {this.nombre = nombre;
                                                             console.log('Se llama: ' + this.nombre); });
     this.dbService.DamePersona(this.nombre)

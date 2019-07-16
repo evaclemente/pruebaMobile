@@ -53,4 +53,9 @@ export class ListaPage implements OnInit {
     this.router.navigate(['/formpersona']);
   }
 
+  VolverAClases() {
+    console.log('Cierro la lista');
+    this.router.navigate(['/clases']);
+  }
+
 }
