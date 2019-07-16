@@ -5,51 +5,25 @@
 </ion-header>
 
 <ion-content>
-    <ion-list>
-        <ion-item>
-          <ion-label>Blueberry</ion-label>
-          <ion-toggle slot="end" name="Estado del juego" checked></ion-toggle>
-        </ion-item>
+    <div class="estado">
 
-        <ion-item>
-          <ion-label>Apple</ion-label>
-          <ion-toggle slot="start" name="apple" color="secondary" checked></ion-toggle>
-        </ion-item>
+      <ion-item>
+        <ion-label>Estado</ion-label>
+        <ion-toggle slot="end" id="estado" color="success" checked [(ngModel)]="estado" (ionChange)="Mostrar();" ></ion-toggle>
 
-        <ion-item>
-          <ion-label>Grape</ion-label>
-          <ion-toggle slot="start" name="grape" color="tertiary" checked></ion-toggle>
-        </ion-item>
+        <!--(ionChange)="myChange($event)"-->
+      </ion-item>
 
-        <ion-item>
-          <ion-label>Kiwi</ion-label>
-          <ion-toggle disabled slot="start" name="kiwi" color="success" checked></ion-toggle>
-        </ion-item>
+      <!--<ion-button (click)="myChange();">
 
-        <ion-item>
-          <ion-label>Orange</ion-label>
-          <ion-toggle slot="start" name="banana" color="warning" checked></ion-toggle>
-        </ion-item>
+      </ion-button>-->
 
-        <ion-item>
-          <ion-label>Cherry</ion-label>
-          <ion-toggle slot="start" name="cherry" color="danger" checked></ion-toggle>
-        </ion-item>
+      <div id="activado">
+        HOLA, ESTO YA FUNCIONA
+      </div>
 
-        <ion-item>
-          <ion-label>Banana</ion-label>
-          <ion-toggle slot="start" name="banana" color="light" checked></ion-toggle>
-        </ion-item>
+    </div>
 
-        <ion-item>
-          <ion-label>Cantaloupe</ion-label>
-          <ion-toggle slot="start" name="cantaloupe" color="medium" checked></ion-toggle>
-        </ion-item>
-
-        <ion-item>
-          <ion-label>Blackberry</ion-label>
-          <ion-toggle slot="start" name="blackberry" color="dark" checked></ion-toggle>
-        </ion-item>
-      </ion-list>
+    
 
 </ion-content>
