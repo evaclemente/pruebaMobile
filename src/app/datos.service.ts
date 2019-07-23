@@ -10,6 +10,9 @@ import { Observable, of, from } from 'rxjs';
 })
 export class DatosService {
 
+  nombre: string;
+
+
   // Creamos un método
   // Entre <> ponemos de qué tipo va a ser el método
   // A continuación entre paréntesis
@@ -29,8 +32,9 @@ export class DatosService {
   }
 
   EnviarPersona(nombre: string) {
+    this.nombre = nombre;
     console.log('Estos son los datos de mi persona: ' + nombre);
-    this.objectSource.next(nombre);
+    // this.objectSource.next(nombre);
   }
 
   ColocoPelo(ident: any, elementos: any) {

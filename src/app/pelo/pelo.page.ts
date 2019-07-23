@@ -106,7 +106,6 @@ export class PeloPage implements OnInit {
             this.HayPelo = true;
             estado = true;
             this.PeloSeleccionado = elemento;
-            // this.datosService.sendObjectSource(elemento);
 
             console.log('¿Tenemos pelo? ' + this.HayPelo);
             console.log('Mi pelo es ' + this.PeloSeleccionado);
@@ -140,7 +139,8 @@ export class PeloPage implements OnInit {
 
   PasarDatosPelo() {
 
-    console.log(this.HayPelo);
+    console.log('Hay pelo: ' + this.HayPelo);
+    console.log('El pelo es este: ' + this.PeloSeleccionado);
 
     if (this.HayPelo) {
 
