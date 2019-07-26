@@ -3,6 +3,7 @@ import { Observable, of, from } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 // import {PersonaComponent} from './persona/persona.component';
 import { Persona } from './Persona';
+import { Clase } from './Clase';
 // Las librerías importadas son para poder realizar operaciones Http
 
 @Injectable({
@@ -12,6 +13,7 @@ export class DbServiceService {
 
   // Declaro como string la URL de la BDD a la que me quiero conectar
   private APIUrl = 'http://localhost:3000/api/Personas';
+  private APIClases = 'http://localhost:3000/api/Clases';
 
   // Inserto en el constructor el servicio Http para poder hacer las operaciones necesarias
   constructor(private http: HttpClient) { }
@@ -56,6 +58,15 @@ export class DbServiceService {
     console.log(nombre);
     return this.http.get<Persona>(this.APIUrl + '/' + nombre);
     console.log(Persona);
+  }
+
+  DameClases(): Observable<Clase[]> {
+    return this.http.get<Clase[]>(this.APIClases);
+  }
+
+  CreaClase(clase: Clase, admin: string) {
+    clase.admin = admin;
+    return this.http.put<any>(this.APIClases + '/' + clase.id, clase);
   }
 
   PonPass(alumno: Persona, nuevopass: string): Observable<any> {

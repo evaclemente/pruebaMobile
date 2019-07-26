@@ -5,6 +5,7 @@ import { FormGroup } from '@angular/forms';
 import { NavController } from '@ionic/angular';
 import { DbServiceService } from '../db-service.service';
 import { Persona } from '../Persona';
+import { Clase } from '../Clase';
 import { Router } from '@angular/router';
 import { from } from 'rxjs';
 import {ProfesorPage} from '../profesor/profesor.page';
@@ -28,6 +29,7 @@ export class LoginPage implements OnInit {
   pass: string;
   rol: string;
   puntos: number;
+  clases: Clase[];
 
   constructor(private dbService: DbServiceService,
               private router: Router,
@@ -57,6 +59,8 @@ export class LoginPage implements OnInit {
    console.log('Voy a Mostrar la lista');
    this.router.navigate(['/lista']);
   }
+
+  
 
 
   Autentificar() {
