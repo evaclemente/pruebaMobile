@@ -6,6 +6,7 @@ import { ViewChild } from '@angular/core';
 import { from } from 'rxjs';
 import { DbServiceService } from '../db-service.service';
 import { Persona } from '../Persona';
+import { DatosService } from '../datos.service';
 
 @Component({
   selector: 'app-alumno',
@@ -18,29 +19,21 @@ export class AlumnoPage implements OnInit {
 
   alumno: Persona;
   nuevoPass: string;
-
-
- pages = [
-   {
-     title: 'Home',
-     url: '/alumno/home'
-   }
- ];
-
- selectedPath = '';
+  nombre: any;
 
   constructor(private router: Router,
               public menuCtrl: MenuController,
               public popoverController: MenuController,
               public navController: NavController,
-              private route: ActivatedRoute,
-              private dbService: DbServiceService) {
+              private dbService: DbServiceService,
+              private datosService: DatosService) {
   }
 
 
   ngOnInit() {
-    const nombre = this.route.snapshot.paramMap.get('nombre');
-    this.dbService.DamePersona(nombre)
+
+    this.nombre = this.datosService.DameNombre();
+    this.dbService.DamePersona(this.nombre)
     .subscribe(alumno => {console.log('Este es el nombre: ' + alumno.nombre);
                           this.alumno = alumno; });
 
@@ -50,6 +43,9 @@ export class AlumnoPage implements OnInit {
     this.router.navigate(['/home']);
   }
 
+  IrAMiPerfil() {
+    this.router.navigate(['/miperfil']);
+  }
   IrALogin() {
     this.router.navigate(['/login']);
   }

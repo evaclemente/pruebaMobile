@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { DatosService } from '../datos.service';
 import { from } from 'rxjs';
 import { Router } from '@angular/router';
+import { element } from '@angular/core/src/render3';
 
 @Component({
   selector: 'app-pelo',
@@ -16,7 +17,7 @@ export class PeloPage implements OnInit {
   elementosPelo: any;
   pelo: number = 0;
   estadoPelo: boolean [];
-  PeloSeleccionado: number = 0;
+  PeloSeleccionado: any;
   HayPelo: boolean = true;
   tipo: string = 'pelos';
 
@@ -82,9 +83,11 @@ export class PeloPage implements OnInit {
 
       imagen.src = this.elementosPelo.pelos[i].fichero;
 
-      imagen.onclick = ( function(elemento, i, estado) {
+      imagen.onclick =  (function (elemento, i, estado) {
+
         return function() {
           console.log ('Elemento ' + elemento);
+          this.datosService.Enviarid(elemento);
           console.log('Id ' + i);
           console.log('Estado ' + estado);
           // console.log('¿Tenemos pelo? ' + true);
@@ -96,6 +99,7 @@ export class PeloPage implements OnInit {
             this.HayPelo = false;
             this.PeloSeleccionado = null;
             estado = false;
+            this.datosService.Enviarid(this.PeloSeleccionado);
 
             console.log('¿Tenemos pelo? ' + this.HayPelo);
             console.log('Mi pelo es ' + this.PeloSeleccionado);
@@ -106,7 +110,8 @@ export class PeloPage implements OnInit {
             this.HayPelo = true;
             estado = true;
             this.PeloSeleccionado = elemento;
-
+            
+            console.log(elemento);
             console.log('¿Tenemos pelo? ' + this.HayPelo);
             console.log('Mi pelo es ' + this.PeloSeleccionado);
 
@@ -120,15 +125,11 @@ export class PeloPage implements OnInit {
       // coloco la imágen en el bloque de elementos
 
       document.getElementById('elementosPelo').appendChild(imagen);
+      // console.log('Se ha guardado este pelo:' + this.PeloSeleccionado);
 
     }
 
-
-   // var imgtick = document.createElement('img');
-   // imgtick.src = 'assets/img/tick.png';
-   // document.getElementById('elementosPelo').appendChild(imgtick);
-    console.log(this.PeloSeleccionado);
-    console.log(this.HayPelo);
+    console.log('Se ha guardado este pelo:' + this.PeloSeleccionado);
   }
 
 
@@ -140,11 +141,11 @@ export class PeloPage implements OnInit {
   PasarDatosPelo() {
 
     console.log('Hay pelo: ' + this.HayPelo);
-    console.log('El pelo es este: ' + this.PeloSeleccionado);
+    console.log('El pelo que paso es este: ' + this.PeloSeleccionado);
 
     if (this.HayPelo) {
 
-      this.datosService.sendObjectSource(this.PeloSeleccionado);
+      this.datosService.Enviarid(this.PeloSeleccionado);
       this.router.navigate(['/home']);
 
     } else {

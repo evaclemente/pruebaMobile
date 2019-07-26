@@ -4,6 +4,7 @@ import { DbServiceService } from '../db-service.service';
 import { Persona } from '../Persona';
 import { DatosService } from '../datos.service';
 import { ActivatedRoute } from '@angular/router';
+import swal from 'sweetalert';
 
 @Component({
   selector: 'app-miperfil',
@@ -20,15 +21,15 @@ export class MiperfilPage implements OnInit {
 
   usuario: Persona;
   nombre: any;
+  nuevacontra: any;
 
   ngOnInit() {
 
+    this.nombre = this.datosService.DameNombre();
 
     if (this.nombre === undefined) {
-      this.usuario = new Persona ('Miguel', 'MMM' , 'Profesor', false, false, false, false);
-      this.datosService.$getObjectSource.subscribe(nombre => {this.nombre = nombre;
-                                                              console.log('Se llama: ' + this.nombre);
-      });
+      // this.usuario = new Persona ('Miguel', 'MMM' , 'Profesor', false, false, false, false);
+      console.log('No he recibido el nombre del usuario');
     } else {
       console.log('Ya tengo nombre: ' + this.nombre);
     }
@@ -45,6 +46,30 @@ export class MiperfilPage implements OnInit {
     }
 
 
+  }
+
+  CambiaPass() {
+    this.dbService.PonPass(this.usuario, this.nuevacontra).subscribe();
+    console.log('Acabas de cambiar tu contraseña' + this.nuevacontra);
+  }
+
+  MuestraCambio() {
+    var x = document.getElementById('cambiacontraseña');
+    console.log('Esto funciona');
+    console.log('Este es el estado ahora: ' + x.style.display);
+    if (x.style.display === 'block') {
+      x.style.display = 'none';
+    } else {
+      x.style.display = 'block';
+    }
+  }
+
+  showAlert() {
+    swal({
+          title: 'Has cambiado tu contraseña!',
+          text: 'Ahora tu nueva contraseña es: ' + this.nuevacontra,
+          icon: 'success'
+        });
   }
 
 }

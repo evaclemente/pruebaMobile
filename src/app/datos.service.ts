@@ -11,6 +11,8 @@ import { Observable, of, from } from 'rxjs';
 export class DatosService {
 
   nombre: string;
+  seleccionado: boolean;
+  id: any;
 
 
   // Creamos un método
@@ -26,15 +28,26 @@ export class DatosService {
   $getObjectSource = this.objectSource.asObservable();
   constructor(private http: Http) { }
 
-  sendObjectSource(data: any) {
-    console.log('Estoy enviando estos datos: ' + data);
-    this.objectSource.next(data);
-  }
+  // sendObjectSource(data: any) {
+  //  console.log('Estoy enviando estos datos: ' + data);
+   // this.objectSource.next(data);
+  // }
 
   EnviarPersona(nombre: string) {
     this.nombre = nombre;
     console.log('Estos son los datos de mi persona: ' + nombre);
     // this.objectSource.next(nombre);
+  }
+
+  DameNombre() {
+    return this.nombre;
+  }
+
+  // Creo un método que sirva para enviar el identificador del pelo, ojos,
+  // o complemento que se haya seleccionado
+  Enviarid(identificador: any) {
+    this.id = identificador;
+    console.log('Esto es lo que llega a servicios: ' + identificador);
   }
 
   ColocoPelo(ident: any, elementos: any) {

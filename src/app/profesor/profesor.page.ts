@@ -23,14 +23,14 @@ export class ProfesorPage implements OnInit {
 
   // private route: ActivatedRoute
   ngOnInit( ) {
-    this.usuario = new Persona ('Miguel', 'MMM' , 'Profesor', false, false, false, false);
-    this.datosService.$getObjectSource.subscribe(nombre => {this.nombre = nombre;
-                                                            console.log('Se llama: ' + this.nombre); });
+
+    this.nombre = this.datosService.DameNombre();
+
     this.dbService.DamePersona(this.nombre)
-    .subscribe(usuario => {console.log('Este es el nombre: ' + usuario.nombre);
+    .subscribe(usuario => {
                            this.usuario = usuario;
-                           console.log(usuario); });
-   }
+                           console.log('Este es el nombre: ' + this.usuario.nombre); });
+  }
 
 
   IrAClases() {
@@ -51,7 +51,7 @@ export class ProfesorPage implements OnInit {
   }
 
   MostrarDatosPerfil() {
-    this.datosService.sendObjectSource(this.nombre);
+    this.datosService.EnviarPersona(this.nombre);
     this.router.navigate(['/miperfil']);
   }
 

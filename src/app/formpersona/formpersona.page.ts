@@ -22,7 +22,7 @@ export class FormpersonaPage implements OnInit {
  nombre: string;
  pass: string;
  rol: any;
- 
+
 
   constructor(private router: Router,
               private http: HttpClient,

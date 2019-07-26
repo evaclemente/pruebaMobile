@@ -58,4 +58,9 @@ export class ClasesPage implements OnInit {
     this.router.navigate(['/avatares']);
   }
 
+  IrAProfesor() {
+    console.log('Vuelvo a Profesor');
+    this.router.navigate(['/profesor']);
+  }
+
 }

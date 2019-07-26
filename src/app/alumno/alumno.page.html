@@ -1,79 +1,15 @@
 
-<!--
-
-
-
-
-<ion-menu side="start" menuId="first">
-  <ion-header>
-    <ion-toolbar color="primary">
-      <ion-title>Start Menu</ion-title>
-    </ion-toolbar>
-  </ion-header>
-  <ion-content>
-    <ion-list>
-      <ion-item>Menu Item</ion-item>
-      <ion-item>Menu Item</ion-item>
-      <ion-item>Menu Item</ion-item>
-      <ion-item>Menu Item</ion-item>
-      <ion-item>Menu Item</ion-item>
-    </ion-list>
-  </ion-content>
-</ion-menu>
-
-<ion-split-pane>
-
-  <ion-menu contentId="content">
-
-    <ion-header>
-
-      <ion-toolbar>
-        <ion-title>Menu</ion-title>
-      </ion-toolbar>
-
-    </ion-header>
-
-    <ion-content>
-      <ion-list>
-        <ion-menu-toggle auto-hide="false" *ngFor="let p of pages">
-          <ion-item [routerLink]="p.url" routerDirection="root" [class.active-item] = "slectedPath === p.url">
-            {{ p.title }}
-          </ion-item>
-      </ion-list>
-    </ion-content>
-
-  </ion-menu>
-
-  <ion-router-outlet id="content" main></ion-router-outlet>
-
-</ion-split-pane>
-
-
--->
-
-
-
- 
 <ion-header>
  <ion-toolbar>
     <ion-title>¡Hola {{alumno.nombre}}! </ion-title>
     <ion-button slot="end" color= "danger" (click)="IrALogin();"><ion-icon name="power"></ion-icon></ion-button>
-    <ion-navbar>
-      <button ion-button menuToggle slot="start" (click)="toggleMenu();" id="menuAlumno">
-        <ion-icon name="menu"></ion-icon>
-      </button> 
-    </ion-navbar>
-        
-    
   </ion-toolbar>
-
-  
-                       
+                      
 </ion-header>
 
 <ion-content>
 
-  <ion-button color= "warning" expand = "block">
+  <ion-button color= "warning" expand = "block" (click)="IrAMiPerfil();">
     Mi perfil
   </ion-button>
          
@@ -89,6 +25,5 @@
 
 
 
-<!--<ion-back-button defaultHref="home"></ion-back-button>-->
 
 

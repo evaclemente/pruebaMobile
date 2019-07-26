@@ -12,7 +12,7 @@ import {ProfesorPage} from '../profesor/profesor.page';
 import { DatosService } from '../datos.service';
 // El protocolo httpClient lo necesito para poder usar siempre un servicio, por eso lo importo
 import { HttpClient } from '@angular/common/http';
-
+import swal from 'sweetalert';
 
 @Component({
   selector: 'app-login',
@@ -32,7 +32,8 @@ export class LoginPage implements OnInit {
   constructor(private dbService: DbServiceService,
               private router: Router,
               private datosService: DatosService,
-              private http: HttpClient) { } // this.myForm = this.createMyForm();
+              private http: HttpClient) {
+  }
 
   ngOnInit() {
   }
@@ -67,24 +68,27 @@ export class LoginPage implements OnInit {
                                          console.log('aaaa' + persona);
                                          this.datosService.EnviarPersona(persona.nombre);
                                          if (persona != null) {
+                                          if (persona.pass === this.pass) {
+                                            if (persona.rol === 'Profesor') {
+                                              this.router.navigate(['/profesor']);
+                                            } else {
+                                              this.router.navigate(['/alumno']);
+                                            } } else {
 
-                                          if (persona.rol === 'Profesor') {
-                                            this.router.navigate(['/profesor']);
-                                          } else {
-                                            this.router.navigate(['/alumno']);
+                                            console.log('Contraseña incorrecta');
+                                            this.showAlert();
                                           }
+
                                          }
 
     });
   }
 
- // Seleccionar(persona: Persona) {
-   // this.usuarioSeleccionado = persona;
- // }
-
+  showAlert() {
+    swal({
+          title: 'Contraseña equivocada!',
+          text: 'Por favor, introduce una contraseña válida',
+          icon: 'error'
+        });
+  }
 }
-
-// (persona => persona.nombre === nombre
-//   && persona.pass === persona.pass
-//   );
-//   console.log.

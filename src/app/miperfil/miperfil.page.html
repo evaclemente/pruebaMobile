@@ -34,24 +34,25 @@
     </li>
   </div>
 
+  <div id="cambiacontraseña">
+
+
+    <ion-item>
+      <ion-label position="stacked">Escribe tu nueva contraseña <ion-text color="danger">*</ion-text></ion-label>
+      <ion-input [(ngModel)]="nuevacontra"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-button (click)="CambiaPass(); showAlert();">Introducir</ion-button>
+    </ion-item>
+
+  </div>
   <div>
     <ion-tabs>
-
-     
-      <ion-button>
-        <ion-label>Cambiar nombre usuario</ion-label>
-      </ion-button>
-     
-
-     
-      <ion-button>
+   
+      <ion-button (click)="MuestraCambio();">
         <ion-label>Cambiar Contraseña</ion-label>
       </ion-button>
-     
-      
-
-      
-
+           
     </ion-tabs>
   </div>
 

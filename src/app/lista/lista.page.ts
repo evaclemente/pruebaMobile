@@ -4,6 +4,7 @@ import { DbServiceService } from '../db-service.service';
 import { LoginPage } from '../login/login.page';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import swal from 'sweetalert';
 
 @Component({
   selector: 'app-lista',
@@ -17,6 +18,7 @@ export class ListaPage implements OnInit {
   pass: string;
   rol: string;
   puntos: number;
+  NombreEliminar: string;
 
   constructor(private dbService: DbServiceService,
               private router: Router,
@@ -32,6 +34,7 @@ export class ListaPage implements OnInit {
                          console.log(this.lista);
                         }
               );
+    this.AbrirInput();
   }
 
   Mostrar() {
@@ -48,14 +51,41 @@ export class ListaPage implements OnInit {
     this.dbService.PonPersona (persona).subscribe(() => this.Mostrar());
   }
 
+  Eliminar() {
+
+    this.dbService.Eliminar(this.NombreEliminar)
+    .subscribe();
+    this.showAlert();
+    this.Mostrar();
+
+  }
+
   IrAForm() {
     console.log('Me voy al formulario para añadir personas');
     this.router.navigate(['/formpersona']);
   }
 
+  AbrirInput() {
+    var x = document.getElementById('dropup');
+    console.log('Esto funciona');
+    console.log(x.style.display);
+    if (x.style.display === 'none') {
+      x.style.display = 'block';
+    } else {
+      x.style.display = 'none';
+    }
+  }
+
   VolverAClases() {
     console.log('Cierro la lista');
     this.router.navigate(['/clases']);
+  }
+
+  showAlert() {
+    swal({
+          title: 'Has eliminado a ' + this.NombreEliminar,
+          icon: 'success'
+        });
   }
 
 }

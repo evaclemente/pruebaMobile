@@ -48,9 +48,9 @@ export class DbServiceService {
    // return this.lista;
   // }
 
-  // Eliminar(nombre: string): Persona [] {
-  //   this.lista = this.lista
-  // }
+  Eliminar(nombre: string): Observable<any> {
+    return this.http.delete<any>(this.APIUrl + '/' + nombre);
+  }
 
   DamePersona(nombre: string): Observable<Persona> {
     console.log(nombre);
@@ -58,6 +58,10 @@ export class DbServiceService {
     console.log(Persona);
   }
 
+  PonPass(alumno: Persona, nuevopass: string): Observable<any> {
+    alumno.pass = nuevopass;
+    return this.http.put<any>(this.APIUrl + '/' + alumno.nombre, alumno);
+  }
   // Añadir una persona a la BBDD es una operación post
   // requiere la URL y en este caso la persona que debemos añadir
 

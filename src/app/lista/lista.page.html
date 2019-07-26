@@ -6,11 +6,23 @@
 
 <ion-footer>
   <ion-toolbar>
-    <ion-segment color="success">
+
+    <div id="dropup">
+    
+      <ion-item>
+        <ion-label position="stacked">Escribe el nombre del usuario a eliminar</ion-label>
+        <ion-input [(ngModel)]="NombreEliminar"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-button (click)="Eliminar();">Eliminar usuario</ion-button>
+      </ion-item>
+      
+    </div>
+    <ion-segment  color="success">
       
       <ion-segment-button (click)="IrAForm();" color="success">Añadir</ion-segment-button>
-      <ion-segment-button>Eliminar</ion-segment-button>
-      <ion-segment-button defaultHref="profesor" (click)="VolverAClases();">Cerrar</ion-segment-button>
+      <ion-segment-button (click)="AbrirInput();">Eliminar</ion-segment-button>
+      <ion-segment-button defaultHref="profesor" (click)="VolverAClases();AbrirInput();">Cerrar</ion-segment-button>
     </ion-segment>
       
   </ion-toolbar>
@@ -30,7 +42,6 @@
 
          <div><ion-col>Nombre</ion-col></div>
          <div><ion-col>Contraseña</ion-col></div>
-         <div><ion-col>Rol</ion-col></div>
         
         </ion-row>
       </ion-item>  
@@ -47,7 +58,6 @@
 
               <ion-col class="col">{{persona.nombre}}</ion-col>
               <ion-col class="col">{{persona.pass}}</ion-col>
-              <ion-col class="col">{{persona.rol}}</ion-col>
                                        
             </ion-row>
                    
