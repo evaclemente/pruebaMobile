@@ -40,6 +40,10 @@ export class DbServiceService {
     return this.http.get<Persona>(this.APIUrl + '/' + nombre);
     console.log(Persona);
   }
+  DameClase(idclase: string): Observable<Clase> {
+    console.log('Te doy los datos de: ' + idclase);
+    return this.http.get<Clase>(this.APIClases + '/' + idclase);
+  }
 
   DameClases(): Observable<Clase[]> {
     return this.http.get<Clase[]>(this.APIClases);

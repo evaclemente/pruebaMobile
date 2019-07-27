@@ -110,7 +110,7 @@ export class PeloPage implements OnInit {
             this.HayPelo = true;
             estado = true;
             this.PeloSeleccionado = elemento;
-            
+
             console.log(elemento);
             console.log('¿Tenemos pelo? ' + this.HayPelo);
             console.log('Mi pelo es ' + this.PeloSeleccionado);

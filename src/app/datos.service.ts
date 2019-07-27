@@ -13,6 +13,7 @@ export class DatosService {
   nombre: string;
   seleccionado: boolean;
   id: any;
+  idclase: string;
 
 
   // Creamos un método
@@ -41,6 +42,15 @@ export class DatosService {
 
   DameNombre() {
     return this.nombre;
+  }
+
+  GuardaIDClase(idclase: string) {
+    console.log('Estoy enviando el id de la clase:' + idclase);
+    this.idclase = idclase;
+  }
+
+  DameIDClase() {
+    return this.idclase;
   }
 
   // Creo un método que sirva para enviar el identificador del pelo, ojos,

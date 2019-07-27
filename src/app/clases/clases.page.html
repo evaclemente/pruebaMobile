@@ -6,83 +6,36 @@
 </ion-header>
 
 <ion-content>
-  
-  <!--<ion-list>
-    <ion-label padding>FISICA</ion-label>
-    <ion-item>
-      <ion-label>ETIQUETA</ion-label>
-      <ion-checkbox slot="end" [(ngModel)]="entry.isChecked"></ion-checkbox>
-     
-    </ion-item>
-
-    <ion-item>
-      
-    </ion-item>
-  </ion-list>-->
-  
-
 
   <ion-list>
-      <ion-list-header>Clases que administro</ion-list-header>
+
+    <ion-list-header>Clases que administro</ion-list-header>
     
-
-       <!--   <ion-item>
-            <ion-label>Física</ion-label>
-            
-            <ion-select multiple="true" cancelText="Nah" okText="Okay!">
-              
-              <ion-select-option value="bacon">Avatares</ion-select-option>
-              <ion-select-option value="olives">Competiciones</ion-select-option>
-
-            </ion-select>
-          </ion-item>
-        
-          <ion-item>
-            <ion-label>Matemáticas</ion-label>
-            <ion-select multiple="true">
-              <ion-select-option value="bird" selected>Bird</ion-select-option>
-              <ion-select-option value="cat">Cat</ion-select-option>
-              <ion-select-option value="dog" selected>Dog</ion-select-option>
-              <ion-select-option value="honeybadger">Honey Badger</ion-select-option>
-            </ion-select>
-          </ion-item> -->
-
-     
-
-     <div class="topnav" id="myLinks">
-      <!--<a href="#home" class="active">
-        Logo
-      </a>-->
+    <div class="topnav" id="myLinks">
       
-        <a *ngFor="let clase of clases">
+      <a *ngFor="let clase of clases">
 
-          <ion-button class="MenuClases"  slot="end" expand="block" (click)="myFunction(clase.id);">
-            {{clase.id}}
-          </ion-button>
+        <ion-button class="MenuClases"  slot="end" expand="block" (click)="myFunction(clase.id);">
+          {{clase.id}}
+        </ion-button>
 
           
-          <div class="panel" id="{{clase.id}}">
+        <div class="panel" id="{{clase.id}}">
 
-            <ion-item lines="inset">
-              <ion-button fill="clear" color="dark" (click)="IrALista();">Ver lista de alumnos {{clase.id}}</ion-button>
-            </ion-item>
-            <ion-item lines="inset">
-              <ion-button fill="clear" color="dark" (click)="IrAAvatares();">Juego de Avatares</ion-button>
-            </ion-item>
+          <ion-item lines="inset">
+            <ion-button fill="clear" color="dark" (click)="IrALista();">Ver lista de alumnos {{clase.id}}</ion-button>
+          </ion-item>
+          <ion-item lines="inset">
+            <ion-button fill="clear" color="dark" (click)="IrAAvatares(clase.id);">Juego de Avatares</ion-button>
+          </ion-item>
                   
-          </div>
+        </div>
          
 
           
-        </a>
+      </a>
     </div>
-    </ion-list>
-
-
-
-
-
-
+  </ion-list>
 
 </ion-content>
 

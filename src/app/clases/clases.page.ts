@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { DbServiceService } from '../db-service.service';
 import { Clase } from '../Clase';
+import { DatosService } from '../datos.service';
 
 @Component({
   selector: 'app-clases',
@@ -13,29 +14,24 @@ import { Clase } from '../Clase';
 export class ClasesPage implements OnInit {
 
   clases: Clase[];
-  estadoEstilos: string [];
-  // document.onclick = captura_click;
+ 
+  // En la siguiente variable voy a juardar el id de la clase
+  // cuando quiera ver la lista de alumnos o ir al juego de avatares,
+  // tengo que saber a qué clase voy y así cargo los alumnos de esa clase,
+  // o bien activo el juego de avataresde la clase
+  juegodeclase: string;
+
 
   constructor( private popOver: PopoverController,
                private router: Router,
                private http: HttpClient,
-               private dbService: DbServiceService) {
+               private dbService: DbServiceService,
+               private datosService: DatosService) {
   }
 
   ngOnInit() {
     this.ClasesAdmin();
     // this.myFunction();
-
-  }
-
-  DesplegaClases() {
-    var x = document.getElementById('myLinks');
-    let y = x.getElementsByClassName('panel') as HTMLCollectionOf<HTMLElement>;
-    var i;
-
-    for (i = 0; i < y.length; i++) {
-     this.estadoEstilos[i] = y[i].style.display;
-    }
 
   }
 
@@ -56,38 +52,10 @@ export class ClasesPage implements OnInit {
       x.style.display = 'block';
       console.log('Ahora el estado es: ' + x.style.display);
     }
-    // var x = document.getElementById('myLinks');
-    // let y = document.getElementsByClassName('MenuClases') as HTMLCollectionOf<HTMLElement>;
-    // var i;
-    // console.log('Esto funciona');
-    // console.log(y);
-    // for (i = 0; i < y.length; i++) {
-
-    //   y[i].addEventListener('click', function() {
-
-    //     // var panel = this.nextElementSibling;
-    //     console.log('Has clickado!');
-    //     // this.classList.toggle('active');
-    //     var panel = this.nextElementSibling;
-    //     console.log(panel);
-    //     if (panel.style.display === 'none') {
-    //       panel.style.display = 'block';
-    //       console.log(panel.style.display);
-    //     } else {
-    //       panel.style.display = 'none';
-    //       console.log(panel.style.display);
-    //     }
-    //   });
-    // }
-    // if (y[i].style.display === 'block') {
-      // y[i].style.display = 'none';
-    // } else {
-      // y[i].style.display = 'block';
-    // }
-   // }
   }
 
   IrALista() {
+
     console.log('Voy a Mostrar la lista');
     this.router.navigate(['/lista']);
   }
@@ -99,7 +67,8 @@ export class ClasesPage implements OnInit {
                                         });
   }
 
-  IrAAvatares() {
+  IrAAvatares(idclase: string) {
+    this.datosService.GuardaIDClase(idclase);
     console.log('Voy al juego de avatares');
     this.router.navigate(['/avatares']);
   }
