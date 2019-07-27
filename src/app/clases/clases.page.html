@@ -49,24 +49,32 @@
 
      
 
-     <div class="topnav">
+     <div class="topnav" id="myLinks">
       <!--<a href="#home" class="active">
         Logo
       </a>-->
       
-      <ion-button (click)="myFunction();" slot="end" expand="block">
-        FÍSICA
-      </ion-button>
-      <div id="myLinks">
+        <a *ngFor="let clase of clases">
 
-        <ion-item lines="inset">
-          <ion-button fill="clear" color="dark" (click)="IrALista();">Ver lista de alumnos</ion-button>
-        </ion-item>
-        <ion-item lines="inset">
-          <ion-button fill="clear" color="dark" (click)="IrAAvatares();">Juego de Avatares</ion-button>
-        </ion-item>
-      
-      </div>
+          <ion-button class="MenuClases"  slot="end" expand="block" (click)="myFunction(clase.id);">
+            {{clase.id}}
+          </ion-button>
+
+          
+          <div class="panel" id="{{clase.id}}">
+
+            <ion-item lines="inset">
+              <ion-button fill="clear" color="dark" (click)="IrALista();">Ver lista de alumnos {{clase.id}}</ion-button>
+            </ion-item>
+            <ion-item lines="inset">
+              <ion-button fill="clear" color="dark" (click)="IrAAvatares();">Juego de Avatares</ion-button>
+            </ion-item>
+                  
+          </div>
+         
+
+          
+        </a>
     </div>
     </ion-list>
 

@@ -3,7 +3,6 @@ import { Persona } from '../Persona';
 import { Router, ActivatedRoute } from '@angular/router';
 import { from } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { Clase } from '../Clase';
 import { DatosService } from '../datos.service';
 import { DbServiceService } from '../db-service.service';
 import { PENDING } from '@angular/forms/src/model';
@@ -17,8 +16,8 @@ export class ProfesorPage implements OnInit {
   nombre: any;
   usuario: Persona;
   pass: string;
-  clases: Clase[];
-  
+
+
   constructor(private router: Router,
               private http: HttpClient,
               private datosService: DatosService,
@@ -33,16 +32,8 @@ export class ProfesorPage implements OnInit {
     .subscribe(usuario => {
                            this.usuario = usuario;
                            console.log('Este es el nombre: ' + this.usuario.nombre); });
-
-    this.ClasesAdmin();
   }
 
-  ClasesAdmin() {
-    this.dbService.DameClases()
-                  .subscribe(clases => {console.log('Clases de la BBDD: ' + clases);
-                                        this.clases = clases;
-                                        });
-  }
 
 
   IrAClases() {

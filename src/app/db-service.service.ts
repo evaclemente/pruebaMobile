@@ -30,25 +30,6 @@ export class DbServiceService {
     return this.http.get<Persona[]>(this.APIUrl);
   }
 
-  // Autentificar(nombre: string, pass: string): Persona {
-  //   let user: Persona[] = [];
-  //   user = this.lista.filter(persona => persona.nombre === nombre && persona.pass === pass);
-
-  //   if (user.length === 0) {
-  //     return null;
-  //   } else {
-  //     return user[0];
-  //   }
-
-  // }
-  // Mostrar (): Persona[] {
-    // return this.lista;
-  // }
-
-  // Incrementar (nombre: string): Persona[] {
-   // this.lista.filter(persona => persona.nombre === nombre)[0].puntos ++;
-   // return this.lista;
-  // }
 
   Eliminar(nombre: string): Observable<any> {
     return this.http.delete<any>(this.APIUrl + '/' + nombre);
