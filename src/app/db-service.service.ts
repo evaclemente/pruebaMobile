@@ -49,6 +49,17 @@ export class DbServiceService {
     return this.http.get<Clase[]>(this.APIClases);
   }
 
+  CambiaEstadoJuego(clase: Clase) {
+
+    if (clase.avatares === true) {
+      clase.avatares = false;
+    } else {
+      clase.avatares = true;
+    }
+    console.log('Ahora el estado es este:' + clase.avatares);
+    return this.http.put<any>(this.APIClases + '/' + clase.id, clase);
+  }
+
   CreaClase(clase: Clase, admin: string) {
     clase.admin = admin;
     return this.http.put<any>(this.APIClases + '/' + clase.id, clase);

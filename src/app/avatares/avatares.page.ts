@@ -23,12 +23,19 @@ export class AvataresPage implements OnInit {
   ngOnInit() {
     this.idClase = this.datosService.DameIDClase();
     this.dbService.DameClase(this.idClase).subscribe( clase => {this.clase = clase;
-                                                                console.log('Datos de clase: ' + clase); 
+                                                                console.log('Datos de clase: ' + clase);
+                                                                this.estado = clase.avatares;
+                                                                this.myChange();
+                                                                this.Mostrar();
                                                                 });
   }
 
   myChange() {
     console.log(this.estado);
+  }
+
+  Activar() {
+
   }
 
   Mostrar() {
@@ -37,7 +44,11 @@ export class AvataresPage implements OnInit {
     if (this.estado === true) {
       x.style.display = 'block';
     } else {
-      x.style.display = 'none';
+     x.style.display = 'none';
     }
+  }
+
+  CambiaEstado() {
+    this.dbService.CambiaEstadoJuego(this.clase).subscribe();
   }
 }
