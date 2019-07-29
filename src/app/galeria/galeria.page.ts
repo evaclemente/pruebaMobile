@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { DbServiceService } from '../db-service.service';
 
 @Component({
   selector: 'app-galeria',
@@ -9,7 +11,8 @@ export class GaleriaPage implements OnInit {
 
   file: File;
   logo: string;
-  constructor() { }
+  constructor(private http: HttpClient,
+              private dbService: DbServiceService) { }
 
   ngOnInit() {
   }
@@ -27,11 +30,25 @@ export class GaleriaPage implements OnInit {
 
     console.log ( 'fichero' + this.file.name );
     const reader = new FileReader();
+
+    // Ordeno que lea el fichero
     reader.readAsDataURL(this.file);
+    // reader.readAsBinaryString
+    // Pasa el resultado de la lectura a string
     reader.onload = () => {
       console.log ('ya');
       this.logo = reader.result.toString();
-    }
+    };
+
+  }
+
+  CargaDeArchivos() {
+
+    const formData: FormData = new FormData();
+    formData.append(this.file.name, this.file);
+
+    this.http.post('http://localhost:3000/api/imagenes/FotosAvatares/upload', formData)
+    .subscribe(() => console.log('Ya está'));
 
   }
 }

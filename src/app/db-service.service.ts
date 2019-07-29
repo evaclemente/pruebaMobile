@@ -79,5 +79,21 @@ export class DbServiceService {
     return this.http.post<any>(this.APIUrl, persona);
   }
 
+  // Creo una función que sirve sólamente para la carga de archivos
+  // como imágenes o archivos de texto, servirá para que el profesor
+  // cargue el material en la galería y los archivos de texto que irán ligados
+  // a los permisos 1, 2 y 3 para construir el avatar
+
+  // CargaDeArchivos() {
+
+  //   const formData: FormData = new FormData();
+  //   formData.append(this.file.name, this.file);
+
+  //   this.http.post('http://localhost:3000/api/imagenes/FotosAvatares/upload', formData)
+  //   .subscribe(() => console.log('Ya está'));
+
+  // }
+
+
 
 }

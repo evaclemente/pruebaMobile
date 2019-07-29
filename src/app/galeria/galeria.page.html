@@ -11,8 +11,11 @@
   <ion-item>
     <!--Poner el id como inp para el input, la función activar input va ligada a ese id siempre-->
     <input #file id="inp" type="file" accept='image/*' (change)="Mostrar($event)" style="display:none">
-    <ion-button (click)="ActivarInput();">Logo</ion-button>
-    <ion-img item-right [src]="logo"></ion-img>
+    <ion-button (click)="ActivarInput();">Carga imagen</ion-button>
+    <ion-img slot="end" [src]="logo" style="width:25%"></ion-img>
   </ion-item>
+
+  <ion-button  (click)="CargaDeArchivos();" expand="block">Añadir a la galería</ion-button>
+
 
 </ion-content>
