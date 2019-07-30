@@ -140,31 +140,41 @@ export class GaleriaPage implements OnInit {
 
   DameFotosContainer(idconte: string) {
     var i;
+    var imagenLogo: string;
     this.http.get<any>(this.APIFotos + '/' + idconte + '/files')
     .subscribe( fotoscontainer => { console.log('Tengo los archivos del container: ' + fotoscontainer);
-                                    for (i = 0; i < fotoscontainer.length; i++) {
+                                    for (i = 0; i < 1; i++) {
                                       this.http2.get(this.APIFotos + '/' + idconte + '/download/' + fotoscontainer[i].name,
                                       {responseType: ResponseContentType.Blob} )
                                       .subscribe(response => {console.log('Respuesta: ' + response);
-                                                              this.CargarLogos(response, i);
+                                                              const blob = new Blob([response.blob()], {type: 'image/jpg'});
+                                                              const reader = new FileReader();
+                                                              reader.addEventListener('load', () => {
+                                                                console.log(reader.result.toString());
+                                                                imagenLogo = reader.result.toString();
+                                                              }, false);
+                                                              if (blob) {
+                                                                reader.readAsDataURL(blob);
+                                                              }
                                                             });
+                                      this.imagenLogo[i] = imagenLogo;
                                     }
                                    });
   }
 
-  CargarLogos(response: Response, i: number) {
+  // CargarLogos(response: Response, idx: number) {
 
-    const blob = new Blob([response.blob()], {type: 'image/jpg'});
+  //   const blob = new Blob([response.blob()], {type: 'image/jpg'});
 
-    const reader = new FileReader();
-    reader.addEventListener('load', () => {
-      console.log(reader.result.toString());
-      this.imagenLogo[i] = reader.result.toString();
-      console.log('Cargo: ' + this.imagenLogo[i]);
-    }, false);
+  //   const reader = new FileReader();
+  //   reader.addEventListener('load', () => {
+  //     console.log(reader.result.toString());
+  //     this.imagenLogo[idx] = reader.result.toString();
+  //     console.log('Cargo: ' + this.imagenLogo);
+  //   }, false);
 
-    if (blob) {
-      reader.readAsDataURL(blob);
-    }
-  }
+  //   if (blob) {
+  //     reader.readAsDataURL(blob);
+  //   }
+  // }
 }
