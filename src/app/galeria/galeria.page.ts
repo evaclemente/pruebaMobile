@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { DbServiceService } from '../db-service.service';
+import { Imagen } from '../Imagen';
+import { Container } from '../Container';
 
 @Component({
   selector: 'app-galeria',
@@ -11,11 +13,22 @@ export class GaleriaPage implements OnInit {
 
   file: File;
   logo: string;
+  Contenedores: Container[];
+  pelos: Imagen[];
+  ojos: Imagen[];
+  complementos: Imagen [];
+  idcontenedor: string;
+
   constructor(private http: HttpClient,
               private dbService: DbServiceService) { }
 
   ngOnInit() {
+    this.ContenedoresFotos();
+    console.log('Te muestro lo que recibo de contenedores: ' + this.Contenedores);
+    this.dbService.dameFotosContainer('Pelos').subscribe();
   }
+
+
 
   ActivarInput() {
     // Recuperamos elinput y provocamos un click sobre ese input
@@ -42,13 +55,20 @@ export class GaleriaPage implements OnInit {
 
   }
 
-  CargaDeArchivos() {
+  CargaDeArchivos(idcontainer: string) {
 
     const formData: FormData = new FormData();
     formData.append(this.file.name, this.file);
 
-    this.http.post('http://localhost:3000/api/imagenes/FotosAvatares/upload', formData)
+    this.http.post('http://localhost:3000/api/imagenes' + '/' + idcontainer + '/upload', formData)
     .subscribe(() => console.log('Ya está'));
 
+  }
+
+  ContenedoresFotos() {
+    this.dbService.DameContenedores()
+                  .subscribe(contenedores => {console.log('Contenedores de la BBDD: ' + contenedores);
+                                              this.Contenedores = contenedores;
+                                              });
   }
 }

@@ -4,6 +4,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 // import {PersonaComponent} from './persona/persona.component';
 import { Persona } from './Persona';
 import { Clase } from './Clase';
+import { Imagen } from './Imagen';
+import { Container } from './Container';
 // Las librerías importadas son para poder realizar operaciones Http
 
 @Injectable({
@@ -14,6 +16,7 @@ export class DbServiceService {
   // Declaro como string la URL de la BDD a la que me quiero conectar
   private APIUrl = 'http://localhost:3000/api/Personas';
   private APIClases = 'http://localhost:3000/api/Clases';
+  private APIFotos = 'http://localhost:3000/api/imagenes';
 
   // Inserto en el constructor el servicio Http para poder hacer las operaciones necesarias
   constructor(private http: HttpClient) { }
@@ -28,6 +31,12 @@ export class DbServiceService {
     // La operacion get del protocolo http devuelve lo que tiene
     // entre "< >", en este caso una lista de personas.
     return this.http.get<Persona[]>(this.APIUrl);
+  }
+
+  dameFotosContainer(container: string): Observable<Imagen[]> {
+
+    return this.http.get<Imagen[]>(this.APIFotos + '/' + container);
+
   }
 
 
@@ -93,6 +102,10 @@ export class DbServiceService {
   //   .subscribe(() => console.log('Ya está'));
 
   // }
+
+  DameContenedores(): Observable<Container[]> {
+    return this.http.get<Container[]>(this.APIFotos);
+  }
 
 
 
