@@ -1,8 +1,8 @@
 export class Container {
 
-    nombre: string;
+    name: string;
 
-    constructor(nombre: string) {
-      this.nombre = nombre;
+    constructor(name: string) {
+      this.name = name;
     }
 }

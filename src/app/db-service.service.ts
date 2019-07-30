@@ -6,6 +6,7 @@ import { Persona } from './Persona';
 import { Clase } from './Clase';
 import { Imagen } from './Imagen';
 import { Container } from './Container';
+import { Http, ResponseContentType, RequestOptions, Response, Headers } from '@angular/http';
 // Las librerías importadas son para poder realizar operaciones Http
 
 @Injectable({
@@ -13,13 +14,19 @@ import { Container } from './Container';
 })
 export class DbServiceService {
 
+  // Creo un array en el que voy a guardar imágenes
+  // que vendran de un contenedor concreto
+
+  imagenLogo: string[];
+
   // Declaro como string la URL de la BDD a la que me quiero conectar
   private APIUrl = 'http://localhost:3000/api/Personas';
   private APIClases = 'http://localhost:3000/api/Clases';
   private APIFotos = 'http://localhost:3000/api/imagenes';
 
   // Inserto en el constructor el servicio Http para poder hacer las operaciones necesarias
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+              private http2: Http) { }
 
   // A partir de aquí declaro las operaciones que va a ofrecer este servicio
 
@@ -33,9 +40,9 @@ export class DbServiceService {
     return this.http.get<Persona[]>(this.APIUrl);
   }
 
-  dameFotosContainer(container: string): Observable<Imagen[]> {
+  dameFotosContainer(container: string): Observable<any[]> {
 
-    return this.http.get<Imagen[]>(this.APIFotos + '/' + container);
+    return this.http.get<any[]>(this.APIFotos + '/' + container + '/files');
 
   }
 
@@ -103,8 +110,34 @@ export class DbServiceService {
 
   // }
 
-  DameContenedores(): Observable<Container[]> {
-    return this.http.get<Container[]>(this.APIFotos);
+  DameContenedores(): Observable<any[]> {
+    return this.http.get<any[]>(this.APIFotos);
+  }
+
+  DameFotosContainer(idconte: string) {
+    var i;
+    this.http.get<any>(this.APIFotos + '/' + idconte + '/files')
+    .subscribe( fotoscontainer => { console.log('Tengo los archivos del container: ' + fotoscontainer);
+                                    for (i = 0; i < fotoscontainer.length; i++) {
+                                      this.http2.get(this.APIFotos + '/' + idconte + '/files/download/' + fotoscontainer[i].name,
+                                      {responseType: ResponseContentType.Blob} )
+                                      .subscribe(response => this.CargarLogos(response, i));
+                                    }
+                                   });
+  }
+
+  CargarLogos(response: Response, i: number) {
+
+    const blob = new Blob([response.blob()], {type: 'image/jpg'});
+
+    const reader = new FileReader();
+    reader.addEventListener('load', () => {
+      this.imagenLogo[i] = reader.result.toString();
+    }, false);
+
+    if (blob) {
+      reader.readAsDataURL(blob);
+    }
   }
 
 

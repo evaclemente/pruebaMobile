@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { DbServiceService } from '../db-service.service';
 import { Imagen } from '../Imagen';
 import { Container } from '../Container';
+import { Http, ResponseContentType, RequestOptions, Response, Headers } from '@angular/http';
 
 @Component({
   selector: 'app-galeria',
@@ -13,21 +14,43 @@ export class GaleriaPage implements OnInit {
 
   file: File;
   logo: string;
-  Contenedores: Container[];
-  pelos: Imagen[];
-  ojos: Imagen[];
-  complementos: Imagen [];
+  Contenedores: any[];
+  Pelos: Imagen[];
+  Ojos: Imagen[];
+  Complementos: Imagen [];
   idcontenedor: string;
-
+  imagenLogo: string[];
+  private APIFotos = 'http://localhost:3000/api/imagenes';
   constructor(private http: HttpClient,
-              private dbService: DbServiceService) { }
+              private dbService: DbServiceService,
+              private http2: Http) { }
 
   ngOnInit() {
     this.ContenedoresFotos();
-    console.log('Te muestro lo que recibo de contenedores: ' + this.Contenedores);
     this.dbService.dameFotosContainer('Pelos').subscribe();
+    this.DameFotosContainer('Pelos');
+    console.log(this.imagenLogo);
+    // console.log('Te muestro lo que recibo de contenedores: ' + this.Contenedores);
   }
 
+  myFunction(nombre: string) {
+
+    console.log('El identificador es: ' + nombre);
+
+    console.log(document.getElementById('subir' + nombre));
+
+    var x = document.getElementById('subir' + nombre);
+
+    console.log('Antes de clickar el estado es: ' + x.style.display);
+
+    if (x.style.display === 'block') {
+      x.style.display = 'none';
+      console.log('Ahora el estado es: ' + x.style.display);
+    } else {
+      x.style.display = 'block';
+      console.log('Ahora el estado es: ' + x.style.display);
+    }
+  }
 
 
   ActivarInput() {
@@ -69,6 +92,79 @@ export class GaleriaPage implements OnInit {
     this.dbService.DameContenedores()
                   .subscribe(contenedores => {console.log('Contenedores de la BBDD: ' + contenedores);
                                               this.Contenedores = contenedores;
+                                              console.log(this.Contenedores);
+                                              // this.CargarContenedores();
                                               });
+  }
+
+  DameLogos() {
+    this.http
+  }
+
+  CargarFotosContenedor(idgaleria: string) {
+
+    var i;
+
+    this.dbService.dameFotosContainer(idgaleria)
+                      .subscribe( Fotos => {console.log('Ya he cargado las fotos');
+                                            console.log ('Mira lo que hay: ' + Fotos);
+                                            for ( i = 0; i < Fotos.length; i++) {
+                                              this.Mostrar(Event);
+
+                                            //   reader.readAsDataURL(this.file);
+                                            //   var imagen = document.createElement('img'); // creo una imágen
+                                            //   imagen.id = Fotos[i].name;
+                                            //   console.log('Esta es la foto: ' + imagen.id);
+                                            //   // imagen.style.left = '100px';
+                                            //  // imagen.style.top = 140 * i + 'px';
+                                            //   // imagen.style.position =  'absolute';
+                                            //   imagen.src = 'http://localhost:3000/api/imagenes' + idgaleria + '/files/' + Fotos[i].name;
+                                            //   console.log(imagen.src);
+                                            //   document.getElementById('galeria' + idgaleria).appendChild(imagen);
+                                            }
+                                            console.log('Ya lo he cargado todo');
+                                          });
+
+    var x = document.getElementById('galeria' + idgaleria);
+
+    console.log('Antes de clickar el estado es: ' + x.style.display);
+
+    if (x.style.display === 'block') {
+      x.style.display = 'none';
+      console.log('Ahora el estado es: ' + x.style.display);
+    } else {
+      x.style.display = 'block';
+      console.log('Ahora el estado es: ' + x.style.display);
+    }
+  }
+
+  DameFotosContainer(idconte: string) {
+    var i;
+    this.http.get<any>(this.APIFotos + '/' + idconte + '/files')
+    .subscribe( fotoscontainer => { console.log('Tengo los archivos del container: ' + fotoscontainer);
+                                    for (i = 0; i < fotoscontainer.length; i++) {
+                                      this.http2.get(this.APIFotos + '/' + idconte + '/download/' + fotoscontainer[i].name,
+                                      {responseType: ResponseContentType.Blob} )
+                                      .subscribe(response => {console.log('Respuesta: ' + response);
+                                                              this.CargarLogos(response, i);
+                                                            });
+                                    }
+                                   });
+  }
+
+  CargarLogos(response: Response, i: number) {
+
+    const blob = new Blob([response.blob()], {type: 'image/jpg'});
+
+    const reader = new FileReader();
+    reader.addEventListener('load', () => {
+      console.log(reader.result.toString());
+      this.imagenLogo[i] = reader.result.toString();
+      console.log('Cargo: ' + this.imagenLogo[i]);
+    }, false);
+
+    if (blob) {
+      reader.readAsDataURL(blob);
+    }
   }
 }

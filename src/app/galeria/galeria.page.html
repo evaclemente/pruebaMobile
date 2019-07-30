@@ -35,20 +35,36 @@
   </ion-list>   -->
 
   <div>
-    <!-- <a *ngFor="let item of Contenedores">
+    <a *ngFor="let Container of Contenedores">
 
       <ion-list>
-        <ion-list-header id="Pelos">
-          Peinados
+        <ion-list-header>
+          {{Container.name}}
         </ion-list-header>
-        <ion-item>
-          <input #file id="inp" type="file" accept='image/*' (change)="Mostrar($event)" style="display:none">
-          <ion-button (click)="ActivarInput();">Añadir peinado</ion-button>
-          <ion-img slot="end" [src]="logo" style="width:25%"></ion-img>
-        </ion-item>
+
+        <div>
+
+          <input #file id="inp" type="file" accept='image/*' (change)="Mostrar($event);" style="display:none">
+          <ion-button (click)="ActivarInput(); myFunction(Container.name);" expand="block">Añadir {{Container.name}}</ion-button>
+          <!-- <ion-img slot="end" [src]="logo" style="width:25%"></ion-img> -->
+        </div>
+        <div class="panel" id="subir{{Container.name}}">
+          <ion-item>
+            <ion-button (click)="CargaDeArchivos(Container.name);">Subir</ion-button>
+            <ion-img slot="end" [src]="logo" style="width:30%"></ion-img>
+          </ion-item>
+        </div>
+        <div>
+          <ion-button (click)="CargarFotosContenedor(Container.name);" expand="block">Mostrar {{Container.name}}</ion-button>
+          <!-- <ion-img slot="end" [src]="logo" style="width:25%"></ion-img> -->
+        </div>
+        <div class="panel2" id="galeria{{Container.name}}">
+          
+        </div> 
+  
       </ion-list>
 
-    </a> -->
+    </a>
 
   </div>
   
