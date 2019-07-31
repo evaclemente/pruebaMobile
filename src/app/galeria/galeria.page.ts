@@ -21,7 +21,10 @@ export class GaleriaPage implements OnInit {
   Complementos: Imagen [];
   idcontenedor: string;
   imagenLogo: string;
-  URLs = new Array();
+  URLsPelos = new Array();
+  URLsOjos = new Array();
+  URLsComplementos = new Array();
+
 
   arrayids = new Array();
 
@@ -33,8 +36,15 @@ export class GaleriaPage implements OnInit {
   ngOnInit() {
     this.ContenedoresFotos();
 
+
+    // this.CargaURLs('Pelos', this.URLsPelos);
     this.dbService.DameFoto('Pelos');
-    this.dbService.DameLogos();
+    this.URLsPelos = this.dbService.DameLogos();
+   // console.log('Ya tengo los pelos: ' + this.URLsPelos);
+    //this.CargaURLs('Ojos', this.URLsOjos);
+   // console.log('Ya tengo los ojos: ' + this.URLsOjos);
+    // this.CargaURLs('Complementos', this.URLsComplementos);
+   // console.log('Ya tengo los complementos: ' + this.URLsComplementos);
     // console.log(this.imagenLogo);
     // console.log('Te muestro lo que recibo de contenedores: ' + this.Contenedores);
     // this.DameFotosContainer('Pelos', 'pelo1.png');
@@ -105,12 +115,12 @@ export class GaleriaPage implements OnInit {
                   .subscribe(contenedores => {console.log('Contenedores de la BBDD: ' + contenedores);
                                               this.Contenedores = contenedores;
                                               console.log(this.Contenedores);
-                                              for (n = 0; n < contenedores.length; n++) {
-                                                this.dbService.DameFoto(contenedores[n].name);
-                                                dir.push(this.dbService.DameLogos());
-                                                this.URLs.push(dir);
-                                              }
-                                              console.log(this.URLs);
+                                              // for (n = 0; n < contenedores.length; n++) {
+                                              //   this.dbService.DameFoto(contenedores[n].name);
+                                              //   dir.push(this.dbService.DameLogos());
+                                              //   this.URLs.push(dir);
+                                              // }
+                                              // console.log(this.URLs);
                                               });
   }
 
@@ -157,19 +167,12 @@ export class GaleriaPage implements OnInit {
     }
   }
 
-  // DameFotosContainer(idconte: string, nombrefoto: string) {
-  //  // var i;
-  //   console.log(idconte);
-  //   console.log(nombrefoto);
-  //   // var imagen = document.createElement('img');
-  //   // this.http.get<any>(this.APIFotos + '/' + idconte + '/files')
-  //   // .subscribe( fotoscontainer => { console.log('Tengo los archivos del container: ' + fotoscontainer);
-  //                                  // for (i = 0; i < fotoscontainer.length; i++) {
-  //   this.http2.get(this.APIFotos + '/' + idconte + '/download/' + nombrefoto, {responseType: ResponseContentType.Blob} )
-  //                                                           .subscribe(response => {this.CargaLogo(response); });
+  CargaURLs(idcontenedor: string, variable: any) {
 
-
-  // }
+    this.dbService.DameFoto(idcontenedor);
+    console.log('Variable lista: ' + this.dbService.DameLogos());
+    return this.dbService.DameLogos();
+  }
 
   // CargaLogo(response: Response) {
 

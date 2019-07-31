@@ -110,11 +110,19 @@ export class DbServiceService {
 
   // }
 
+  VaciarArray() {
+    var p;
+    for (p = 0; p < this.imagenesLogos.length; p++) {
+      this.imagenesLogos.pop();
+    }
+  }
   DameContenedores(): Observable<any[]> {
     return this.http.get<any[]>(this.APIFotos);
   }
 
   DameFoto(idconte: string) {
+
+    this.VaciarArray();
     var i;
     this.http.get<any>(this.APIFotos + '/' + idconte + '/files')
     .subscribe( fotoscontainer => { console.log('Tengo los archivos del container: ' + fotoscontainer);
@@ -141,7 +149,7 @@ export class DbServiceService {
     const reader = new FileReader();
     reader.addEventListener('load', () => {
       this.imagenesLogos.push(reader.result.toString());
-      console.log(this.imagenesLogos);
+      // console.log(this.imagenesLogos);
     }, false);
 
     if (blob) {
