@@ -17,7 +17,7 @@ export class DbServiceService {
   // Creo un array en el que voy a guardar imágenes
   // que vendran de un contenedor concreto
 
-  imagenLogo: string[];
+  imagenesLogos = new Array();
 
   // Declaro como string la URL de la BDD a la que me quiero conectar
   private APIUrl = 'http://localhost:3000/api/Personas';
@@ -114,25 +114,34 @@ export class DbServiceService {
     return this.http.get<any[]>(this.APIFotos);
   }
 
-  DameFotosContainer(idconte: string) {
+  DameFoto(idconte: string) {
     var i;
     this.http.get<any>(this.APIFotos + '/' + idconte + '/files')
     .subscribe( fotoscontainer => { console.log('Tengo los archivos del container: ' + fotoscontainer);
                                     for (i = 0; i < fotoscontainer.length; i++) {
-                                      this.http2.get(this.APIFotos + '/' + idconte + '/files/download/' + fotoscontainer[i].name,
+                                      console.log(fotoscontainer[i].name);
+                                      this.http2.get(this.APIFotos + '/' + idconte + '/download/' + fotoscontainer[i].name,
                                       {responseType: ResponseContentType.Blob} )
-                                      .subscribe(response => this.CargarLogos(response, i));
+                                      .subscribe(response => {console.log(response);
+                                                              this.CargarLogos(response); });
                                     }
+                                    // return this.imagenesLogos;
                                    });
   }
 
-  CargarLogos(response: Response, i: number) {
+  DameLogos() {
+    // this.DameFoto(idconte);
+    return this.imagenesLogos;
+  }
+
+  CargarLogos(response: Response) {
 
     const blob = new Blob([response.blob()], {type: 'image/jpg'});
 
     const reader = new FileReader();
     reader.addEventListener('load', () => {
-      this.imagenLogo[i] = reader.result.toString();
+      this.imagenesLogos.push(reader.result.toString());
+      console.log(this.imagenesLogos);
     }, false);
 
     if (blob) {

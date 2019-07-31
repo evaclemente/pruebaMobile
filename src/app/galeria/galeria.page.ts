@@ -4,6 +4,7 @@ import { DbServiceService } from '../db-service.service';
 import { Imagen } from '../Imagen';
 import { Container } from '../Container';
 import { Http, ResponseContentType, RequestOptions, Response, Headers } from '@angular/http';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-galeria',
@@ -19,7 +20,11 @@ export class GaleriaPage implements OnInit {
   Ojos: Imagen[];
   Complementos: Imagen [];
   idcontenedor: string;
-  imagenLogo: string[];
+  imagenLogo: string;
+  URLs = new Array();
+
+  arrayids = new Array();
+
   private APIFotos = 'http://localhost:3000/api/imagenes';
   constructor(private http: HttpClient,
               private dbService: DbServiceService,
@@ -27,10 +32,15 @@ export class GaleriaPage implements OnInit {
 
   ngOnInit() {
     this.ContenedoresFotos();
-    this.dbService.dameFotosContainer('Pelos').subscribe();
-    this.DameFotosContainer('Pelos');
-    console.log(this.imagenLogo);
+
+    this.dbService.DameFoto('Pelos');
+    this.dbService.DameLogos();
+    // console.log(this.imagenLogo);
     // console.log('Te muestro lo que recibo de contenedores: ' + this.Contenedores);
+    // this.DameFotosContainer('Pelos', 'pelo1.png');
+    // this.DameFotosContainer('Pelos', 'pelo3.png');
+    // console.log(this.URLs);
+
   }
 
   myFunction(nombre: string) {
@@ -89,41 +99,50 @@ export class GaleriaPage implements OnInit {
   }
 
   ContenedoresFotos() {
+    var n;
+    var dir = new Array();
     this.dbService.DameContenedores()
                   .subscribe(contenedores => {console.log('Contenedores de la BBDD: ' + contenedores);
                                               this.Contenedores = contenedores;
                                               console.log(this.Contenedores);
-                                              // this.CargarContenedores();
+                                              for (n = 0; n < contenedores.length; n++) {
+                                                this.dbService.DameFoto(contenedores[n].name);
+                                                dir.push(this.dbService.DameLogos());
+                                                this.URLs.push(dir);
+                                              }
+                                              console.log(this.URLs);
                                               });
   }
 
-  DameLogos() {
-    this.http
-  }
+
+
+  // DameLogos() {
+   // this.http
+  // }
 
   CargarFotosContenedor(idgaleria: string) {
 
     var i;
 
-    this.dbService.dameFotosContainer(idgaleria)
-                      .subscribe( Fotos => {console.log('Ya he cargado las fotos');
-                                            console.log ('Mira lo que hay: ' + Fotos);
-                                            for ( i = 0; i < Fotos.length; i++) {
-                                              this.Mostrar(Event);
+    // this.dbService.dameFotosContainer(idgaleria)
+    //                   .subscribe( Fotos => {console.log('Ya he cargado las fotos');
+    //                                         console.log ('Mira lo que hay: ' + Fotos);
+    //                                         for ( i = 0; i < Fotos.length; i++) {
+    //                                           // this.Mostrar(Event);
 
-                                            //   reader.readAsDataURL(this.file);
-                                            //   var imagen = document.createElement('img'); // creo una imágen
-                                            //   imagen.id = Fotos[i].name;
-                                            //   console.log('Esta es la foto: ' + imagen.id);
-                                            //   // imagen.style.left = '100px';
-                                            //  // imagen.style.top = 140 * i + 'px';
-                                            //   // imagen.style.position =  'absolute';
-                                            //   imagen.src = 'http://localhost:3000/api/imagenes' + idgaleria + '/files/' + Fotos[i].name;
-                                            //   console.log(imagen.src);
-                                            //   document.getElementById('galeria' + idgaleria).appendChild(imagen);
-                                            }
-                                            console.log('Ya lo he cargado todo');
-                                          });
+    //                                         //   reader.readAsDataURL(this.file);
+    //                                         //   var imagen = document.createElement('img'); // creo una imágen
+    //                                         //   imagen.id = Fotos[i].name;
+    //                                         //   console.log('Esta es la foto: ' + imagen.id);
+    //                                         //   // imagen.style.left = '100px';
+    //                                         //  // imagen.style.top = 140 * i + 'px';
+    //                                         //   // imagen.style.position =  'absolute';
+    //                                            imagen.src = 'http://localhost:3000/api/imagenes' + idgaleria + '/files/' + Fotos[i].name;
+    //                                         //   console.log(imagen.src);
+    //                                         //   document.getElementById('galeria' + idgaleria).appendChild(imagen);
+    //                                         }
+    //                                         console.log('Ya lo he cargado todo');
+    //                                       });
 
     var x = document.getElementById('galeria' + idgaleria);
 
@@ -138,43 +157,38 @@ export class GaleriaPage implements OnInit {
     }
   }
 
-  DameFotosContainer(idconte: string) {
-    var i;
-    var imagenLogo: string;
-    this.http.get<any>(this.APIFotos + '/' + idconte + '/files')
-    .subscribe( fotoscontainer => { console.log('Tengo los archivos del container: ' + fotoscontainer);
-                                    for (i = 0; i < 1; i++) {
-                                      this.http2.get(this.APIFotos + '/' + idconte + '/download/' + fotoscontainer[i].name,
-                                      {responseType: ResponseContentType.Blob} )
-                                      .subscribe(response => {console.log('Respuesta: ' + response);
-                                                              const blob = new Blob([response.blob()], {type: 'image/jpg'});
-                                                              const reader = new FileReader();
-                                                              reader.addEventListener('load', () => {
-                                                                console.log(reader.result.toString());
-                                                                imagenLogo = reader.result.toString();
-                                                              }, false);
-                                                              if (blob) {
-                                                                reader.readAsDataURL(blob);
-                                                              }
-                                                            });
-                                      this.imagenLogo[i] = imagenLogo;
-                                    }
-                                   });
-  }
+  // DameFotosContainer(idconte: string, nombrefoto: string) {
+  //  // var i;
+  //   console.log(idconte);
+  //   console.log(nombrefoto);
+  //   // var imagen = document.createElement('img');
+  //   // this.http.get<any>(this.APIFotos + '/' + idconte + '/files')
+  //   // .subscribe( fotoscontainer => { console.log('Tengo los archivos del container: ' + fotoscontainer);
+  //                                  // for (i = 0; i < fotoscontainer.length; i++) {
+  //   this.http2.get(this.APIFotos + '/' + idconte + '/download/' + nombrefoto, {responseType: ResponseContentType.Blob} )
+  //                                                           .subscribe(response => {this.CargaLogo(response); });
 
-  // CargarLogos(response: Response, idx: number) {
+
+  // }
+
+  // CargaLogo(response: Response) {
 
   //   const blob = new Blob([response.blob()], {type: 'image/jpg'});
+  //   console.log(response);
 
   //   const reader = new FileReader();
   //   reader.addEventListener('load', () => {
-  //     console.log(reader.result.toString());
-  //     this.imagenLogo[idx] = reader.result.toString();
-  //     console.log('Cargo: ' + this.imagenLogo);
+  //     this.imagenLogo = reader.result.toString();
+  //     console.log(this.imagenLogo);
+  //     this.URLs.push(this.imagenLogo);
+  //     console.log(this.URLs);
   //   }, false);
 
   //   if (blob) {
   //     reader.readAsDataURL(blob);
   //   }
+
+  //  // return imagenLogo;
   // }
+
 }
