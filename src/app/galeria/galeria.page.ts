@@ -4,7 +4,7 @@ import { DbServiceService } from '../db-service.service';
 import { Imagen } from '../Imagen';
 import { Container } from '../Container';
 import { Http, ResponseContentType, RequestOptions, Response, Headers } from '@angular/http';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { Img } from '../Img';
 
 @Component({
   selector: 'app-galeria',
@@ -21,9 +21,9 @@ export class GaleriaPage implements OnInit {
   Complementos: Imagen [];
   idcontenedor: string;
   imagenLogo: string;
-  URLsPelos = new Array();
-  URLsOjos = new Array();
-  URLsComplementos = new Array();
+  URLsPelos: Img[] = new Array();
+  URLsOjos: Img[] = new Array();
+  URLsComplementos: Img[] = new Array();
 
 
   arrayids = new Array();
@@ -36,20 +36,11 @@ export class GaleriaPage implements OnInit {
   ngOnInit() {
     this.ContenedoresFotos();
 
-
-    // this.CargaURLs('Pelos', this.URLsPelos);
     this.dbService.DameFoto('Pelos');
-    this.URLsPelos = this.dbService.DameLogos();
-   // console.log('Ya tengo los pelos: ' + this.URLsPelos);
-    //this.CargaURLs('Ojos', this.URLsOjos);
-   // console.log('Ya tengo los ojos: ' + this.URLsOjos);
-    // this.CargaURLs('Complementos', this.URLsComplementos);
-   // console.log('Ya tengo los complementos: ' + this.URLsComplementos);
-    // console.log(this.imagenLogo);
-    // console.log('Te muestro lo que recibo de contenedores: ' + this.Contenedores);
-    // this.DameFotosContainer('Pelos', 'pelo1.png');
-    // this.DameFotosContainer('Pelos', 'pelo3.png');
-    // console.log(this.URLs);
+    this.dbService.DameFoto('Ojos');
+    this.dbService.DameFoto('Complementos');
+
+
 
   }
 
@@ -72,6 +63,11 @@ export class GaleriaPage implements OnInit {
     }
   }
 
+  Asignar() {
+    this.URLsComplementos = this.dbService.DameLogosComp();
+    this.URLsOjos = this.dbService.DameLogosOjos();
+    this.URLsPelos = this.dbService.DameLogosPelo();
+  }
 
   ActivarInput() {
     // Recuperamos elinput y provocamos un click sobre ese input
@@ -165,13 +161,6 @@ export class GaleriaPage implements OnInit {
       x.style.display = 'block';
       console.log('Ahora el estado es: ' + x.style.display);
     }
-  }
-
-  CargaURLs(idcontenedor: string, variable: any) {
-
-    this.dbService.DameFoto(idcontenedor);
-    console.log('Variable lista: ' + this.dbService.DameLogos());
-    return this.dbService.DameLogos();
   }
 
   // CargaLogo(response: Response) {

@@ -6,6 +6,7 @@ import { Persona } from './Persona';
 import { Clase } from './Clase';
 import { Imagen } from './Imagen';
 import { Container } from './Container';
+import { Img } from './Img';
 import { Http, ResponseContentType, RequestOptions, Response, Headers } from '@angular/http';
 // Las librerías importadas son para poder realizar operaciones Http
 
@@ -17,7 +18,9 @@ export class DbServiceService {
   // Creo un array en el que voy a guardar imágenes
   // que vendran de un contenedor concreto
 
-  imagenesLogos = new Array();
+  imagenesPelos: Img[] = new Array();
+  imagenesOjos: Img[] =  new Array();
+  imagenesComplementos: Img[] = new Array();
 
   // Declaro como string la URL de la BDD a la que me quiero conectar
   private APIUrl = 'http://localhost:3000/api/Personas';
@@ -110,19 +113,12 @@ export class DbServiceService {
 
   // }
 
-  VaciarArray() {
-    var p;
-    for (p = 0; p < this.imagenesLogos.length; p++) {
-      this.imagenesLogos.pop();
-    }
-  }
   DameContenedores(): Observable<any[]> {
     return this.http.get<any[]>(this.APIFotos);
   }
 
   DameFoto(idconte: string) {
-
-    this.VaciarArray();
+    // this.VaciarArray();
     var i;
     this.http.get<any>(this.APIFotos + '/' + idconte + '/files')
     .subscribe( fotoscontainer => { console.log('Tengo los archivos del container: ' + fotoscontainer);
@@ -131,25 +127,47 @@ export class DbServiceService {
                                       this.http2.get(this.APIFotos + '/' + idconte + '/download/' + fotoscontainer[i].name,
                                       {responseType: ResponseContentType.Blob} )
                                       .subscribe(response => {console.log(response);
-                                                              this.CargarLogos(response); });
+                                                              this.CargarLogos(response, idconte); });
                                     }
-                                    // return this.imagenesLogos;
+                                    console.log('Ye he acabado');
                                    });
   }
 
-  DameLogos() {
-    // this.DameFoto(idconte);
-    return this.imagenesLogos;
+  DameLogosPelo() {
+
+    return this.imagenesPelos;
   }
 
-  CargarLogos(response: Response) {
+  DameLogosOjos() {
+    return this.imagenesOjos;
+  }
+
+  DameLogosComp() {
+    return this.imagenesComplementos;
+  }
+
+  CargarLogos(response: Response, idconte: string) {
+
 
     const blob = new Blob([response.blob()], {type: 'image/jpg'});
 
     const reader = new FileReader();
     reader.addEventListener('load', () => {
-      this.imagenesLogos.push(reader.result.toString());
-      // console.log(this.imagenesLogos);
+
+      if (idconte === 'Pelos') {
+        this.imagenesPelos.push(reader.result.toString());
+      }
+
+      if (idconte === 'Ojos') {
+        this.imagenesOjos.push(reader.result.toString());
+        console.log(this.imagenesOjos);
+      }
+
+      if (idconte === 'Complementos') {
+        this.imagenesComplementos.push(reader.result.toString());
+        console.log(this.imagenesComplementos);
+      }
+
     }, false);
 
     if (blob) {

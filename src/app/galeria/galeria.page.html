@@ -55,16 +55,19 @@
           </ion-item>
         </div>
         <div>
-          <ion-button (click)="CargarFotosContenedor(Container.name);" expand="block">Mostrar {{Container.name}}</ion-button>
+          <ion-button (click)="Asignar(); CargarFotosContenedor(Container.name); " expand="block">Mostrar {{Container.name}}</ion-button>
           <!-- <ion-img slot="end" [src]="logo" style="width:25%"></ion-img> -->
         </div>
         <div class="panel2" id="galeria{{Container.name}}">
          
-          <ion-img slot="end" [src]="URLsOjos[0]" style="width:25%"></ion-img>
+          <li *ngFor="let Img of URLsComplementos">
+            <ion-img slot="end" [src]="Img" style="width:25%"></ion-img>
+          </li>
         
           <!--
           <ion-img slot="end" [src]="URLs[1]" style="width:25%"></ion-img>-->
-        </div> 
+        </div>
+        
   
       </ion-list>
 
