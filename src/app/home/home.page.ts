@@ -5,6 +5,7 @@ import { from } from 'rxjs';
 import { Router } from '@angular/router';
 import { DatosService } from '../datos.service';
 import { HttpClient } from '@angular/common/http';
+import { Img } from '../Img';
 
 @Component({
   selector: 'app-home',
@@ -14,11 +15,12 @@ import { HttpClient } from '@angular/common/http';
 export class HomePage {
 
   todoselementos: any;
-  indexpelo: number =  0;
+  URLPelo: any;
+  URLOjos: any;
   ojos: any;
   complementos: any;
   objetoseleccionado: string;
-  indexojos: number = 0;
+  // indexojos: number = 0;
 
   constructor(
     private router: Router,
@@ -30,6 +32,7 @@ export class HomePage {
 
   // tslint:disable-next-line:use-life-cycle-interface
   ngOnInit() {
+    this.ColocaElementos();
     this.http.get('assets/elementos.json', {responseType: 'json'})
     .subscribe(data => { this.todoselementos = data;
                          this.datosService.ColocoPelo(0, this.todoselementos);
@@ -38,6 +41,9 @@ export class HomePage {
                                                            // this.indexpelo = data[1];
                                                            // this.objetoseleccionado = data[2];
                                                           });
+    console.log('Ya ha llegado la URL del pelo: ' + this.URLPelo);
+
+    console.log('Ya ha llegado la URL del pelo: ' + this.URLOjos);
   }
 
   IrAPelos() {
@@ -58,6 +64,13 @@ export class HomePage {
   IrAAlumno() {
     console.log('Me voy a Alumno');
     this.router.navigate(['/alumno']);
+  }
+
+  ColocaElementos() {
+    console.log('Entro');
+    this.URLPelo = this.datosService.DameElementoP();
+    this.URLOjos = this.datosService.DameElementoO();
+
   }
 
 

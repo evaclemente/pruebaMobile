@@ -35,44 +35,128 @@
   </ion-list>   -->
 
   <div>
-    <a *ngFor="let Container of Contenedores">
+   
 
-      <ion-list>
-        <ion-list-header>
-          {{Container.name}}
-        </ion-list-header>
+    <ion-list>
+      <ion-list-header>
+        COMPLEMENTOS
+      </ion-list-header>
 
-        <div>
+      <div>
 
-          <input #file id="inp" type="file" accept='image/*' (change)="Mostrar($event);" style="display:none">
-          <ion-button (click)="ActivarInput(); myFunction(Container.name);" expand="block">Añadir {{Container.name}}</ion-button>
-          <!-- <ion-img slot="end" [src]="logo" style="width:25%"></ion-img> -->
-        </div>
-        <div class="panel" id="subir{{Container.name}}">
-          <ion-item>
-            <ion-button (click)="CargaDeArchivos(Container.name);">Subir</ion-button>
-            <ion-img slot="end" [src]="logo" style="width:30%"></ion-img>
-          </ion-item>
-        </div>
-        <div>
-          <ion-button (click)="Asignar(); CargarFotosContenedor(Container.name); " expand="block">Mostrar {{Container.name}}</ion-button>
-          <!-- <ion-img slot="end" [src]="logo" style="width:25%"></ion-img> -->
-        </div>
-        <div class="panel2" id="galeria{{Container.name}}">
+        <input #file id="inp" type="file" accept='image/*' (change)="Mostrar($event);" style="display:none">
+        <ion-button (click)="ActivarInput(); myFunction('Complementos');" expand="block">Añadir Complementos</ion-button>
+
+      </div>
+      <div class="panel" id="subirComplementos">
+        <ion-item>
+          <ion-button (click)="CargaDeArchivos('Complementos');">Subir</ion-button>
+          <ion-img slot="end" [src]="logo" style="width:25%"></ion-img>
+        </ion-item>
+      </div>
+      <div>
+
+        <ion-button (click)="Asignar(); CargarFotosContenedor('Complementos'); " expand="block">Mostrar Complementos</ion-button>
          
-          <li *ngFor="let Img of URLsComplementos">
-            <ion-img slot="end" [src]="Img" style="width:25%"></ion-img>
-          </li>
+      </div>
+      <div class="panel2" id="galeriaComplementos">
+         
+        <li *ngFor="let Img of URLsComplementos">
+          <ion-item>
+            <ion-img [src]="Img" style="width:45%"></ion-img>
+            <ion-checkbox slot="end" ></ion-checkbox>
+          </ion-item>  
+        </li>
         
-          <!--
-          <ion-img slot="end" [src]="URLs[1]" style="width:25%"></ion-img>-->
-        </div>
-        
+      </div>
+       
   
-      </ion-list>
+    </ion-list>
 
-    </a>
 
+
+  </div>
+
+  <div>
+    <ion-list>
+      <ion-list-header>
+        OJOS
+      </ion-list-header>
+
+      <div>
+
+        <input #file id="inp" type="file" accept='image/*' (change)="Mostrar($event);" style="display:none">
+        <ion-button (click)="ActivarInput(); myFunction('Ojos');" expand="block">Añadir Ojos</ion-button>
+
+      </div>
+      <div class="panel" id="subirOjos">
+        <ion-item>
+          <ion-button (click)="CargaDeArchivos('Ojos');">Subir</ion-button>
+          <ion-img [src]="logo" style="width:25%"></ion-img>
+        </ion-item>
+      </div>
+      <div>
+
+        <ion-button (click)="Asignar(); CargarFotosContenedor('Ojos'); " expand="block">Mostrar Ojos</ion-button>
+          
+      </div>
+      <div class="panel2" id="galeriaOjos">
+          
+        <li *ngFor="let Img of URLsOjos">
+          <ion-item>
+            <ion-img [src]="Img" style="width:45%"></ion-img>
+            <ion-checkbox slot="end" ></ion-checkbox>
+          </ion-item>  
+        </li>
+          
+      </div>
+       
+  
+    </ion-list>
+
+
+
+  </div>
+
+  <div>
+    <ion-list>
+      <ion-list-header>
+       PEINADOS
+      </ion-list-header>
+  
+      <div>
+  
+        <input #file id="inp" type="file" accept='image/*' (change)="Mostrar($event);" style="display:none">
+        <ion-button (click)="ActivarInput(); myFunction('Pelos');" expand="block">Añadir Peinados</ion-button>
+  
+      </div>
+      <div class="panel" id="subirPelos">
+        <ion-item>
+          <ion-button (click)="CargaDeArchivos('Pelos');">Subir</ion-button>
+          <ion-img [src]="logo" style="width:25%"></ion-img>
+        </ion-item>
+      </div>
+      <div>
+  
+        <ion-button (click)="Asignar(); CargarFotosContenedor('Pelos'); " expand="block">Mostrar Peinados</ion-button>
+            
+      </div>
+      <div class="panel2" id="galeriaPelos">
+            
+        <li *ngFor="let Img of URLsPelos">
+          <ion-item>
+            <ion-img [src]="Img" style="width:45%"></ion-img>
+            <ion-checkbox checked="false" slot="end" id="{{Img}}" (ionChange)="GuardaValor(Img);"></ion-checkbox>
+          </ion-item>  
+        </li>
+            
+      </div>
+         
+    
+    </ion-list>
+  
+  
+  
   </div>
   
 

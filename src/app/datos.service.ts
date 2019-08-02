@@ -4,6 +4,7 @@ import { BehaviorSubject } from 'rxjs';
 import { Http, ResponseContentType } from '@angular/http';
 import { Persona } from './Persona';
 import { Observable, of, from } from 'rxjs';
+import {Img} from './Img';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,9 @@ export class DatosService {
   seleccionado: boolean;
   id: any;
   idclase: string;
+  elementoP: Img;
+  elementoO: Img;
+  elementoC: Img;
 
 
   // Creamos un método
@@ -38,6 +42,33 @@ export class DatosService {
     this.nombre = nombre;
     console.log('Estos son los datos de mi persona: ' + nombre);
     // this.objectSource.next(nombre);
+  }
+
+  SetElementoP(elemento: Img) {
+    this.elementoP = elemento;
+    console.log('SetPelo: ' + this.elementoP);
+  }
+
+  SetElementoO(elemento: Img) {
+    this.elementoO = elemento;
+    console.log('SetOjos: ' + this.elementoO);
+  }
+
+  SetElementoC(elemento: Img) {
+    this.elementoC = elemento;
+    console.log('SetComplemento: ' + this.SetElementoC);
+  }
+
+  DameElementoP() {
+    return this.elementoP;
+  }
+
+  DameElementoO() {
+    return this.elementoO;
+  }
+
+  DameElementoC() {
+    return this.elementoC;
   }
 
   DameNombre() {

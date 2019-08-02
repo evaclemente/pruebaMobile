@@ -2,7 +2,7 @@
   <ion-toolbar>
     <ion-title>Ojos</ion-title>
     <ion-back-button defaultHref="home"></ion-back-button>
-    <ion-button slot="end" (click)="PasarDatosOjos();">OK</ion-button>
+    <ion-button slot="end" (click)="PasarDatosOjos(); IrAHome();">OK</ion-button>
   </ion-toolbar>
 </ion-header>
 
@@ -13,6 +13,17 @@
     <div id="elementosOjos">
     
     </div>
+
+    <div class="panel2" id="galeriaOjos">
+            
+      <li *ngFor="let Img of URLsOjos">
+        <ion-item>
+          <ion-img [src]="Img" style="width:45%"></ion-img>
+          <ion-checkbox checked="false" slot="end" id="{{Img}}" (ionChange)="GuardaValor(Img);"></ion-checkbox>
+        </ion-item>  
+      </li>
+          
+  </div>
     
     
    </body>

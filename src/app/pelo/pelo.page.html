@@ -2,7 +2,8 @@
   <ion-toolbar>
     <ion-title>Peinados</ion-title>
     <ion-back-button defaultHref="home"></ion-back-button>
-    <ion-button slot="end" (click)="PasarDatosPelo();">OK</ion-button>
+    <ion-button slot="end" (click)="PasarDatosPelo(); IrAHome();">OK</ion-button>
+    <!---->
   </ion-toolbar>
 </ion-header>
 
@@ -11,12 +12,16 @@
 
   <body>
 
-    <div id="elementosPelo">
-
-      <ion-checkbox checked="true" slot="end"></ion-checkbox>            
-      
+    <div class="panel2" id="galeriaPelos">
+            
+        <li *ngFor="let Img of URLsPelos">
+          <ion-item>
+            <ion-img [src]="Img" style="width:45%"></ion-img>
+            <ion-checkbox checked="false" slot="end" id="{{Img}}" (ionChange)="GuardaValor(Img);"></ion-checkbox>
+          </ion-item>  
+        </li>
+            
     </div>
-
 
   </body>
 

@@ -13,6 +13,8 @@ import { Img } from '../Img';
 })
 export class GaleriaPage implements OnInit {
 
+  selec: boolean;
+  val: Img;
   file: File;
   logo: string;
   Contenedores: any[];
@@ -57,6 +59,7 @@ export class GaleriaPage implements OnInit {
     if (x.style.display === 'block') {
       x.style.display = 'none';
       console.log('Ahora el estado es: ' + x.style.display);
+      console.log(this.selec);
     } else {
       x.style.display = 'block';
       console.log('Ahora el estado es: ' + x.style.display);
@@ -104,6 +107,24 @@ export class GaleriaPage implements OnInit {
 
   }
 
+  GuardaValor(direccion: any) {
+    var x = document.getElementById(direccion).getAttribute('checked');
+
+    console.log('el atributo: ' + document.getElementById(direccion).getAttribute('checked'));
+    console.log( 'Valor que llega' + direccion);
+
+    if (x === 'false') {
+      x = 'true';
+      document.getElementById(direccion).setAttribute('checked', 'true');
+      this.val = direccion;
+      console.log('Me he guardado esevalor: ' + this.val);
+    } else {
+      x = 'false';
+      document.getElementById(direccion).setAttribute('checked', 'false');
+      console.log ('No hay archivo seleccionado');
+    }
+  }
+
   ContenedoresFotos() {
     var n;
     var dir = new Array();
@@ -129,6 +150,7 @@ export class GaleriaPage implements OnInit {
   CargarFotosContenedor(idgaleria: string) {
 
     var i;
+    console.log('El identificador es: ' + idgaleria);
 
     // this.dbService.dameFotosContainer(idgaleria)
     //                   .subscribe( Fotos => {console.log('Ya he cargado las fotos');
