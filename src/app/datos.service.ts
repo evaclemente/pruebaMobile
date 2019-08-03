@@ -15,9 +15,9 @@ export class DatosService {
   seleccionado: boolean;
   id: any;
   idclase: string;
-  elementoP: Img;
-  elementoO: Img;
-  elementoC: Img;
+  elementoP: any;
+  elementoO: any;
+  elementoC: any;
 
 
   // Creamos un método
@@ -56,7 +56,7 @@ export class DatosService {
 
   SetElementoC(elemento: Img) {
     this.elementoC = elemento;
-    console.log('SetComplemento: ' + this.SetElementoC);
+    console.log('SetComplemento: ' + this.elementoC);
   }
 
   DameElementoP() {
@@ -91,10 +91,10 @@ export class DatosService {
     console.log('Esto es lo que llega a servicios: ' + identificador);
   }
 
-  ColocoPelo(ident: any, elementos: any) {
+  ColocoPelo() {
 
 
-    if (ident === null) {
+    if (this.elementoP === undefined) {
       console.log('No has seleccionado ningún pelo');
     } else {
 
@@ -102,30 +102,19 @@ export class DatosService {
 
       imagen.style.position = 'absolute';
       imagen.style.zIndex = '1';
-
-
-
-      console.log('Entro a colocar pelo');
-
-      console.log('Estos son los elementos: ' + elementos);
-
-      imagen.src = elementos.pelos[ident].fichero;
-
-
       imagen.style.left = '0px';
       imagen.style.top = '0px';
+      imagen.src = this.elementoP;
       document.getElementById('avatar').appendChild(imagen);
-
-
     }
 
 
   }
 
-  ColocoOjos(ident: any, elementos: any) {
+  ColocoOjos() {
 
 
-    if (ident === null) {
+    if (this.elementoO === null) {
       console.log('No has seleccionado ningunos ojos');
     } else {
 
@@ -133,20 +122,11 @@ export class DatosService {
 
       imagen.style.position = 'absolute';
       imagen.style.zIndex = '1';
-
- 
-
-      console.log('Entro a colocar los ojos');
-
-      console.log('Estos son los elementos: ' + elementos);
-
-      imagen.src = elementos.ojos[ident].fichero;
-
-
       imagen.style.left = '0px';
       imagen.style.top = '0px';
+      console.log('Entro a colocar los ojos');
+      imagen.src = this.elementoO;
       document.getElementById('avatar').appendChild(imagen);
-
 
     }
 

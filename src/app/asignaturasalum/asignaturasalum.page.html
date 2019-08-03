@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>asignaturasalum</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-list>
+    <ion-list-header>Mis asignaturas</ion-list-header>
+    <div>
+      <a *ngFor="let Matricula of lista">
+        <ion-button>
+          {{Matricula.idAsignatura}}
+        </ion-button>
+        <div id="{{Matricula.idAsignatura}}">
+          <ion-item>
+            <ion-button>Información</ion-button>
+          </ion-item>
+          <ion-item>
+            <ion-button>Juego de avatares</ion-button>
+          </ion-item>
+        </div>
+
+      </a>
+    </div>
+  </ion-list>
+
+</ion-content>

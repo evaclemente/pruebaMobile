@@ -14,7 +14,7 @@ import { DatosService } from '../datos.service';
 export class ClasesPage implements OnInit {
 
   clases: Clase[];
- 
+
   // En la siguiente variable voy a juardar el id de la clase
   // cuando quiera ver la lista de alumnos o ir al juego de avatares,
   // tengo que saber a qué clase voy y así cargo los alumnos de esa clase,
@@ -54,8 +54,8 @@ export class ClasesPage implements OnInit {
     }
   }
 
-  IrALista() {
-
+  IrALista(idclase: string) {
+    this.dbService.SetIdClase(idclase);
     console.log('Voy a Mostrar la lista');
     this.router.navigate(['/lista']);
   }

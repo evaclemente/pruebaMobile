@@ -21,11 +21,14 @@ export class DbServiceService {
   imagenesPelos: Img[] = new Array();
   imagenesOjos: Img[] =  new Array();
   imagenesComplementos: Img[] = new Array();
+  idclase: string;
+  NPersona: string;
 
   // Declaro como string la URL de la BDD a la que me quiero conectar
   private APIUrl = 'http://localhost:3000/api/Personas';
   private APIClases = 'http://localhost:3000/api/Clases';
   private APIFotos = 'http://localhost:3000/api/imagenes';
+  
 
   // Inserto en el constructor el servicio Http para poder hacer las operaciones necesarias
   constructor(private http: HttpClient,
@@ -50,6 +53,7 @@ export class DbServiceService {
   }
 
 
+
   Eliminar(nombre: string): Observable<any> {
     return this.http.delete<any>(this.APIUrl + '/' + nombre);
   }
@@ -59,13 +63,110 @@ export class DbServiceService {
     return this.http.get<Persona>(this.APIUrl + '/' + nombre);
     console.log(Persona);
   }
+
+  SetIdClase(clase: string) {
+    this.idclase = clase;
+  }
+
+  SetNombrePersona(npersona: string) {
+    this.NPersona = npersona;
+  }
+
+
+  ReturnNombrePersona() {
+    return this.NPersona;
+  }
+
+  ReturnIdClase() {
+    return this.idclase;
+  }
+
   DameClase(idclase: string): Observable<Clase> {
+    this.idclase = idclase;
     console.log('Te doy los datos de: ' + idclase);
     return this.http.get<Clase>(this.APIClases + '/' + idclase);
   }
 
   DameClases(): Observable<Clase[]> {
     return this.http.get<Clase[]>(this.APIClases);
+  }
+
+  PonPelo(persona: Persona, elementop: any) {
+    persona.URLpelo = elementop;
+    return this.http.put<any>(this.APIUrl + '/' + persona.nombre, persona);
+
+  }
+
+  ColocoPelo(persona: Persona) {
+
+
+    if (persona.URLpelo === undefined) {
+      console.log('No has seleccionado ningún pelo');
+    } else {
+
+      var imagen = document.createElement('img');
+
+      imagen.style.position = 'absolute';
+      imagen.style.zIndex = '1';
+      imagen.style.left = '0px';
+      imagen.style.top = '0px';
+      imagen.src = persona.URLpelo;
+      document.getElementById('avatar').appendChild(imagen);
+    }
+
+
+  }
+
+  PonOjos(persona: Persona, elementoo: any) {
+    persona.URLojos = elementoo;
+    return this.http.put<any>(this.APIUrl + '/' + persona.nombre, persona);
+
+  }
+
+  ColocoOjos(persona: Persona) {
+
+
+    if (persona.URLojos === undefined) {
+      console.log('No has seleccionado ningún pelo');
+    } else {
+
+      var imagen = document.createElement('img');
+
+      imagen.style.position = 'absolute';
+      imagen.style.zIndex = '1';
+      imagen.style.left = '0px';
+      imagen.style.top = '0px';
+      imagen.src = persona.URLojos;
+      document.getElementById('avatar').appendChild(imagen);
+    }
+
+
+  }
+
+  PonComp(persona: Persona, elementoc: any) {
+    persona.URLcomplemento = elementoc;
+    return this.http.put<any>(this.APIUrl + '/' + persona.nombre, persona);
+
+  }
+
+  ColocoComp(persona: Persona) {
+
+
+    if (persona.URLojos === undefined) {
+      console.log('No has seleccionado ningún pelo');
+    } else {
+
+      var imagen = document.createElement('img');
+
+      imagen.style.position = 'absolute';
+      imagen.style.zIndex = '1';
+      imagen.style.left = '0px';
+      imagen.style.top = '0px';
+      imagen.src = persona.URLcomplemento;
+      document.getElementById('avatar').appendChild(imagen);
+    }
+
+
   }
 
   CambiaEstadoJuego(clase: Clase) {
@@ -88,6 +189,13 @@ export class DbServiceService {
     alumno.pass = nuevopass;
     return this.http.put<any>(this.APIUrl + '/' + alumno.nombre, alumno);
   }
+
+  PonDatosAvatar(alumno: Persona, Pelo: any, Ojos: any, Compl: any) {
+    alumno.URLpelo = Pelo;
+    alumno.URLojos = Ojos;
+    alumno.URLcomplemento = Compl;
+    return this.http.put<any>(this.APIUrl + '/' + alumno.nombre, alumno);
+  }
   // Añadir una persona a la BBDD es una operación post
   // requiere la URL y en este caso la persona que debemos añadir
 
@@ -103,15 +211,7 @@ export class DbServiceService {
   // cargue el material en la galería y los archivos de texto que irán ligados
   // a los permisos 1, 2 y 3 para construir el avatar
 
-  // CargaDeArchivos() {
 
-  //   const formData: FormData = new FormData();
-  //   formData.append(this.file.name, this.file);
-
-  //   this.http.post('http://localhost:3000/api/imagenes/FotosAvatares/upload', formData)
-  //   .subscribe(() => console.log('Ya está'));
-
-  // }
 
   DameContenedores(): Observable<any[]> {
     return this.http.get<any[]>(this.APIFotos);

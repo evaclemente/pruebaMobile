@@ -5,6 +5,7 @@ import { LoginPage } from '../login/login.page';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import swal from 'sweetalert';
+import { Clase } from '../Clase';
 
 @Component({
   selector: 'app-lista',
@@ -19,6 +20,8 @@ export class ListaPage implements OnInit {
   rol: string;
   puntos: number;
   NombreEliminar: string;
+  clase: Clase;
+  idClase: string;
 
   constructor(private dbService: DbServiceService,
               private router: Router,
@@ -27,6 +30,10 @@ export class ListaPage implements OnInit {
   }
 
   ngOnInit() {
+    this.dbService.DameClase(this.dbService.ReturnIdClase()).subscribe( clase => {  console.log('Mi clase: ' + clase.avatares);
+                                                                                    this.clase = clase;
+                                                                                    this.AbrirDivAvatares();
+                                                                                  });
     this.dbService.dameTodos()
     .subscribe(lista => {
                          this.lista = lista;
@@ -34,6 +41,7 @@ export class ListaPage implements OnInit {
                          console.log(this.lista);
                         }
               );
+    this.dbService.ReturnIdClase();
     this.AbrirInput();
   }
 
@@ -74,6 +82,29 @@ export class ListaPage implements OnInit {
     } else {
       x.style.display = 'none';
     }
+  }
+
+  AbrirDivAvatares() {
+
+    var list = document.getElementsByClassName('avataresActivos'); // HTMLElement;
+    // let list as HTMLElement
+    
+
+    console.log('Antes de clickar el estado es: ' + list);
+
+    if (this.clase.avatares === true) {
+      console.log('Aqui entro');
+
+      // let list = <HTMLElement[]><any>document.querySelectorAll('li');
+      // console.log('Ahora el estado es: ' + x.style.display);
+      
+    } else {
+      var n;
+      for (n = 0; n < list.length; n ++) {
+        (list[n] as HTMLElement).style.display = 'none';
+      }
+    }
+
   }
 
   VolverAClases() {

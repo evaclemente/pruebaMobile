@@ -35,12 +35,18 @@ export class AlumnoPage implements OnInit {
     this.nombre = this.datosService.DameNombre();
     this.dbService.DamePersona(this.nombre)
     .subscribe(alumno => {console.log('Este es el nombre: ' + alumno.nombre);
-                          this.alumno = alumno; });
+                          this.alumno = alumno;
+                          this.dbService.SetNombrePersona(this.nombre);
+                          });
 
   }
 
   IrAHome() {
     this.router.navigate(['/home']);
+  }
+
+  IrAAsignaturas() {
+    this.router.navigate(['/asignaturasalum']);
   }
 
   IrAMiPerfil() {

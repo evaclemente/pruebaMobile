@@ -14,7 +14,9 @@ const routes: Routes = [
   { path: 'ojos', loadChildren: './ojos/ojos.module#OjosPageModule' },
   { path: 'galeria', loadChildren: './galeria/galeria.module#GaleriaPageModule' },  { path: 'miperfil', loadChildren: './miperfil/miperfil.module#MiperfilPageModule' },
   { path: 'formpersona', loadChildren: './formpersona/formpersona.module#FormpersonaPageModule' },
-  { path: 'avatares', loadChildren: './avatares/avatares.module#AvataresPageModule' }
+  { path: 'avatares', loadChildren: './avatares/avatares.module#AvataresPageModule' },
+  { path: 'listaavatares', loadChildren: './listaavatares/listaavatares.module#ListaavataresPageModule' },
+  { path: 'asignaturasalum', loadChildren: './asignaturasalum/asignaturasalum.module#AsignaturasalumPageModule' }
 
 
 

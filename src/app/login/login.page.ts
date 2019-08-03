@@ -60,7 +60,6 @@ export class LoginPage implements OnInit {
    this.router.navigate(['/lista']);
   }
 
-  
 
 
   Autentificar() {

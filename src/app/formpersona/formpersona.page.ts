@@ -40,7 +40,10 @@ export class FormpersonaPage implements OnInit {
                                           false,
                                           false,
                                           false,
-                                          false)).subscribe(() => this.Mostrar());
+                                          false,
+                                          '',
+                                          '',
+                                          '')).subscribe(() => this.Mostrar());
   }
 
   VolverALista() {

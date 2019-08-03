@@ -52,16 +52,32 @@
           
         <li *ngIf="persona.rol === 'Alumno'">
 
-          <ion-item>
-
-            <ion-row>
-
-              <ion-col class="col">{{persona.nombre}}</ion-col>
+          <ion-list>
+            <ion-list-header>
+              {{persona.nombre}}
+            </ion-list-header>
+          
+            <ion-item>
               <ion-col class="col">{{persona.pass}}</ion-col>
-                                       
-            </ion-row>
-                   
-          </ion-item>
+              
+            </ion-item>
+            <div class="avataresActivos">
+              <ion-item>
+                <ion-label>P1</ion-label>
+                <ion-checkbox checked={{persona.pelo}} id="P1{{persona.nombre}}"></ion-checkbox>
+              </ion-item>
+              <ion-item>
+                <ion-label>P2</ion-label>
+                <ion-checkbox checked={{persona.ojos}} id="P2{{persona.nombre}}"></ion-checkbox>
+              </ion-item>
+              <ion-item>
+                <ion-label>P3</ion-label>
+                <ion-checkbox checked={{persona.complemento}} id="P3{{persona.nombre}}"></ion-checkbox>
+              </ion-item>
+  
+            </div>
+
+          </ion-list>  
           
 
         </li>

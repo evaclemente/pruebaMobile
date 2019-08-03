@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { element } from '@angular/core/src/render3';
 import { Img } from '../Img';
 import { DbServiceService } from '../db-service.service';
+import { Persona } from '../Persona';
 
 @Component({
   selector: 'app-pelo',
@@ -22,6 +23,8 @@ export class PeloPage implements OnInit {
   estadoPelo: boolean [];
   PeloSeleccionado: any;
   URLsPelos: Img = new Array();
+  persona: Persona;
+
  // tipo: string = 'pelos';
 
   // Necesito usar el protocolo http para cargar el fichero,
@@ -41,97 +44,9 @@ export class PeloPage implements OnInit {
 
     this.dbService.DameFoto('Pelos');
     this. URLsPelos = this.dbService.DameLogosPelo();
+    this.dbService.DamePersona(this.dbService.ReturnNombrePersona()).subscribe( persona => { console.log(persona);
+                                                                                             this.persona = persona; });
   }
-
-  // ColocarPelos() {
-
-  //   console.log('Entro: ' + this.elementosPelo);
-  //   var i: number;
-
-
-  //   // El fichero elementos.json contiene los elementos de
-  //   // pelo, gafas, ojos, boca que usaremos para construir el avatar.
-  //   // Pues bien, ahora solamente cargaremos los del pelo.
-
-  //   for ( i = 0; i < this.elementosPelo.pelos.length; i++) {
-  //     // Leo cada fichero correspondiente a cada tipo de pelo
-  //     var imagen = document.createElement('img'); // creo una imágen
-  //     imagen.id = this.elementosPelo.pelos[i].identificador;
-  //     console.log (i + ' ' + this.elementosPelo.pelos[i].identificador);
-  //    // return this.HayPelo;
-  //    // return this.PeloSeleccionado;
-
-  //     // Coloco la imágen sobre el bloque
-  //     // Adaptamos todas las imágenes al ancho del bloque,
-  //     // que serán 120 px
-
-  //     imagen.style.left = '100px';
-  //     imagen.style.top = 140 * i + 'px';
-
-  //     // La posición va a ser absoluta dentro del bloque
-
-  //     imagen.style.position =  'absolute';
-  //     imagen.style.zIndex = '1';
-
-  //     // Coloco el nombre del fichero en el que está la imágen
-
-  //     imagen.src = this.elementosPelo.pelos[i].fichero;
-
-  //     imagen.onclick =  (function (elemento, i, estado) {
-
-  //       return function() {
-  //         console.log ('Elemento ' + elemento);
-  //         this.datosService.Enviarid(elemento);
-  //         console.log('Id ' + i);
-  //         console.log('Estado ' + estado);
-  //         // console.log('¿Tenemos pelo? ' + true);
-
-  //         if (estado) {
-  //           // Si la imágen ya estaba seleccionada cuando se clica sobre ella,
-  //           // hay que quitarle el recuadro de selección
-  //           document.getElementById(elemento).style.backgroundColor = 'white';
-  //           this.HayPelo = false;
-  //           this.PeloSeleccionado = null;
-  //           estado = false;
-  //           this.datosService.Enviarid(this.PeloSeleccionado);
-
-  //           console.log('¿Tenemos pelo? ' + this.HayPelo);
-  //           console.log('Mi pelo es ' + this.PeloSeleccionado);
-
-  //         } else {
-
-  //           document.getElementById(elemento).style.backgroundColor = 'green';
-  //           this.HayPelo = true;
-  //           estado = true;
-  //           this.PeloSeleccionado = elemento;
-
-  //           console.log(elemento);
-  //           console.log('¿Tenemos pelo? ' + this.HayPelo);
-  //           console.log('Mi pelo es ' + this.PeloSeleccionado);
-
-  //         }
-
-  //       };
-
-  //     })(this.elementosPelo.pelos[i].identificador, i, this.estadoPelo[i]);
-
-
-  //     // coloco la imágen en el bloque de elementos
-
-  //     document.getElementById('elementosPelo').appendChild(imagen);
-  //     // console.log('Se ha guardado este pelo:' + this.PeloSeleccionado);
-
-  //   }
-
-  //   console.log('Se ha guardado este pelo:' + this.PeloSeleccionado);
-  // }
-
-
-
-  // DatosSeleccionados(tipopelo, status) {
-  //   this.HayPelo = status;
-  //   this.PeloSeleccionado = tipopelo;
-  // }
 
   GuardaValor(direccion: any) {
     var x = document.getElementById(direccion).getAttribute('checked');
@@ -165,7 +80,20 @@ export class PeloPage implements OnInit {
 
   }
 
+  GuardaPelo() {
+    this.dbService.PonPelo(this.persona, this.val).subscribe();
+  }
+
+  // handleButtonClick() {
+  //   console.log('hi');
+  //   this.controller.create({
+  //     message: 'Please wait...',
+  //     duration: 3
+  //   }).then(loading => loading.present());
+  // }
+
   IrAHome() {
+
     this.router.navigate(['/home']);
   }
 

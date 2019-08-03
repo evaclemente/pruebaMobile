@@ -4,6 +4,7 @@
       Mi avatar
     </ion-title>
     <ion-back-button defaultHref="Alumno" (click)="IrAAlumno();"></ion-back-button>
+    <ion-button slot="end">Guardar</ion-button>
   </ion-toolbar>
 
   
@@ -19,22 +20,13 @@
     <div id="items">
       <ion-item>
         <ion-card>
-          <img src="URLPelo" />
-          <ion-card-header>
-            <ion-card-title>Peinado</ion-card-title>
-          </ion-card-header>
+          <img src="{{URLPelo}}"/>
         </ion-card>
         <ion-card>
-          <img src="URLOjos" />
-          <ion-card-header>
-            <ion-card-title>Ojos</ion-card-title>
-          </ion-card-header>
+          <img src="{{URLOjos}}"/>
         </ion-card>
         <ion-card>
-          <img src="URLOjos" />
-          <ion-card-header>
-            <ion-card-title>Complemento</ion-card-title>
-          </ion-card-header>
+          <img src="{{URLOjos}}"/>
         </ion-card>
       </ion-item>
 
@@ -50,17 +42,17 @@
 
   <div id="botones">
 
-    <ion-button color="tertiary" (click)="IrAOjos();" expand="block">
+    <ion-button id="P2"color="tertiary" (click)="IrAOjos();" expand="block">
       OJOS
       <ion-icon id="ojos" name="eye"></ion-icon>
     </ion-button>
     
-    <ion-button color="tertiary" (click)="IrAPelos();" expand="block" >
+    <ion-button id="P1" color="tertiary" (click)="IrAPelos();" expand="block" >
       PEINADOS
       <ion-icon id="ojos" name="cut" ></ion-icon>
     </ion-button>
     
-    <ion-button color="tertiary" expand="block">
+    <ion-button id="P3" color="tertiary" expand="block">
       COMPLEMENTOS
       <ion-icon id="gafas" name="glasses"></ion-icon>
     </ion-button>
