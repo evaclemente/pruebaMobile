@@ -136,8 +136,6 @@ export class HomePage {
 
     var x = document.getElementById('P3');
 
-    // var p3 = ;
-
     if (this.matri.complemento === true) {
       document.getElementById('P3').setAttribute('disabled', 'false');
     } else {
@@ -184,7 +182,6 @@ export class HomePage {
 
     const reader = new FileReader();
     reader.addEventListener('load', () => {
-      // console.log('No sé si entra');
      url = reader.result.toString();
      console.log(url);
     }, false);
@@ -194,7 +191,6 @@ export class HomePage {
     }
   }
 
-  
 
 
 }

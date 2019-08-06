@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>info</ion-title>
+    <ion-back-button (click)="IrAAsignaturas();"></ion-back-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div id="infogeneral">
+    <ion-item>
+      ID asignatura: {{clase.id}}
+    </ion-item>
+    <ion-item>
+      Profesor: {{clase.admin}}
+    </ion-item>
+    <ion-item>
+      Juego avatares: {{clase.avatares}}
+    </ion-item>
+  </div>
+  <div id="avatar">
+    <ion-label>Mi avatar para {{clase.id}}</ion-label>
+
+    <img id="cabeza" src="assets/img/cabeza.png"/>
+  </div>
+
+</ion-content>

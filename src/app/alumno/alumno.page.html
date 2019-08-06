@@ -1,7 +1,7 @@
 
 <ion-header>
  <ion-toolbar>
-    <ion-title>¡Hola {{alumno.nombre}}! </ion-title>
+    <ion-title>¡Hola {{nombre}}! </ion-title>
     <ion-button slot="end" color= "danger" (click)="IrALogin();"><ion-icon name="power"></ion-icon></ion-button>
   </ion-toolbar>
                       
@@ -11,11 +11,6 @@
 
   <ion-button color= "warning" expand = "block" (click)="IrAMiPerfil();">
     Mi perfil
-  </ion-button>
-         
-         
-  <ion-button color= "warning" expand = "block" (click)="IrAHome();">
-    Mis clases
   </ion-button>
 
   <ion-button color= "warning" expand = "block" (click)="IrAAsignaturas();">

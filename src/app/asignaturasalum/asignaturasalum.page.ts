@@ -80,6 +80,16 @@ export class AsignaturasalumPage implements OnInit {
     this.router.navigate(['/home']);
   }
 
+  IrAAlumno() {
+    this.router.navigate(['/alumno']);
+  }
+
+  IrAInfo(idAsignatura: string) {
+    this.dbService.SetNombrePersona(this.nombre);
+    this.dbService.SetIdClase(idAsignatura);
+    this.router.navigate(['/info']);
+  }
+
 
 
 }

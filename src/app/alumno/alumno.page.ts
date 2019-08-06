@@ -41,9 +41,6 @@ export class AlumnoPage implements OnInit {
 
   }
 
-  IrAHome() {
-    this.router.navigate(['/home']);
-  }
 
   IrAAsignaturas() {
     this.router.navigate(['/asignaturasalum']);

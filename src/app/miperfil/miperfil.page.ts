@@ -26,24 +26,10 @@ export class MiperfilPage implements OnInit {
   ngOnInit() {
 
     this.nombre = this.datosService.DameNombre();
-
-    if (this.nombre === undefined) {
-      // this.usuario = new Persona ('Miguel', 'MMM' , 'Profesor', false, false, false, false);
-      console.log('No he recibido el nombre del usuario');
-    } else {
-      console.log('Ya tengo nombre: ' + this.nombre);
-    }
-
-
-    if (this.usuario === undefined) {
-
-     this.dbService.DamePersona(this.nombre)
+    this.dbService.DamePersona(this.nombre)
       .subscribe(usuario => {console.log('Este es el nombre: ' + usuario.nombre);
                              this.usuario = usuario;
                              console.log(usuario); });
-    } else {
-      console.log('Ya tengo usuario: ' + this.usuario);
-    }
 
 
   }

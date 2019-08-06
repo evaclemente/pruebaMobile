@@ -17,7 +17,8 @@ const routes: Routes = [
   { path: 'avatares', loadChildren: './avatares/avatares.module#AvataresPageModule' },
   { path: 'listaavatares', loadChildren: './listaavatares/listaavatares.module#ListaavataresPageModule' },
   { path: 'asignaturasalum', loadChildren: './asignaturasalum/asignaturasalum.module#AsignaturasalumPageModule' },
-  { path: 'complementos', loadChildren: './complementos/complementos.module#ComplementosPageModule' }
+  { path: 'complementos', loadChildren: './complementos/complementos.module#ComplementosPageModule' },
+  { path: 'info', loadChildren: './info/info.module#InfoPageModule' }
 
 
 

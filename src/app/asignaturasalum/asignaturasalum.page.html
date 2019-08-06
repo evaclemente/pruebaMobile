@@ -1,6 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>asignaturasalum</ion-title>
+    <ion-back-button defaultHref="Alumno" (click)="IrAAlumno();"></ion-back-button>
   </ion-toolbar>
 </ion-header>
 
@@ -15,7 +16,7 @@
         </ion-button>
         <div class ="panel" id="{{Matricula.idAsignatura}}">
           <ion-item lines="inset">
-            <ion-button fill="clear">Información</ion-button>
+            <ion-button fill="clear" (click) = "IrAInfo(Matricula.idAsignatura)">Información</ion-button>
           </ion-item>
           <ion-item lines="inset">
             <ion-button fill="clear" id="Juego{{Matricula.idAsignatura}}" (click)="IrAAvatares(Matricula.idAsignatura)">Juego de avatares</ion-button>
