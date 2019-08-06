@@ -1,10 +1,10 @@
 export class Imagen {
 
     nombre: string;
-    contenedor: string;
+    direc: string;
 
-    constructor(nombre: string, contenedor: string) {
+    constructor(nombre: string, direc: any) {
       this.nombre = nombre;
-      this.contenedor = contenedor;
+      this.direc = direc;
     }
 }

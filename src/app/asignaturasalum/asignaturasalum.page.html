@@ -10,15 +10,15 @@
     <ion-list-header>Mis asignaturas</ion-list-header>
     <div>
       <a *ngFor="let Matricula of lista">
-        <ion-button>
+        <ion-button expand="block" (click)= "myFunction(Matricula.idAsignatura); JuegoAvatares(Matricula.idAsignatura);">
           {{Matricula.idAsignatura}}
         </ion-button>
-        <div id="{{Matricula.idAsignatura}}">
-          <ion-item>
-            <ion-button>Información</ion-button>
+        <div class ="panel" id="{{Matricula.idAsignatura}}">
+          <ion-item lines="inset">
+            <ion-button fill="clear">Información</ion-button>
           </ion-item>
-          <ion-item>
-            <ion-button>Juego de avatares</ion-button>
+          <ion-item lines="inset">
+            <ion-button fill="clear" id="Juego{{Matricula.idAsignatura}}" (click)="IrAAvatares(Matricula.idAsignatura)">Juego de avatares</ion-button>
           </ion-item>
         </div>
 

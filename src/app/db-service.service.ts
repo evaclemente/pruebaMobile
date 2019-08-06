@@ -8,6 +8,7 @@ import { Imagen } from './Imagen';
 import { Container } from './Container';
 import { Img } from './Img';
 import { Http, ResponseContentType, RequestOptions, Response, Headers } from '@angular/http';
+import { Matricula } from './Matricula';
 // Las librerías importadas son para poder realizar operaciones Http
 
 @Injectable({
@@ -23,12 +24,14 @@ export class DbServiceService {
   imagenesComplementos: Img[] = new Array();
   idclase: string;
   NPersona: string;
+  matricula: Matricula;
 
   // Declaro como string la URL de la BDD a la que me quiero conectar
   private APIUrl = 'http://localhost:3000/api/Personas';
   private APIClases = 'http://localhost:3000/api/Clases';
   private APIFotos = 'http://localhost:3000/api/imagenes';
-  
+  private APIMatriculas = 'http://localhost:3000/api/matriculas?filter[where][idAlumno]=';
+
 
   // Inserto en el constructor el servicio Http para poder hacer las operaciones necesarias
   constructor(private http: HttpClient,
@@ -52,6 +55,13 @@ export class DbServiceService {
 
   }
 
+  DameMatriculaAlumno(idAsignatura: string) {
+
+    console.log( idAsignatura );
+
+    return this.http.get<Matricula[]>('http://localhost:3000/api/matriculas?filter[where][idAsignatura]=' + idAsignatura);
+
+  }
 
 
   Eliminar(nombre: string): Observable<any> {
@@ -72,6 +82,10 @@ export class DbServiceService {
     this.NPersona = npersona;
   }
 
+  SetMatricula(matri: Matricula) {
+    this.matricula = matri;
+  }
+
 
   ReturnNombrePersona() {
     return this.NPersona;
@@ -80,6 +94,11 @@ export class DbServiceService {
   ReturnIdClase() {
     return this.idclase;
   }
+
+  ReturnMatri() {
+    return this.matricula;
+  }
+
 
   DameClase(idclase: string): Observable<Clase> {
     this.idclase = idclase;
@@ -91,18 +110,14 @@ export class DbServiceService {
     return this.http.get<Clase[]>(this.APIClases);
   }
 
-  PonPelo(persona: Persona, elementop: any) {
-    persona.URLpelo = elementop;
-    return this.http.put<any>(this.APIUrl + '/' + persona.nombre, persona);
 
-  }
-
-  ColocoPelo(persona: Persona) {
+  ColocoPelo(elementoP: string) {
 
 
-    if (persona.URLpelo === undefined) {
+    if (elementoP === undefined || elementoP === '') {
       console.log('No has seleccionado ningún pelo');
     } else {
+      console.log('Entro a colocar');
 
       var imagen = document.createElement('img');
 
@@ -110,23 +125,18 @@ export class DbServiceService {
       imagen.style.zIndex = '1';
       imagen.style.left = '0px';
       imagen.style.top = '0px';
-      imagen.src = persona.URLpelo;
+      imagen.src = elementoP;
       document.getElementById('avatar').appendChild(imagen);
     }
 
 
   }
 
-  PonOjos(persona: Persona, elementoo: any) {
-    persona.URLojos = elementoo;
-    return this.http.put<any>(this.APIUrl + '/' + persona.nombre, persona);
 
-  }
-
-  ColocoOjos(persona: Persona) {
+  ColocoOjos(elementoO: string) {
 
 
-    if (persona.URLojos === undefined) {
+    if (elementoO === undefined || elementoO === '' ) {
       console.log('No has seleccionado ningún pelo');
     } else {
 
@@ -136,23 +146,18 @@ export class DbServiceService {
       imagen.style.zIndex = '1';
       imagen.style.left = '0px';
       imagen.style.top = '0px';
-      imagen.src = persona.URLojos;
+      imagen.src = elementoO;
       document.getElementById('avatar').appendChild(imagen);
     }
 
 
   }
 
-  PonComp(persona: Persona, elementoc: any) {
-    persona.URLcomplemento = elementoc;
-    return this.http.put<any>(this.APIUrl + '/' + persona.nombre, persona);
 
-  }
-
-  ColocoComp(persona: Persona) {
+  ColocoComp(elementoC) {
 
 
-    if (persona.URLojos === undefined) {
+    if (elementoC === undefined || elementoC === '' ) {
       console.log('No has seleccionado ningún pelo');
     } else {
 
@@ -162,7 +167,7 @@ export class DbServiceService {
       imagen.style.zIndex = '1';
       imagen.style.left = '0px';
       imagen.style.top = '0px';
-      imagen.src = persona.URLcomplemento;
+      imagen.src = elementoC;
       document.getElementById('avatar').appendChild(imagen);
     }
 
@@ -190,12 +195,6 @@ export class DbServiceService {
     return this.http.put<any>(this.APIUrl + '/' + alumno.nombre, alumno);
   }
 
-  PonDatosAvatar(alumno: Persona, Pelo: any, Ojos: any, Compl: any) {
-    alumno.URLpelo = Pelo;
-    alumno.URLojos = Ojos;
-    alumno.URLcomplemento = Compl;
-    return this.http.put<any>(this.APIUrl + '/' + alumno.nombre, alumno);
-  }
   // Añadir una persona a la BBDD es una operación post
   // requiere la URL y en este caso la persona que debemos añadir
 
@@ -217,16 +216,20 @@ export class DbServiceService {
     return this.http.get<any[]>(this.APIFotos);
   }
 
+
+
   DameFoto(idconte: string) {
     // this.VaciarArray();
     var i;
     this.http.get<any>(this.APIFotos + '/' + idconte + '/files')
     .subscribe( fotoscontainer => { console.log('Tengo los archivos del container: ' + fotoscontainer);
+                                    // this.nombreslogos = fotoscontainer;
                                     for (i = 0; i < fotoscontainer.length; i++) {
                                       console.log(fotoscontainer[i].name);
                                       this.http2.get(this.APIFotos + '/' + idconte + '/download/' + fotoscontainer[i].name,
                                       {responseType: ResponseContentType.Blob} )
-                                      .subscribe(response => {console.log(response);
+                                      .subscribe(response => {
+                                                              console.log(response);
                                                               this.CargarLogos(response, idconte); });
                                     }
                                     console.log('Ye he acabado');
@@ -234,7 +237,7 @@ export class DbServiceService {
   }
 
   DameLogosPelo() {
-
+    // console.log('Ya he rellenado el modelo');
     return this.imagenesPelos;
   }
 
@@ -255,6 +258,7 @@ export class DbServiceService {
     reader.addEventListener('load', () => {
 
       if (idconte === 'Pelos') {
+        // console.log('No sé si entra');
         this.imagenesPelos.push(reader.result.toString());
       }
 
@@ -274,6 +278,41 @@ export class DbServiceService {
       reader.readAsDataURL(blob);
     }
   }
+
+  // ElementoP(elementop: Imagen ) {
+  //   console.log('paso:' + elementop);
+  //   this.elementoP = elementop;
+  // }
+
+  // ElementoO(elementoo: Imagen ) {
+  //   this.elementoO = elementoo;
+  // }
+
+  // ElementoC(elementoc: Imagen ) {
+  //   this.elementoC = elementoc;
+  // }
+
+  GuardarPelo(matricula: Matricula, p1: string) {
+
+    matricula.URLpelo = p1;
+
+    return this.http.put<any>('http://localhost:3000/api/matriculas/' +  matricula.id, matricula);
+  }
+
+  GuardarOjos(matricula: Matricula, p2: string) {
+
+    matricula.URLojos = p2;
+
+    return this.http.put<any>('http://localhost:3000/api/matriculas/' +  matricula.id, matricula);
+  }
+
+  GuardarComp(matricula: Matricula, p3: string) {
+
+    matricula.URLcomplemento = p3;
+
+    return this.http.put<any>('http://localhost:3000/api/matriculas/' +  matricula.id, matricula);
+  }
+
 
 
 

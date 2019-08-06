@@ -40,28 +40,6 @@ export class LoginPage implements OnInit {
   ngOnInit() {
   }
 
-  Mostrar() {
-    this.dbService.dameTodos()
-    .subscribe(lista => {
-                          this.lista = lista;
-                          console.log ('Ya está aquí la lista');
-                          console.log (this.lista);
-                        }
-
-              );
-
-    console.log ('Ya me he suscrito');
-  }
-
-  // Comento este método aquí porque lo voy a usar realmente en el apartado de mis clases, que
-  // es desde donde va a poder el profesor ver los alumnos de cada clase
-  IrALista() {
-   console.log('Voy a Mostrar la lista');
-   this.router.navigate(['/lista']);
-  }
-
-
-
   Autentificar() {
     console.log(this.nombre);
     console.log(this.pass);

@@ -36,14 +36,7 @@ export class FormpersonaPage implements OnInit {
     console.log('Estoy añadiendo a: ' + this.nombre + this.pass + this.rol);
     this.dbService.PonPersona(new Persona(this.nombre,
                                           this.pass,
-                                          this.rol,
-                                          false,
-                                          false,
-                                          false,
-                                          false,
-                                          '',
-                                          '',
-                                          '')).subscribe(() => this.Mostrar());
+                                          this.rol)).subscribe(() => this.Mostrar());
   }
 
   VolverALista() {

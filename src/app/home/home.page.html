@@ -4,7 +4,6 @@
       Mi avatar
     </ion-title>
     <ion-back-button defaultHref="Alumno" (click)="IrAAlumno();"></ion-back-button>
-    <ion-button slot="end">Guardar</ion-button>
   </ion-toolbar>
 
   
@@ -18,18 +17,9 @@
   <body>
 
     <div id="items">
-      <ion-item>
-        <ion-card>
-          <img src="{{URLPelo}}"/>
-        </ion-card>
-        <ion-card>
-          <img src="{{URLOjos}}"/>
-        </ion-card>
-        <ion-card>
-          <img src="{{URLOjos}}"/>
-        </ion-card>
-      </ion-item>
-
+      
+      <ion-button id="P2"color="secondary" (click)="IrAOjos();" expand="block">PERMISOS</ion-button>
+      
     </div>
 
     <div id="avatar">

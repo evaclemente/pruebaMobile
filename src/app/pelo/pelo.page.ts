@@ -7,6 +7,9 @@ import { element } from '@angular/core/src/render3';
 import { Img } from '../Img';
 import { DbServiceService } from '../db-service.service';
 import { Persona } from '../Persona';
+import { Imagen } from '../Imagen';
+import { Http, ResponseContentType, RequestOptions, Response, Headers  } from '@angular/http';
+import { Matricula } from '../Matricula';
 
 @Component({
   selector: 'app-pelo',
@@ -17,16 +20,13 @@ export class PeloPage implements OnInit {
 
   // Declaro una variable que va a contener los elementos del pelo
 
-  elementosPelo: any;
-  val: any;
- // pelo: number = 0;
-  estadoPelo: boolean [];
-  PeloSeleccionado: any;
-  URLsPelos: Img = new Array();
-  persona: Persona;
 
- // tipo: string = 'pelos';
+  PeloSeleccionado: Imagen;
+  ModeloPelos: Imagen[] = new Array();
+  matricula: Matricula;
 
+  private APIFotos = 'http://localhost:3000/api/imagenes/Pelos';
+ 
   // Necesito usar el protocolo http para cargar el fichero,
   // así que en el contructor coloco un procedimiento http privado
 
@@ -34,68 +34,110 @@ export class PeloPage implements OnInit {
     private http: HttpClient,
     private datosService: DatosService,
     private router: Router,
-    private dbService: DbServiceService
+    private dbService: DbServiceService,
+    private http2: Http
               ) {
   }
 
   ngOnInit() {
-    console.log('Empiezo a cargar elementos');
-    // Leo primero el fichero que contiene todos los elementos
 
-    this.dbService.DameFoto('Pelos');
-    this. URLsPelos = this.dbService.DameLogosPelo();
-    this.dbService.DamePersona(this.dbService.ReturnNombrePersona()).subscribe( persona => { console.log(persona);
-                                                                                             this.persona = persona; });
+    // Me aseguro de que esté vacío el array de Imagenes antes de cargar la vista HTML
+    // porque como hay una función push que se dedica a añadir posiciones a la cola del array,
+    // puede que no esté vacío siempre
+    this.ModeloPelos = [];
+    console.log('Empiezo a cargar elementos');
+    // Lo primero que tengo que hacer es recuperar la matrícula
+    // que la tiene guardada el servicio de la Base de Datos
+    this.matricula = this.dbService.ReturnMatri();
+    // Cargo las fotos disponibles en la galería de peinados
+
+    this.http.get<any>(this.APIFotos + '/files')
+    .subscribe( fotoscontainer => { console.log(fotoscontainer);
+                                    var i;
+                                    for ( i = 0; i < fotoscontainer.length; i ++ ) {
+                                      this.RDameFoto(fotoscontainer[i].name);
+                                    }
+    });
+
   }
 
-  GuardaValor(direccion: any) {
-    var x = document.getElementById(direccion).getAttribute('checked');
+  GuardaValor(pelo: Imagen) {
+    var x = document.getElementById(pelo.nombre).getAttribute('checked');
+    // let y =  document.getElementsByClassName('panel2') as HTMLCollectionOf<Element>;
 
-    console.log('el atributo: ' + document.getElementById(direccion).getAttribute('checked'));
-    console.log( 'Valor que llega' + direccion);
+
+    console.log('el atributo: ' + document.getElementById(pelo.nombre).getAttribute('checked'));
+    console.log( 'Valor que llega' + pelo.nombre);
 
     if (x === 'false') {
+
       x = 'true';
-      document.getElementById(direccion).setAttribute('checked', 'true');
-      this.val = direccion;
-      console.log('Me he guardado esevalor: ' + this.val);
+      document.getElementById(pelo.nombre).setAttribute('checked', 'true');
+      this.PeloSeleccionado = pelo;
+      // y.filter( elemento => elemento.getElementById() !== nombre);
+      console.log('Me he guardado esevalor: ' + this.PeloSeleccionado);
     } else {
       x = 'false';
-      document.getElementById(direccion).setAttribute('checked', 'false');
-      this.val = undefined;
+      document.getElementById(pelo.nombre).setAttribute('checked', 'false');
+      this.PeloSeleccionado = undefined;
       console.log ('No hay archivo seleccionado');
     }
   }
 
-  PasarDatosPelo() {
+  RDameFoto(idfoto: string) {
 
-    if (this.val === undefined) {
+    this.http2.get(this.APIFotos + '/download/' + idfoto,
+    {responseType: ResponseContentType.Blob} )
+    .subscribe(response => {
+                             console.log(response);
+                             this.CargarLogos(response, idfoto);
+                            });
+    console.log('Ye he acabado');
+  }
 
-      console.log('No has seleccionado ningún pelo');
 
-    } else {
+  CargarLogos(response: Response, idfoto: string) {
 
-      this.datosService.SetElementoP(this.val);
+
+    const blob = new Blob([response.blob()], {type: 'image/jpg'});
+
+    const reader = new FileReader();
+    reader.addEventListener('load', () => {
+      // console.log('No sé si entra');
+     this.ModeloPelos.push({nombre: idfoto, direc: reader.result.toString()});
+     console.log(this.ModeloPelos);
+    }, false);
+
+    if (blob) {
+      reader.readAsDataURL(blob);
     }
-
   }
+  // PasarDatosPelo() {
 
-  GuardaPelo() {
-    this.dbService.PonPelo(this.persona, this.val).subscribe();
-  }
+  //   if (this.PeloSeleccionado === undefined) {
 
-  // handleButtonClick() {
-  //   console.log('hi');
-  //   this.controller.create({
-  //     message: 'Please wait...',
-  //     duration: 3
-  //   }).then(loading => loading.present());
+  //     console.log('No has seleccionado ningún pelo');
+
+  //   } else {
+
+  //     this.dbService.ElementoP(this.PeloSeleccionado);
+  //   }
+
   // }
 
-  IrAHome() {
+  // Voy a guardar el pelo en la Base de datos, así que necesito la matrícula
+  // para pasarla por parámetro a la función que está en dbService. Le paso también
+  // la Imagen, con su correspondiente nombre y dirección.
 
-    this.router.navigate(['/home']);
+  GuardarPelo() {
+
+    if (this.PeloSeleccionado !== undefined || this.PeloSeleccionado.nombre !== '') {
+      console.log('Guardando pelo');
+      this.dbService.GuardarPelo(this.matricula, this.PeloSeleccionado.nombre);
+      this.router.navigate(['/home']);
+    } else {
+      console.log('No has seleccionado ningún pelo');
+    }
   }
-
 
 }

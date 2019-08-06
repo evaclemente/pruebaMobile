@@ -36,52 +36,32 @@
 
     <h2>LISTA DE ALUMNOS</h2>
 
-  
-      <ion-item>
-       <ion-row>
 
-         <div><ion-col>Nombre</ion-col></div>
-         <div><ion-col>Contraseña</ion-col></div>
-        
-        </ion-row>
-      </ion-item>  
-
-      <ion-list *ngFor="let persona of lista">
-
-        
-          
-        <li *ngIf="persona.rol === 'Alumno'">
+      <ion-list *ngFor="let Matricula of lista">
 
           <ion-list>
             <ion-list-header>
-              {{persona.nombre}}
+              {{Matricula.idAlumno}}
             </ion-list-header>
           
-            <ion-item>
-              <ion-col class="col">{{persona.pass}}</ion-col>
-              
-            </ion-item>
             <div class="avataresActivos">
               <ion-item>
                 <ion-label>P1</ion-label>
-                <ion-checkbox checked={{persona.pelo}} id="P1{{persona.nombre}}"></ion-checkbox>
+                <ion-checkbox checked={{Matricula.pelo}} id="P1{{Matricula.idAlumno}}"></ion-checkbox>
               </ion-item>
               <ion-item>
                 <ion-label>P2</ion-label>
-                <ion-checkbox checked={{persona.ojos}} id="P2{{persona.nombre}}"></ion-checkbox>
+                <ion-checkbox checked={{Matricula.ojos}} id="P2{{Matricula.idAlumno}}"></ion-checkbox>
               </ion-item>
               <ion-item>
                 <ion-label>P3</ion-label>
-                <ion-checkbox checked={{persona.complemento}} id="P3{{persona.nombre}}"></ion-checkbox>
+                <ion-checkbox checked={{Matricula.complemento}} id="P3{{Matricula.idAlumno}}"></ion-checkbox>
               </ion-item>
   
             </div>
 
           </ion-list>  
-          
-
-        </li>
-            
+       
       </ion-list>
       
     

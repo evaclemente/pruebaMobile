@@ -1,20 +1,19 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Ojos</ion-title>
+    <ion-title>complementos</ion-title>
     <ion-back-button defaultHref="home"></ion-back-button>
-    <ion-button slot="end" (click)="GuardarOjos();">OK</ion-button>
+    <ion-button slot="end" (click)="GuardarComp();">OK</ion-button>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
   <body>
 
     <div id="elementosOjos">
     
     </div>
 
-    <div class="panel2" id="galeriaOjos">
+    <div class="panel2" id="galeriaComp">
             
       <li *ngFor="let Img of URLsOjos">
         <ion-item>
@@ -26,6 +25,5 @@
     </div>
     
     
-   </body>
-
+  </body>
 </ion-content>

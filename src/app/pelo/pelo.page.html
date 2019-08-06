@@ -2,7 +2,7 @@
   <ion-toolbar>
     <ion-title>Peinados</ion-title>
     <ion-back-button defaultHref="home"></ion-back-button>
-    <ion-button slot="end" (click)="GuardaPelo(); IrAHome();">OK</ion-button>
+    <ion-button slot="end" (click)="GuardaValor();">OK</ion-button>
     
   </ion-toolbar>
 </ion-header>
@@ -14,10 +14,11 @@
 
     <div class="panel2" id="galeriaPelos">
             
-        <li *ngFor="let Img of URLsPelos">
+        <li *ngFor="let Imagen of ModeloPelos">
           <ion-item>
-            <ion-img [src]="Img" style="width:45%"></ion-img>
-            <ion-checkbox checked="false" slot="end" id="{{Img}}" (ionChange)="GuardaValor(Img);"></ion-checkbox>
+            <ion-img [src]="Imagen.direc" style="width:45%"></ion-img>
+            <ion-checkbox checked="false" slot="end" id="{{Imagen.nombre}}" (ionChange)="GuardaValor(Imagen);"></ion-checkbox> 
+            
           </ion-item>  
         </li>
             

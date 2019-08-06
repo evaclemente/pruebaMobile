@@ -18,6 +18,7 @@ export class DatosService {
   elementoP: any;
   elementoO: any;
   elementoC: any;
+  idMatricula: number;
 
 
   // Creamos un método
@@ -43,6 +44,7 @@ export class DatosService {
     console.log('Estos son los datos de mi persona: ' + nombre);
     // this.objectSource.next(nombre);
   }
+
 
   SetElementoP(elemento: Img) {
     this.elementoP = elemento;

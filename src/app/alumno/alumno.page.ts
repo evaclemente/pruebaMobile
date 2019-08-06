@@ -56,12 +56,6 @@ export class AlumnoPage implements OnInit {
     this.router.navigate(['/login']);
   }
 
-  toggleMenu() {
-
-    this.menuCtrl.enable(true);
-    this.menuCtrl.toggle('menuAlumno');
-  }
-
 }
 
 

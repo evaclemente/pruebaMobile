@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import swal from 'sweetalert';
 import { Clase } from '../Clase';
+import { Matricula } from '../Matricula';
 
 @Component({
   selector: 'app-lista',
@@ -14,7 +15,7 @@ import { Clase } from '../Clase';
 })
 export class ListaPage implements OnInit {
 
-  lista: Persona[];
+  lista: Matricula[];
   nombre: string;
   pass: string;
   rol: string;
@@ -22,37 +23,50 @@ export class ListaPage implements OnInit {
   NombreEliminar: string;
   clase: Clase;
   idClase: string;
+  private APIMatriculas = 'http://localhost:3000/api/matriculas?filter[where][idAsignatura]=';
 
   constructor(private dbService: DbServiceService,
               private router: Router,
               private http: HttpClient) {
-    // this.lista = navParams.get('lista');
   }
 
   ngOnInit() {
+    this.DameListaMatriculas();
     this.dbService.DameClase(this.dbService.ReturnIdClase()).subscribe( clase => {  console.log('Mi clase: ' + clase.avatares);
                                                                                     this.clase = clase;
-                                                                                    this.AbrirDivAvatares();
+                                                                                    // this.AbrirDivAvatares();
                                                                                   });
-    this.dbService.dameTodos()
-    .subscribe(lista => {
-                         this.lista = lista;
-                         console.log('Ya está aquí la lista');
-                         console.log(this.lista);
-                        }
-              );
-    this.dbService.ReturnIdClase();
+
+
+
+    // this.dbService.dameTodos()
+    // .subscribe(lista => {
+    //                      this.lista = lista;
+    //                      console.log('Ya está aquí la lista');
+    //                      console.log(this.lista);
+    //                     }
+    //           );
+    //
     this.AbrirInput();
   }
 
   Mostrar() {
     console.log('Voy a pedir');
-    this.dbService.dameTodos()
-    .subscribe(lista => {
-                          this.lista = lista;
-                          console.log('Ya ha llegado');
-                          console.log(this.lista);
+    this.http.get<any[]>(this.APIMatriculas + this.dbService.ReturnIdClase())
+    .subscribe( lista => { console.log('Ya estan las matriculas:' + lista);
+                           this.lista = lista;
+                           console.log('Ya ha llegado');
+                           console.log(this.lista);
                         });
+  }
+
+  DameListaMatriculas() {
+    this.http.get<any[]>(this.APIMatriculas + this.dbService.ReturnIdClase())
+    .subscribe( lista => { console.log('Ya estan las matriculas:' + lista);
+                           this.lista = lista;
+
+                          });
+
   }
 
   Pon(persona: Persona) {
@@ -88,7 +102,7 @@ export class ListaPage implements OnInit {
 
     var list = document.getElementsByClassName('avataresActivos'); // HTMLElement;
     // let list as HTMLElement
-    
+
 
     console.log('Antes de clickar el estado es: ' + list);
 
@@ -97,7 +111,7 @@ export class ListaPage implements OnInit {
 
       // let list = <HTMLElement[]><any>document.querySelectorAll('li');
       // console.log('Ahora el estado es: ' + x.style.display);
-      
+
     } else {
       var n;
       for (n = 0; n < list.length; n ++) {

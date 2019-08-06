@@ -1,54 +1,51 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient} from '@angular/common/http';
-import { Router } from '@angular/router';
-import { DatosService } from '../datos.service';
+import { Http, ResponseContentType, RequestOptions, Response, Headers } from '@angular/http';
 import { DbServiceService } from '../db-service.service';
-import { Matricula } from '../Matricula';
+import { DatosService } from '../datos.service';
+import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 import { Imagen } from '../Imagen';
-import { Http, ResponseContentType, RequestOptions, Response, Headers  } from '@angular/http';
+import { Matricula } from '../Matricula';
+import { from } from 'rxjs';
 
 @Component({
-  selector: 'app-ojos',
-  templateUrl: './ojos.page.html',
-  styleUrls: ['./ojos.page.scss'],
+  selector: 'app-complementos',
+  templateUrl: './complementos.page.html',
+  styleUrls: ['./complementos.page.scss'],
 })
-export class OjosPage implements OnInit {
+export class ComplementosPage implements OnInit {
 
-  constructor(private http: HttpClient,
-              private router: Router,
-              private datosService: DatosService,
-              private dbService: DbServiceService,
-              private http2: Http) {
-
-  }
-
-  ModeloOjos: Imagen[] = new Array();
+  private APIComplementos = 'http://localhost:3000/api/imagenes/Complementos';
+  CompSeleccionado: Imagen;
+  ModeloComp: Imagen[] = new Array();
   matricula: Matricula;
-  OjosSeleccionados: Imagen;
-  // URLsOjos: Img = new Array();
-  Logos: string[];
-  val: any;
-  private APIFotos = 'http://localhost:3000/api/imagenes/Ojos';
+
+  constructor( private http: HttpClient,
+               private datosService: DatosService,
+               private router: Router,
+               private dbService: DbServiceService,
+               private http2: Http) { }
 
   ngOnInit() {
+
     // Me aseguro de que esté vacío el array de Imagenes antes de cargar la vista HTML
     // porque como hay una función push que se dedica a añadir posiciones a la cola del array,
     // puede que no esté vacío siempre
-    this.ModeloOjos = [];
+    this.ModeloComp = [];
+    console.log('Empiezo a cargar elementos');
     // Lo primero que tengo que hacer es recuperar la matrícula
     // que la tiene guardada el servicio de la Base de Datos
     this.matricula = this.dbService.ReturnMatri();
-    // Cargo las fotos disponibles en la galería de ojos
-    this.http.get<any>(this.APIFotos + '/files')
+    // Cargo las fotos disponibles en la galería de peinados
+
+    this.http.get<any>(this.APIComplementos + '/files')
     .subscribe( fotoscontainer => { console.log(fotoscontainer);
                                     var i;
                                     for ( i = 0; i < fotoscontainer.length; i ++ ) {
                                       this.RDameFoto(fotoscontainer[i].name);
                                     }
     });
-
   }
-
 
   GuardaValor(direccion: Imagen) {
     var x = document.getElementById(direccion.nombre).getAttribute('checked');
@@ -59,19 +56,19 @@ export class OjosPage implements OnInit {
     if (x === 'false') {
       x = 'true';
       document.getElementById(direccion.nombre).setAttribute('checked', 'true');
-      this.OjosSeleccionados = direccion;
-      console.log('Me he guardado esevalor: ' + this.OjosSeleccionados);
+      this.CompSeleccionado = direccion;
+      console.log('Me he guardado esevalor: ' + this.CompSeleccionado);
     } else {
       x = 'false';
       document.getElementById(direccion.nombre).setAttribute('checked', 'false');
-      this.OjosSeleccionados = undefined;
+      this.CompSeleccionado = undefined;
       console.log ('No hay archivo seleccionado');
     }
   }
 
   RDameFoto(idfoto: string) {
 
-    this.http2.get(this.APIFotos + '/download/' + idfoto,
+    this.http2.get(this.APIComplementos + '/download/' + idfoto,
     {responseType: ResponseContentType.Blob} )
     .subscribe(response => {
                              console.log(response);
@@ -89,8 +86,8 @@ export class OjosPage implements OnInit {
     const reader = new FileReader();
     reader.addEventListener('load', () => {
       // console.log('No sé si entra');
-     this.ModeloOjos.push({nombre: idfoto, direc: reader.result.toString()});
-     console.log(this.ModeloOjos);
+     this.ModeloComp.push({nombre: idfoto, direc: reader.result.toString()});
+     console.log(this.ModeloComp);
     }, false);
 
     if (blob) {
@@ -98,30 +95,15 @@ export class OjosPage implements OnInit {
     }
   }
 
-  GuardarOjos() {
+  GuardarComp() {
 
-    if (this.OjosSeleccionados !== undefined || this.OjosSeleccionados.nombre !== '') {
+    if (this.CompSeleccionado !== undefined || this.CompSeleccionado.nombre !== '') {
       console.log('Guardando ojos');
-      this.dbService.GuardarOjos(this.matricula, this.OjosSeleccionados.nombre);
+      this.dbService.GuardarComp(this.matricula, this.CompSeleccionado.nombre);
       this.router.navigate(['/home']);
     } else {
       console.log('No has seleccionado ningunos ojos');
     }
   }
-
-  // PasarDatosOjos() {
-
-  //   if (this.OjosSeleccionados === undefined) {
-
-  //     console.log('No has seleccionado ningún pelo');
-
-  //   } else {
-  //     this.dbService.ElementoO(this.OjosSeleccionados);
-  //   }
-  // }
-
-  // IrAHome() {
-  //   this.router.navigate(['/home']);
-  // }
 
 }
