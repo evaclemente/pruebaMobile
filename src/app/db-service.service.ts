@@ -295,7 +295,23 @@ export class DbServiceService {
 
   }
 
-  Permisos(): Observable<any> {
-    return this.http.get<anyA(this.APIPermisos + '/files');
+  MuestraFicheros(): Observable<Container[]> {
+    return this.http.get<Container[]>(this.APIPermisos + '/files');
   }
+
+  GuardaFicheroPermiso1(clase: Clase, archivo: string): Observable<any>{
+    clase.p1 = archivo;
+    return this.http.put<any>(this.APIClases + '/' + clase.id, clase);
+  }
+
+  GuardaFicheroPermiso2(clase: Clase, archivo: string): Observable<any>{
+    clase.p2 = archivo;
+    return this.http.put<any>(this.APIClases + '/' + clase.id, clase);
+  }
+
+  GuardaFicheroPermiso3(clase: Clase, archivo: string): Observable<any>{
+    clase.p3 = archivo;
+    return this.http.put<any>(this.APIClases + '/' + clase.id, clase);
+  }
+
 }

@@ -1,40 +1,94 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Permisos {{Clase.id}}</ion-title>
+    <ion-title>Permisos {{idClase}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-item>
 
-    <ion-title>Permiso Peinado</ion-title>
-    <div id={{Clase.p1}}>
+  <ion-list>
+    <ion-list-header>Permiso Peinado</ion-list-header>
+    <ion-item>
 
-    </div>
-
-  </ion-item>
-
-  <ion-item>
-
-    <ion-title>Permiso Ojos</ion-title>
-    <div id={{Clase.p2}}>
-
-    </div>
-
-  </ion-item>
-
-  <ion-item>
-
-    <ion-title>Permiso Complementos</ion-title>
-    <div id={{Clase.p3}}>
+      <ion-label>Escoge permiso</ion-label>
+        
+      <ion-select [(ngModel)]="p1">
   
+        <a *ngFor="let Container of ficherospermisos">
+              
+          <ion-select-option value="{{Container.name}}">{{Container.name}}</ion-select-option>
+            
+        </a>  
+              
+      </ion-select>
+    
+    </ion-item>
+    <ion-item>
+      <ion-button (click)="GuardarPermiso1();" expand="block">Guardar</ion-button>
+    </ion-item>
+    <div id={{Clase.p1}}>
+      {{PermisoPelo}}
     </div>
+  </ion-list>
 
-  </ion-item>
+  <ion-list>
+    <ion-list-header>Permiso Ojos</ion-list-header>
+    <ion-item>
+
+      <ion-label>Escoge permiso</ion-label>
+        
+      <ion-select [(ngModel)]="p2">
+
+        <a *ngFor="let Container of ficherospermisos">
+            
+          <ion-select-option value="{{Container.name}}">{{Container.name}}</ion-select-option>
+        
+          
+        </a>  
+            
+      </ion-select>
+      
+      
+      <div id={{Clase.p2}}>
+      
+      </div>
+      
+    </ion-item>
+    <ion-item>
+      <ion-button (click)="GuardarPermiso2();" expand="block">Guardar</ion-button>
+    </ion-item>
+  </ion-list>
+
+  <ion-list>
+    <ion-list-header>Permiso Complementos</ion-list-header>
+    <ion-item>
+
+      <ion-label>Escoge permiso</ion-label>
+        
+      <ion-select [(ngModel)]="p3">
+  
+        <a *ngFor="let Container of ficherospermisos">
+              
+          <ion-select-option value="{{Container.name}}">{{Container.name}}</ion-select-option>
+         
+        </a>  
+              
+      </ion-select>
+      
+     <div id={{Clase.p3}}>
+        
+     </div>
+        
+    </ion-item>
+    <ion-item>
+      <ion-button (click)="GuardarPermiso3();" expand="block">Guardar</ion-button>
+    </ion-item>
+  </ion-list>
 
   <div>
-    <input #file id="inp" type="file" accept='txt/*' style="display:none">
-    <ion-button (click)="ActivarInput(); CargaDeArchivos('Pelos');" expand="block"></ion-button>
+    <input #file id="inp" type="file" accept='txt/*' (change)="Mostrar($event);" style="display:none">
+    <ion-button (click)="ActivarInput();" expand="block">Subir Permisos</ion-button>
+    <ion-button (click)="CargaDeArchivos();">Carga</ion-button>
   </div>
 
 </ion-content>
