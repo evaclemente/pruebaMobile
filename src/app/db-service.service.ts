@@ -30,7 +30,8 @@ export class DbServiceService {
   private APIUrl = 'http://localhost:3000/api/Personas';
   private APIClases = 'http://localhost:3000/api/Clases';
   private APIFotos = 'http://localhost:3000/api/imagenes';
-  private APIMatriculas = 'http://localhost:3000/api/matriculas?filter[where][idAlumno]=';
+  // private APIMatriculas = 'http://localhost:3000/api/matriculas?filter[where][idAlumno]=';
+  APIPermisos = 'http://localhost:3000/api/permisos/ArchivosTexto';
 
 
   // Inserto en el constructor el servicio Http para poder hacer las operaciones necesarias
@@ -63,9 +64,24 @@ export class DbServiceService {
 
   }
 
+  PonMatricula(matricula: Matricula ): Observable<any> {
+
+    return this.http.post<any>('http://localhost:3000/api/matriculas', matricula);
+  }
+
+  CuentaMatriculas(): Observable<any> {
+    return this.http.get<any>('http://localhost:3000/api/matriculas/count');
+  }
+
 
   Eliminar(nombre: string): Observable<any> {
     return this.http.delete<any>(this.APIUrl + '/' + nombre);
+  }
+
+  EliminarMatricula(matricula: Matricula): Observable<any> {
+    console.log('Voy a eliminar la matrícula de: ' + matricula.idAlumno);
+    console.log('El id que elimino es: ' + matricula.id);
+    return this.http.delete<any>('http://localhost:3000/api/matriculas/' + matricula.id);
   }
 
   DamePersona(nombre: string): Observable<Persona> {
@@ -113,7 +129,7 @@ export class DbServiceService {
 
   ColocoPelo(elementoP: string) {
 
-
+    console.log('Me llega un: ' + elementoP);
     if (elementoP === undefined || elementoP === '') {
       console.log('No has seleccionado ningún pelo');
     } else {
@@ -126,48 +142,6 @@ export class DbServiceService {
       imagen.style.left = '0px';
       imagen.style.top = '0px';
       imagen.src = elementoP;
-      document.getElementById('avatar').appendChild(imagen);
-    }
-
-
-  }
-
-
-  ColocoOjos(elementoO: string) {
-
-
-    if (elementoO === undefined || elementoO === '' ) {
-      console.log('No has seleccionado ningún pelo');
-    } else {
-
-      var imagen = document.createElement('img');
-
-      imagen.style.position = 'absolute';
-      imagen.style.zIndex = '1';
-      imagen.style.left = '0px';
-      imagen.style.top = '0px';
-      imagen.src = elementoO;
-      document.getElementById('avatar').appendChild(imagen);
-    }
-
-
-  }
-
-
-  ColocoComp(elementoC) {
-
-
-    if (elementoC === undefined || elementoC === '' ) {
-      console.log('No has seleccionado ningún pelo');
-    } else {
-
-      var imagen = document.createElement('img');
-
-      imagen.style.position = 'absolute';
-      imagen.style.zIndex = '1';
-      imagen.style.left = '0px';
-      imagen.style.top = '0px';
-      imagen.src = elementoC;
       document.getElementById('avatar').appendChild(imagen);
     }
 
@@ -279,41 +253,49 @@ export class DbServiceService {
     }
   }
 
-  // ElementoP(elementop: Imagen ) {
-  //   console.log('paso:' + elementop);
-  //   this.elementoP = elementop;
-  // }
+  GuardarPelo(matricula: Matricula, p1: string): Observable<Matricula> {
 
-  // ElementoO(elementoo: Imagen ) {
-  //   this.elementoO = elementoo;
-  // }
-
-  // ElementoC(elementoc: Imagen ) {
-  //   this.elementoC = elementoc;
-  // }
-
-  GuardarPelo(matricula: Matricula, p1: string) {
-
+    console.log(p1);
     matricula.URLpelo = p1;
+    console.log('He llegado al servicio');
+    console.log('http://localhost:3000/api/matriculas/' +  matricula.id);
 
     return this.http.put<any>('http://localhost:3000/api/matriculas/' +  matricula.id, matricula);
   }
 
-  GuardarOjos(matricula: Matricula, p2: string) {
+  GuardarOjos(matricula: Matricula, p2: string): Observable<Matricula> {
 
     matricula.URLojos = p2;
 
     return this.http.put<any>('http://localhost:3000/api/matriculas/' +  matricula.id, matricula);
   }
 
-  GuardarComp(matricula: Matricula, p3: string) {
+  GuardarComp(matricula: Matricula, p3: string): Observable<Matricula> {
 
     matricula.URLcomplemento = p3;
-
     return this.http.put<any>('http://localhost:3000/api/matriculas/' +  matricula.id, matricula);
   }
 
+  GuardarP1(matricula: Matricula, valorp1: boolean): Observable<Matricula> {
+    matricula.pelo = valorp1;
+    return this.http.put<any>('http://localhost:3000/api/matriculas/' +  matricula.id, matricula);
+  }
 
+  GuardarP2(matricula: Matricula, valorp2: any): Observable<Matricula> {
 
+    matricula.ojos = valorp2;
+    return this.http.put<any>('http://localhost:3000/api/matriculas/' +  matricula.id, matricula);
 
+  }
+
+  GuardarP3(matricula: Matricula, valorp3: any): Observable<Matricula> {
+
+    matricula.complemento = valorp3;
+    return this.http.put<any>('http://localhost:3000/api/matriculas/' +  matricula.id, matricula);
+
+  }
+
+  Permisos(): Observable<any> {
+    return this.http.get<anyA(this.APIPermisos + '/files');
+  }
 }

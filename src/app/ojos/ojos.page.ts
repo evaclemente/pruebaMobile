@@ -88,7 +88,7 @@ export class OjosPage implements OnInit {
 
     const reader = new FileReader();
     reader.addEventListener('load', () => {
-      // console.log('No sé si entra');
+     console.log('No sé si entra');
      this.ModeloOjos.push({nombre: idfoto, direc: reader.result.toString()});
      console.log(this.ModeloOjos);
     }, false);
@@ -102,7 +102,7 @@ export class OjosPage implements OnInit {
 
     if (this.OjosSeleccionados !== undefined || this.OjosSeleccionados.nombre !== '') {
       console.log('Guardando ojos');
-      this.dbService.GuardarOjos(this.matricula, this.OjosSeleccionados.nombre);
+      this.dbService.GuardarOjos(this.matricula, this.OjosSeleccionados.nombre).subscribe();
       this.router.navigate(['/home']);
     } else {
       console.log('No has seleccionado ningunos ojos');

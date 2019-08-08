@@ -16,10 +16,10 @@
 
     <div class="panel2" id="galeriaOjos">
             
-      <li *ngFor="let Img of URLsOjos">
+      <li *ngFor="let Imagen of ModeloOjos">
         <ion-item>
-          <ion-img [src]="Img" style="width:45%"></ion-img>
-          <ion-checkbox checked="false" slot="end" id="{{Img}}" (ionChange)="GuardaValor(Img);"></ion-checkbox>
+          <ion-img [src]="Imagen.direc" style="width:45%"></ion-img>
+          <ion-checkbox checked="false" slot="end" id="{{Imagen.nombre}}" (ionChange)="GuardaValor(Imagen);"></ion-checkbox>
         </ion-item>  
       </li>
           

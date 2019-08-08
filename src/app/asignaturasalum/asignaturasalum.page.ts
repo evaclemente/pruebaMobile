@@ -76,6 +76,7 @@ export class AsignaturasalumPage implements OnInit {
   }
 
   IrAAvatares(idAsignatura: string) {
+    this.dbService.SetNombrePersona(this.nombre);
     this.datosService.GuardaIDClase(idAsignatura);
     this.router.navigate(['/home']);
   }
@@ -85,6 +86,7 @@ export class AsignaturasalumPage implements OnInit {
   }
 
   IrAInfo(idAsignatura: string) {
+    console.log('Estoy cargando el id: ' + idAsignatura);
     this.dbService.SetNombrePersona(this.nombre);
     this.dbService.SetIdClase(idAsignatura);
     this.router.navigate(['/info']);

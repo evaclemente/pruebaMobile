@@ -18,7 +18,7 @@
 
     <div id="items">
       
-      <ion-button id="P2"color="secondary" (click)="IrAOjos();" expand="block">PERMISOS</ion-button>
+      <ion-button disabled=false color="secondary" (click)="IrAOjos();" expand="block">PERMISOS</ion-button>
       
     </div>
 
@@ -31,18 +31,18 @@
   </body>
 
   <div id="botones">
-
-    <ion-button id="P2"color="tertiary" (click)="IrAOjos();" expand="block">
-      OJOS
-      <ion-icon id="ojos" name="eye"></ion-icon>
-    </ion-button>
     
     <ion-button id="P1" color="tertiary" (click)="IrAPelos();" expand="block" >
       PEINADOS
       <ion-icon id="ojos" name="cut" ></ion-icon>
     </ion-button>
+
+    <ion-button id="P2" color="tertiary" (click)="IrAOjos();" expand="block">
+      OJOS
+      <ion-icon id="ojos" name="eye"></ion-icon>
+    </ion-button>
     
-    <ion-button id="P3" color="tertiary" expand="block">
+    <ion-button id="P3" color="tertiary" expand="block" click="IraComp();">
       COMPLEMENTOS
       <ion-icon id="gafas" name="glasses"></ion-icon>
     </ion-button>

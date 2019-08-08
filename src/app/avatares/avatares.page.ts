@@ -34,8 +34,10 @@ export class AvataresPage implements OnInit {
     console.log(this.estado);
   }
 
-  Activar() {
-
+  VerListaAvatares() {
+    console.log('Entra');
+    this.dbService.SetIdClase(this.idClase);
+    this.router.navigate(['/listaavatares']);
   }
 
   Mostrar() {

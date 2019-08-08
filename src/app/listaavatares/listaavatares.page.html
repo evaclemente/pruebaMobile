@@ -1,6 +1,7 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>listaavatares</ion-title>
+    <ion-title>Lista Avatares {{idClase}}</ion-title>
+    <ion-back-button (click)="VolverJuego();"></ion-back-button>
   </ion-toolbar>
 </ion-header>
 
@@ -8,14 +9,26 @@
 
   <body>
 
-    <list *ngFor="let item of list">
+   
 
-    </list>
-    <div id="avatar">
 
-      <img id="cabeza" src="assets/img/cabeza.png"/>
-                  
-    </div>
+    <ion-list *ngFor="let Matricula of matriculas">
+
+      <ion-list-header>
+        {{Matricula.idAlumno}}
+      </ion-list-header>
+
+      <ion-item>
+        <div id="{{Matricula.idAlumno}}">
+
+          <img id="cabeza" src="assets/img/cabeza.png"/>
+                            
+        </div>
+      </ion-item>
+
+    </ion-list>
+
+    
   </body>
 
 </ion-content>

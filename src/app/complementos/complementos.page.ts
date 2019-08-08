@@ -99,7 +99,7 @@ export class ComplementosPage implements OnInit {
 
     if (this.CompSeleccionado !== undefined || this.CompSeleccionado.nombre !== '') {
       console.log('Guardando ojos');
-      this.dbService.GuardarComp(this.matricula, this.CompSeleccionado.nombre);
+      this.dbService.GuardarComp(this.matricula, this.CompSeleccionado.nombre).subscribe();
       this.router.navigate(['/home']);
     } else {
       console.log('No has seleccionado ningunos ojos');

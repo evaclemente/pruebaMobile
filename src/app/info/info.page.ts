@@ -15,7 +15,7 @@ import { Http, ResponseContentType, RequestOptions, Response, Headers } from '@a
   styleUrls: ['./info.page.scss'],
 })
 export class InfoPage implements OnInit {
-
+ // idClase: string;
   clase: Clase;
   idAlumno: string;
   matriculados: Matricula[];
@@ -35,14 +35,20 @@ export class InfoPage implements OnInit {
                private http2: Http) { }
 
   ngOnInit() {
-
+    this.idAlumno = this.dbService.ReturnNombrePersona();
     // Primero traigo la clase para poder mostrar sus datos
-    this.AvatarVisible();
+   // this.idClase = this.dbService.ReturnIdClase();
     this.dbService.DameClase(this.dbService.ReturnIdClase())
-    .subscribe( clase => { this.clase = clase;
+    .subscribe( clase => { console.log('He recibido la clase: ' + clase);
+                           this.clase = clase;
+                           this.AvatarVisible();
                            this.dbService.DameMatriculaAlumno(clase.id)
                                           .subscribe( lista => {this.matriculados = lista;
                                                                 this.matri = this.FiltroNombre();
+                                                                console.log(this.matri);
+                                                                this.DescargaFotoPelo();
+                                                                this.DescargaFotoOjos();
+                                                                this.DescargaFotoComp();
                                                                 });
                           });
 
@@ -59,7 +65,7 @@ export class InfoPage implements OnInit {
 
   FiltroNombre() {
     console.log('Entro a filtrar');
-    return this.matriculados.filter( matricula => matricula.idAsignatura === this.idAlumno)[0];
+    return this.matriculados.filter( matricula => matricula.idAlumno === this.idAlumno)[0];
   }
 
   AvatarVisible() {
@@ -87,7 +93,7 @@ export class InfoPage implements OnInit {
                                         {responseType: ResponseContentType.Blob} )
                                         .subscribe(response => {
                                                                 console.log(response);
-                                                                this.Descargaelementos(response, this.URLP); }); }
+                                                                this.Descargaelementos(response, this.matri.URLpelo); }); }
   }
 
   DescargaFotoOjos() {
@@ -96,7 +102,7 @@ export class InfoPage implements OnInit {
                                         {responseType: ResponseContentType.Blob} )
                                         .subscribe(response => {
                                                                 console.log(response);
-                                                                this.Descargaelementos(response, this.URLO); }); }
+                                                                this.Descargaelementos(response, this.matri.URLojos); }); }
   }
 
   DescargaFotoComp() {
@@ -105,7 +111,7 @@ export class InfoPage implements OnInit {
                                         {responseType: ResponseContentType.Blob} )
                                         .subscribe(response => {
                                                                 console.log(response);
-                                                                this.Descargaelementos(response, this.URLC); }); }
+                                                                this.Descargaelementos(response, this.matri.URLcomplemento); }); }
   }
 
   // Despues del inicio de la descarga, necesitamos convertir la respuesta de la anterior función a string
@@ -118,11 +124,14 @@ export class InfoPage implements OnInit {
     reader.addEventListener('load', () => {
      url = reader.result.toString();
      console.log(url);
+     this.dbService.ColocoPelo(url);
     }, false);
 
     if (blob) {
       reader.readAsDataURL(blob);
     }
+
+
   }
 
   IrAAsignaturas() {

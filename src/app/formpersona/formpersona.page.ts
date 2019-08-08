@@ -10,6 +10,8 @@ import { Content } from '@angular/compiler/src/render3/r3_ast';
 import { AlertController } from '@ionic/angular';
 import { ok } from 'assert';
 import { text } from '@angular/core/src/render3';
+import { Clase } from '../Clase';
+import { Matricula } from '../Matricula';
 
 
 @Component({
@@ -21,7 +23,12 @@ export class FormpersonaPage implements OnInit {
  lista: Persona[];
  nombre: string;
  pass: string;
- rol: any;
+ // rol: any;
+ idClase: string;
+ nuevoid: any;
+ matricula: Matricula;
+
+ // APIMatriculas = 'http://localhost:3000/api/matriculas/count';
 
 
   constructor(private router: Router,
@@ -30,16 +37,28 @@ export class FormpersonaPage implements OnInit {
               ) { }
 
   ngOnInit() {
+    this.idClase = this.dbService.ReturnIdClase();
+
   }
 
   Pon() {
-    console.log('Estoy añadiendo a: ' + this.nombre + this.pass + this.rol);
+    console.log('Estoy añadiendo a: ' + this.nombre + this.pass);
     this.dbService.PonPersona(new Persona(this.nombre,
                                           this.pass,
-                                          this.rol)).subscribe(() => this.Mostrar());
+                                          'Alumno')).subscribe(() => this.Mostrar());
+
+    this.dbService.CuentaMatriculas().subscribe( numero => {console.log(numero);
+                                                            this.nuevoid = numero ++ ;
+                                                            console.log(this.nuevoid);
+                                                            this.matricula = new Matricula(0, this.nuevoid, this.nombre
+                                                            , this.idClase, false, false, false, '', '', '');
+                                                            console.log(this.matricula);
+                                                            this.dbService.PonMatricula(this.matricula).subscribe();
+                                                          });
+
   }
 
-  VolverALista() {
+ VolverALista() {
     this.router.navigate(['/lista']);
   }
 
@@ -53,6 +72,7 @@ export class FormpersonaPage implements OnInit {
                           console.log(this.lista);
                         });
   }
+
 
   showAlert() {
     swal({

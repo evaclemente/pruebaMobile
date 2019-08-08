@@ -142,35 +142,10 @@ export class GaleriaPage implements OnInit {
   }
 
 
-
-  // DameLogos() {
-   // this.http
-  // }
-
   CargarFotosContenedor(idgaleria: string) {
 
     var i;
     console.log('El identificador es: ' + idgaleria);
-
-    // this.dbService.dameFotosContainer(idgaleria)
-    //                   .subscribe( Fotos => {console.log('Ya he cargado las fotos');
-    //                                         console.log ('Mira lo que hay: ' + Fotos);
-    //                                         for ( i = 0; i < Fotos.length; i++) {
-    //                                           // this.Mostrar(Event);
-
-    //                                         //   reader.readAsDataURL(this.file);
-    //                                         //   var imagen = document.createElement('img'); // creo una imágen
-    //                                         //   imagen.id = Fotos[i].name;
-    //                                         //   console.log('Esta es la foto: ' + imagen.id);
-    //                                         //   // imagen.style.left = '100px';
-    //                                         //  // imagen.style.top = 140 * i + 'px';
-    //                                         //   // imagen.style.position =  'absolute';
-    //                                            imagen.src = 'http://localhost:3000/api/imagenes' + idgaleria + '/files/' + Fotos[i].name;
-    //                                         //   console.log(imagen.src);
-    //                                         //   document.getElementById('galeria' + idgaleria).appendChild(imagen);
-    //                                         }
-    //                                         console.log('Ya lo he cargado todo');
-    //                                       });
 
     var x = document.getElementById('galeria' + idgaleria);
 
@@ -185,24 +160,5 @@ export class GaleriaPage implements OnInit {
     }
   }
 
-  // CargaLogo(response: Response) {
-
-  //   const blob = new Blob([response.blob()], {type: 'image/jpg'});
-  //   console.log(response);
-
-  //   const reader = new FileReader();
-  //   reader.addEventListener('load', () => {
-  //     this.imagenLogo = reader.result.toString();
-  //     console.log(this.imagenLogo);
-  //     this.URLs.push(this.imagenLogo);
-  //     console.log(this.URLs);
-  //   }, false);
-
-  //   if (blob) {
-  //     reader.readAsDataURL(blob);
-  //   }
-
-  //  // return imagenLogo;
-  // }
 
 }

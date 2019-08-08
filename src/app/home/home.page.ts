@@ -44,22 +44,20 @@ export class HomePage {
 
   // tslint:disable-next-line:use-life-cycle-interface
   ngOnInit() {
-    this.nombre = this.datosService.DameIDClase();
+    this.nombre = this.dbService.ReturnNombrePersona();
     this.dbService.DameMatriculaAlumno(this.datosService.DameIDClase())
     .subscribe( matricula => {console.log('Me ha llegado:' + matricula);
                               this.matriculados = matricula;
                               console.log(this.matriculados);
                               this.matri = this.DamePorNombre();
+                              console.log('Esta matricula es de: ' + this.matri.idAlumno);
                               // Una vez tenemos la matrícula podemos cargar los elementos de las fotos
                               this.DescargaFotoPelo();
                               this.DescargaFotoOjos();
                               this.DescargaFotoComp();
-                              this.PermisoOjos();
                               this.PermisoPelo();
+                              this.PermisoOjos();
                               this.PermisoComp();
-                              this.dbService.ColocoPelo(this.URLP);
-                              this.dbService.ColocoOjos(this.URLO);
-                              this.dbService.ColocoComp(this.URLC);
                              });
                             }
   IrAPelos() {
@@ -70,7 +68,7 @@ export class HomePage {
 
   DamePorNombre() {
     console.log('Entro a filtrar');
-    return this.matriculados.filter( matricula => matricula.idAsignatura === this.nombre)[0];
+    return this.matriculados.filter( matricula => matricula.idAlumno === this.nombre)[0];
   }
 
   IrALogin() {
@@ -93,7 +91,7 @@ export class HomePage {
   IrAComp() {
     this.dbService.SetMatricula(this.matri);
     console.log('Me voy a Alumno');
-    // this.router.navigate(['/complementos']);
+    this.router.navigate(['/complementos']);
   }
 
   // funciones de permiso, comprueban si el alumno matriculado en la asignatura tiene activados los permisos
@@ -110,24 +108,26 @@ export class HomePage {
 
     if (this.matri.pelo === true) {
       console.log('Estoy aquí');
-      document.getElementById('P1').setAttribute('disabled', 'false');
+      x.setAttribute('disabled', 'false');
     } else {
-      document.getElementById('P1').setAttribute('disabled', 'true');
+      x.setAttribute('disabled', 'true');
     }
 
   }
 
   PermisoOjos() {
 
+    console.log(this.matri.ojos);
     var x = document.getElementById('P2');
 
-    console.log(this.matri.ojos);
+    console.log('Elemento' + document.getElementById('P2'));
 
     if (this.matri.ojos === true) {
-      document.getElementById('P2').setAttribute('disabled', 'false');
+      x.setAttribute('disabled', 'false');
     } else {
       console.log('Debería entrar aquí');
-      document.getElementById('P2').setAttribute('disabled', 'true');
+      x.setAttribute('disabled', 'true');
+      console.log(x);
     }
 
   }
@@ -137,9 +137,9 @@ export class HomePage {
     var x = document.getElementById('P3');
 
     if (this.matri.complemento === true) {
-      document.getElementById('P3').setAttribute('disabled', 'false');
+      x.setAttribute('disabled', 'false');
     } else {
-      document.getElementById('P3').setAttribute('disabled', 'true');
+      x.setAttribute('disabled', 'true');
     }
 
   }
@@ -148,42 +148,49 @@ export class HomePage {
   // correspondientes a cada contenedor (que tenemos 3, uno para cada elemento del avatar)
 
   DescargaFotoPelo() {
-    if (this.matri.URLpelo !== undefined || this.matri.URLpelo !== '') {
+    console.log(this.matri.URLpelo);
+    if (this.matri.URLpelo !== 'string' || this.matri.URLpelo.length !== 0) {
       this.http2.get(this.APIPelos + '/download/' + this.matri.URLpelo,
                                         {responseType: ResponseContentType.Blob} )
                                         .subscribe(response => {
                                                                 console.log(response);
-                                                                this.Descargaelementos(response, this.URLP); }); }
+                                                                this.Descargaelementos(response, this.matri.URLpelo); }); }
   }
 
   DescargaFotoOjos() {
-    if (this.matri.URLojos !== undefined || this.matri.URLojos !== '') {
+    console.log('Esto hay: ' + this.matri.URLojos);
+    if (this.matri.URLojos !== 'string' || this.matri.URLojos.length !== 0) {
       this.http2.get(this.APIOjos + '/download/' + this.matri.URLojos,
                                         {responseType: ResponseContentType.Blob} )
                                         .subscribe(response => {
                                                                 console.log(response);
-                                                                this.Descargaelementos(response, this.URLO); }); }
+                                                                this.Descargaelementos(response, this.matri.URLojos); }); }
   }
 
   DescargaFotoComp() {
-    if (this.matri.URLcomplemento !== undefined || this.matri.URLcomplemento !== '') {
+    console.log('Esto hay: ' + this.matri.URLcomplemento);
+    if (this.matri.URLcomplemento !== 'string' || this.matri.URLcomplemento.length !== 0) {
       this.http2.get(this.APIComplementos + '/download/' + this.matri.URLcomplemento,
                                         {responseType: ResponseContentType.Blob} )
                                         .subscribe(response => {
                                                                 console.log(response);
-                                                                this.Descargaelementos(response, this.URLC); }); }
+                                                                this.Descargaelementos(response, this.matri.URLcomplemento); }); }
   }
 
   // Despues del inicio de la descarga, necesitamos convertir la respuesta de la anterior función a string
   // para así poder añadir la src de la imagen y que podamos mostrarla en HTML
 
   Descargaelementos(response: Response, url: string) {
+    console.log(url);
+    // var ur;
     const blob = new Blob([response.blob()], {type: 'image/jpg'});
 
     const reader = new FileReader();
     reader.addEventListener('load', () => {
-     url = reader.result.toString();
-     console.log(url);
+      url = reader.result.toString();
+      console.log(url);
+     // this.URLP = ur;
+      this.dbService.ColocoPelo(url);
     }, false);
 
     if (blob) {

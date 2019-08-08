@@ -131,9 +131,12 @@ export class PeloPage implements OnInit {
 
   GuardarPelo() {
 
+    console.log(this.PeloSeleccionado.nombre);
+    console.log(this.matricula);
+
     if (this.PeloSeleccionado !== undefined || this.PeloSeleccionado.nombre !== '') {
       console.log('Guardando pelo');
-      this.dbService.GuardarPelo(this.matricula, this.PeloSeleccionado.nombre);
+      this.dbService.GuardarPelo(this.matricula, this.PeloSeleccionado.nombre).subscribe();
       this.router.navigate(['/home']);
     } else {
       console.log('No has seleccionado ningún pelo');
