@@ -19,7 +19,8 @@ const routes: Routes = [
   { path: 'asignaturasalum', loadChildren: './asignaturasalum/asignaturasalum.module#AsignaturasalumPageModule' },
   { path: 'complementos', loadChildren: './complementos/complementos.module#ComplementosPageModule' },
   { path: 'info', loadChildren: './info/info.module#InfoPageModule' },
-  { path: 'permisos', loadChildren: './permisos/permisos.module#PermisosPageModule' }
+  { path: 'permisos', loadChildren: './permisos/permisos.module#PermisosPageModule' },
+  { path: 'vistapermisos', loadChildren: './vistapermisos/vistapermisos.module#VistapermisosPageModule' }
 
 
 

@@ -1,8 +1,21 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>Permisos {{idClase}}</ion-title>
+    <ion-back-button (click)="IrAAvatares();"></ion-back-button>
   </ion-toolbar>
 </ion-header>
+
+<ion-footer>
+  <ion-toolbar>
+    <div>
+      <ion-item>
+        <input #file id="inp" type="file" accept='txt/*' (change)="Mostrar($event);" style="display:none">
+        <ion-button (click)="ActivarInput();">Cargar</ion-button>
+        <ion-button slot="end" (click)="CargaDeArchivos(); showAlert();">Subir</ion-button>
+      </ion-item>
+    </div>
+  </ion-toolbar>
+</ion-footer>
 
 <ion-content>
 
@@ -27,7 +40,7 @@
       <ion-button (click)="GuardarPermiso1();" expand="block">Guardar</ion-button>
     </ion-item>
     <div id={{Clase.p1}}>
-      {{PermisoPelo}}
+      {{TextoPelos}}
     </div>
   </ion-list>
 
@@ -49,14 +62,13 @@
       </ion-select>
       
       
-      <div id={{Clase.p2}}>
-      
-      </div>
-      
     </ion-item>
     <ion-item>
       <ion-button (click)="GuardarPermiso2();" expand="block">Guardar</ion-button>
     </ion-item>
+    <div id={{Clase.p2}}>
+      {{TextoOjos}}
+    </div>
   </ion-list>
 
   <ion-list>
@@ -76,7 +88,7 @@
       </ion-select>
       
      <div id={{Clase.p3}}>
-        
+        {{TextoComp}}
      </div>
         
     </ion-item>
@@ -85,10 +97,5 @@
     </ion-item>
   </ion-list>
 
-  <div>
-    <input #file id="inp" type="file" accept='txt/*' (change)="Mostrar($event);" style="display:none">
-    <ion-button (click)="ActivarInput();" expand="block">Subir Permisos</ion-button>
-    <ion-button (click)="CargaDeArchivos();">Carga</ion-button>
-  </div>
 
 </ion-content>

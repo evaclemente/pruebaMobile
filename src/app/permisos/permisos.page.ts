@@ -14,9 +14,9 @@ import { Http, ResponseContentType, RequestOptions, Response, Headers } from '@a
 export class PermisosPage implements OnInit {
 
   APIPermisos = 'http://localhost:3000/api/permisos/ArchivosTexto';
-  PermisoPelo: string;
-  // PermisoOjos: string;
-  // PermisoComp: string;
+  TextoPelos: string;
+  TextoOjos: string;
+  TextoComp: string;
   file: File;
   idClase: string;
   Clase: Clase;
@@ -42,10 +42,9 @@ export class PermisosPage implements OnInit {
     this.dbService.DameClase(this.dbService.ReturnIdClase())
     .subscribe( clase => {console.log('Me ha llegado la clase: ' + clase.id);
                           this.Clase = clase;
-                          this.CargarArchivo();
-                          // this.PermisoPelo = clase.p1;
-                          // this.PermisoOjos = clase.p2;
-                          // this.PermisoComp = clase.p2;
+                          this.CargarPermiso1(clase.p1);
+                          this.CargarPermiso2(clase.p2);
+                          this.CargarPermiso3(clase.p3);
 
                         });
     this.dbService.MuestraFicheros().subscribe(permisos => {console.log('Ya han llegado los permisos ' + permisos);
@@ -92,42 +91,84 @@ export class PermisosPage implements OnInit {
   }
 
   GuardarPermiso1() {
-    this.dbService.GuardaFicheroPermiso1(this.Clase, this.p1).subscribe();
+    this.dbService.GuardaFicheroPermiso1(this.Clase, this.p1).subscribe( () => this.CargarPermiso1(this.p1));
   }
 
   GuardarPermiso2() {
-    this.dbService.GuardaFicheroPermiso1(this.Clase, this.p1).subscribe();
+    this.dbService.GuardaFicheroPermiso2(this.Clase, this.p2).subscribe( () => this.CargarPermiso2(this.p2));
   }
 
   GuardarPermiso3() {
-    this.dbService.GuardaFicheroPermiso1(this.Clase, this.p3).subscribe();
+    this.dbService.GuardaFicheroPermiso3(this.Clase, this.p3).subscribe( () => this.CargarPermiso3(this.p3));
   }
 
-  CargarArchivo() {
-    if (this.Clase.p1 !== 'string' || this.Clase.p1.length !== 0) {
-      this.http2.get(this.APIPermisos + '/download/' + this.Clase.p1,
+  CargarPermiso1(permiso: string) {
+    if (permiso !== 'string' || permiso.length !== 0) {
+      this.http2.get(this.APIPermisos + '/download/' + permiso,
                                         {responseType: ResponseContentType.Blob} )
                                         .subscribe(response => {
                                                                 console.log(response);
-                                                                this.Descargaelementos(response, this.Clase.p1); }); }
+                                                                this.Descargaelementos(response, permiso, 'pelos'); }); }
   }
 
-  Descargaelementos(response: Response, url: string) {
+  CargarPermiso2(permiso: string) {
+    if (permiso !== 'string' || permiso.length !== 0) {
+      this.http2.get(this.APIPermisos + '/download/' + permiso,
+                                        {responseType: ResponseContentType.Blob} )
+                                        .subscribe(response => {
+                                                                console.log(response);
+                                                                this.Descargaelementos(response, permiso, 'ojos'); }); }
+  }
+
+  CargarPermiso3(permiso: string) {
+    if (permiso !== 'string' || permiso.length !== 0) {
+      this.http2.get(this.APIPermisos + '/download/' + permiso,
+                                        {responseType: ResponseContentType.Blob} )
+                                        .subscribe(response => {
+                                                                console.log(response);
+                                                                this.Descargaelementos(response, permiso, 'comp'); }); }
+  }
+
+  Descargaelementos(response: Response, url: string, variable: string) {
     console.log(url);
-    // var ur;
+    console.log(variable);
     const blob = new Blob([response.blob()], {type: 'text/txt'});
 
     const reader = new FileReader();
     reader.addEventListener('load', () => {
       url = reader.result.toString();
       console.log(url);
-      this.PermisoPelo = url;
-      // this.dbService.Muestrotexto(url);
+
+      if ( variable === 'pelos') {
+        this.TextoPelos = url;
+      }
+
+      if ( variable === 'ojos') {
+        this.TextoOjos = url;
+      }
+
+      if ( variable === 'comp') {
+        this.TextoComp = url;
+      }
+
     }, false);
 
     if (blob) {
       reader.readAsText(blob);
     }
+  }
+
+  showAlert() {
+    swal({
+          title: 'Archivo subido!',
+          text: 'Has añadido un archivo nuevo',
+          icon: 'success'
+        });
+  }
+
+  IrAAvatares() {
+    this.dbService.SetIdClase(this.idClase);
+    this.router.navigate(['/avatares']);
   }
 
 }

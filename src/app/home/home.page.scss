@@ -20,11 +20,16 @@
   position:absolute;
 }
 
-#items {
-  position:absolute;
+.permisos {
   top: 0px;
   width: 100%;
   height: 115px;
+  // z-index: 2;
+}
+
+.permisos #items {
+  display: none;
+  z-index: 2;
 }
 
 #botones {

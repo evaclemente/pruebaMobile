@@ -10,6 +10,7 @@ import { DbServiceService } from '../db-service.service';
 import { Persona } from '../Persona';
 import { Matricula } from '../Matricula';
 import { Http, ResponseContentType, RequestOptions, Response, Headers  } from '@angular/http';
+import { Clase } from '../Clase';
 
 @Component({
   selector: 'app-home',
@@ -22,6 +23,7 @@ export class HomePage {
   objetoseleccionado: string;
   nombre: string;
   matriculados: Matricula[];
+  clase: Clase;
   matri: Matricula;
   private APIMatriculas = 'http://localhost:3000/api/matriculas?filter[where][idAlumno]=';
   private APIPelos = 'http://localhost:3000/api/imagenes/Pelos';
@@ -45,6 +47,9 @@ export class HomePage {
   // tslint:disable-next-line:use-life-cycle-interface
   ngOnInit() {
     this.nombre = this.dbService.ReturnNombrePersona();
+    this.dbService.DameClase(this.datosService.DameIDClase())
+    .subscribe( clase => {this.clase = clase;
+                          console.log('Ya tengo la clase: ' + this.clase); });
     this.dbService.DameMatriculaAlumno(this.datosService.DameIDClase())
     .subscribe( matricula => {console.log('Me ha llegado:' + matricula);
                               this.matriculados = matricula;
@@ -177,6 +182,11 @@ export class HomePage {
                                                                 this.Descargaelementos(response, this.matri.URLcomplemento); }); }
   }
 
+  VistaPermisos() {
+    this.dbService.SetMatricula(this.matri);
+    this.dbService.SetIdClase(this.clase.id);
+    this.router.navigate(['/vistapermisos']);
+  }
   // Despues del inicio de la descarga, necesitamos convertir la respuesta de la anterior función a string
   // para así poder añadir la src de la imagen y que podamos mostrarla en HTML
 

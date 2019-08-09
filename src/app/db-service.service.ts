@@ -138,7 +138,7 @@ export class DbServiceService {
       var imagen = document.createElement('img');
 
       imagen.style.position = 'absolute';
-      imagen.style.zIndex = '1';
+      // imagen.style.zIndex = '1';
       imagen.style.left = '0px';
       imagen.style.top = '0px';
       imagen.src = elementoP;

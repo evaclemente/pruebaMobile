@@ -15,13 +15,10 @@
 <ion-content>
 
   <body>
-
-    <div id="items">
-      
-      <ion-button disabled=false color="secondary" (click)="IrAOjos();" expand="block">PERMISOS</ion-button>
+    <div class="permisos">
+      <ion-button disabled=false color="secondary" (click)="VistaPermisos();" expand="block">PERMISOS</ion-button>
       
     </div>
-
     <div id="avatar">
 
       <img id="cabeza" src="assets/img/cabeza.png"/>
@@ -42,7 +39,7 @@
       <ion-icon id="ojos" name="eye"></ion-icon>
     </ion-button>
     
-    <ion-button id="P3" color="tertiary" expand="block" click="IraComp();">
+    <ion-button id="P3" color="tertiary" expand="block" (click)="IrAComp();">
       COMPLEMENTOS
       <ion-icon id="gafas" name="glasses"></ion-icon>
     </ion-button>

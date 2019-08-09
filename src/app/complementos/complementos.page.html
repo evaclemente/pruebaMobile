@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>complementos</ion-title>
+    <ion-title>Complementos</ion-title>
     <ion-back-button defaultHref="home"></ion-back-button>
     <ion-button slot="end" (click)="GuardarComp();">OK</ion-button>
   </ion-toolbar>
@@ -15,10 +15,10 @@
 
     <div class="panel2" id="galeriaComp">
             
-      <li *ngFor="let Img of URLsOjos">
+      <li *ngFor="let Imagen of ModeloComp">
         <ion-item>
-          <ion-img [src]="Img" style="width:45%"></ion-img>
-          <ion-checkbox checked="false" slot="end" id="{{Img}}" (ionChange)="GuardaValor(Img);"></ion-checkbox>
+          <ion-img [src]="Imagen.direc" style="width:45%"></ion-img>
+          <ion-checkbox checked="false" slot="end" id="{{Imagen.nombre}}" (ionChange)="GuardaValor(Imagen);"></ion-checkbox>
         </ion-item>  
       </li>
           

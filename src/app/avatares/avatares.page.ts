@@ -55,6 +55,10 @@ export class AvataresPage implements OnInit {
     this.router.navigate(['/permisos']);
   }
 
+  IrAClases() {
+    this.router.navigate(['/clases']);
+  }
+
   CambiaEstado() {
     this.dbService.CambiaEstadoJuego(this.clase).subscribe();
   }
