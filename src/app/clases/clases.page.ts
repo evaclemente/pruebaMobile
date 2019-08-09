@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { DbServiceService } from '../db-service.service';
 import { Clase } from '../Clase';
 import { DatosService } from '../datos.service';
+import swal from 'sweetalert';
 
 @Component({
   selector: 'app-clases',
@@ -14,12 +15,15 @@ import { DatosService } from '../datos.service';
 export class ClasesPage implements OnInit {
 
   clases: Clase[];
+  nombre: string;
+  Filtroeliminar: Clase;
 
   // En la siguiente variable voy a juardar el id de la clase
   // cuando quiera ver la lista de alumnos o ir al juego de avatares,
   // tengo que saber a qué clase voy y así cargo los alumnos de esa clase,
   // o bien activo el juego de avataresde la clase
   juegodeclase: string;
+  NombreEliminar: string;
 
 
   constructor( private popOver: PopoverController,
@@ -30,6 +34,7 @@ export class ClasesPage implements OnInit {
   }
 
   ngOnInit() {
+    this.nombre = this.dbService.ReturnNombrePersona();
     this.ClasesAdmin();
     // this.myFunction();
 
@@ -63,7 +68,7 @@ export class ClasesPage implements OnInit {
   ClasesAdmin() {
     this.dbService.DameClases()
                   .subscribe(clases => {console.log('Clases de la BBDD: ' + clases);
-                                        this.clases = clases;
+                                        this.clases = clases.filter( clase => clase.admin === this.dbService.ReturnNombrePersona());
                                         });
   }
 
@@ -76,6 +81,58 @@ export class ClasesPage implements OnInit {
   IrAProfesor() {
     console.log('Vuelvo a Profesor');
     this.router.navigate(['/profesor']);
+  }
+
+  Eliminar() {
+
+    this.Filtroeliminar = this.clases.filter( clase => clase.id === this.NombreEliminar )[0];
+    console.log('La clase es: ' + this.Filtroeliminar);
+
+    if ( this.Filtroeliminar !== undefined && this.Filtroeliminar.id === this.NombreEliminar) {
+
+      this.dbService.EliminarClase(this.NombreEliminar)
+      .subscribe( () => { this.showAlert();
+                          this.ClasesAdmin();
+                        });
+
+    } else {
+      this.ClaseNoEncontrada();
+      this.ClasesAdmin();
+    }
+
+  //   this.dbService.Eliminar(this.NombreEliminar)
+  //   .subscribe();
+  //  // console.log()
+  //   this.dbService.EliminarMatricula(this.FiltraPersona(this.NombreEliminar)).subscribe();
+  //   this.showAlert();
+  //   // this.Mostrar();
+
+  }
+
+  AbrirInput() {
+    var x = document.getElementById('dropup');
+    console.log('Esto funciona');
+    console.log(x.style.display);
+    if (x.style.display === 'none') {
+      x.style.display = 'block';
+    } else {
+      x.style.display = 'none';
+    }
+  }
+
+  ClaseNoEncontrada() {
+    swal({
+          title: 'Error',
+          text: 'La clase ' + this.NombreEliminar + ' no existe',
+          icon: 'error'
+        });
+  }
+
+  showAlert() {
+    swal({
+          title: 'Has eliminado ' + this.NombreEliminar,
+          icon: 'success'
+        });
   }
 
 }

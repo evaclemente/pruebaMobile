@@ -78,6 +78,10 @@ export class DbServiceService {
     return this.http.delete<any>(this.APIUrl + '/' + nombre);
   }
 
+  EliminarClase(idClase: string): Observable<Clase> {
+    return this.http.delete<Clase>(this.APIClases + '/' + idClase);
+  }
+
   EliminarMatricula(matricula: Matricula): Observable<any> {
     console.log('Voy a eliminar la matrícula de: ' + matricula.idAlumno);
     console.log('El id que elimino es: ' + matricula.id);

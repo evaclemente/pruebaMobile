@@ -37,6 +37,7 @@ export class ProfesorPage implements OnInit {
 
 
   IrAClases() {
+    this.dbService.SetNombrePersona(this.nombre);
     this.router.navigate(['/clases']);
   }
 
