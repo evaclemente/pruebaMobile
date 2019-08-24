@@ -43,7 +43,6 @@ export class DbServiceService {
   // La siguiente función lama a un observable de la lista de personas
   // Por esto mismo hemos importado arriba la clase Observable
 
-
   dameTodos(): Observable<Persona[]> {
     // La operacion get del protocolo http devuelve lo que tiene
     // entre "< >", en este caso una lista de personas.
@@ -163,9 +162,9 @@ export class DbServiceService {
     return this.http.put<any>(this.APIClases + '/' + clase.id, clase);
   }
 
-  CreaClase(clase: Clase, admin: string) {
-    clase.admin = admin;
-    return this.http.put<any>(this.APIClases + '/' + clase.id, clase);
+  CreaClase(clase: Clase): Observable<Clase> {
+    // clase.admin = admin;
+    return this.http.post<Clase>(this.APIClases + '/' + clase.id, clase);
   }
 
   PonPass(alumno: Persona, nuevopass: string): Observable<any> {
@@ -317,5 +316,16 @@ export class DbServiceService {
     clase.p3 = archivo;
     return this.http.put<any>(this.APIClases + '/' + clase.id, clase);
   }
+
+  // Añadir familias de avatares va a ser tan simple como subir imágenes a la carpeta bustos.
+  // Cada imágen tendrá una nomenclatura así: "nombrefamilia_pelo1" por ejemplo.
+
+  GuardaFamilia(familia: string, clase: Clase): Observable<Clase> {
+
+    clase.familia = familia;
+    return this.http.put<any>(this.APIClases + '/' + clase.id, clase);
+
+  }
+
 
 }

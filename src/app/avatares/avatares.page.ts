@@ -4,6 +4,9 @@ import { Router } from '@angular/router';
 import { DatosService } from '../datos.service';
 import { DbServiceService } from '../db-service.service';
 import { Clase } from '../Clase';
+import { Http } from '@angular/http';
+import { Familia } from '../Familia';
+ // import { from } from 'rxjs';
 
 @Component({
   selector: 'app-avatares',
@@ -15,10 +18,16 @@ export class AvataresPage implements OnInit {
   estado: boolean;
   idClase: string;
   clase: Clase;
+  familias: Familia[] = new Array();
+  nombrefamilias: string[] = new Array();
+  private APIFotos = 'http://localhost:3000/api/imagenes';
+  familiaescogida: string;
+
   constructor(private http: HttpClient,
               private router: Router,
               private datosService: DatosService,
-              private dbService: DbServiceService) { }
+              private dbService: DbServiceService,
+              private http2: Http) { }
 
   ngOnInit() {
     this.idClase = this.datosService.DameIDClase();
@@ -28,6 +37,35 @@ export class AvataresPage implements OnInit {
                                                                 this.myChange();
                                                                 this.Mostrar();
                                                                 });
+
+    this.http.get<any[]>(this.APIFotos + '/Bustos/files')
+    .subscribe( fotoscontainer => {console.log (fotoscontainer);
+                                   var i;
+                                   for ( i = 0; i < fotoscontainer.length; i ++) {
+                                    this.nombrefamilias[i] = fotoscontainer[i].name;
+                                   }
+                                   console.log('Aquí están las familias: ' + this.nombrefamilias);
+                                   this.DivideFamilias(this.nombrefamilias);
+                                  });
+
+
+  }
+
+  DivideFamilias(containerfotos: any []) {
+
+    var i;
+    var strn;
+    for ( i = 0; i < containerfotos.length; i ++) {
+      strn = containerfotos[i];
+      this.familias[i].name = strn.split('_', 1);
+    }
+
+    console.log(this.familias);
+
+    // return this.familias;
+    // var str = "How are you doing today?";
+    // var res = str.split('_', 1);
+    // document.getElementById("demo").innerHTML = res;
   }
 
   myChange() {
@@ -48,6 +86,20 @@ export class AvataresPage implements OnInit {
     } else {
      x.style.display = 'none';
     }
+  }
+
+  GuardarFamilia() {
+
+    this.dbService.GuardaFamilia(this.familiaescogida, this.clase).subscribe( () => this.MuestraFamilia());
+
+  }
+
+  MuestraFamilia() {
+
+    var x = document.getElementById('fam');
+    console.log('Esto Muestro la familia');
+    x.style.display = 'block';
+
   }
 
   IrAPermisos() {

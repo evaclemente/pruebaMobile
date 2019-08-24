@@ -6,74 +6,40 @@
 
 <ion-content vertical="center">
 
-  <ion-list>
-    <ion-item>
-
-      <ion-icon name="person" item-start></ion-icon>
-      <ion-label stacked>Usuario: </ion-label>
-      <ion-input id="nombre" type="text" placeholder="Usuario" [(ngModel)]="nombre"></ion-input>
-    
-      <!--Enviamos información entre componentes de la siguiente manera:
-          entre los símbolos "<>" coloco el selector del componente al que 
-          quiero enviarle los datos.
-
-          Después entre corchetes, colocamos la variable que va a ser el input
-          en el componente profesor en este caso, y tras el igual, entre comillas llamamos 
-          a la variable del componente en el que estamos actualmente.
-      -->
-      <app-profesor [nombre]="nombre"></app-profesor>
-
-    </ion-item>
-
-    <ion-item>
-
-      <ion-icon name="eye" item-start></ion-icon>
-      <ion-label stacked>Contraseña: </ion-label>
-      <ion-input id="pass" placeholder="Contraseña" [(ngModel)]="pass"></ion-input>
-
-    </ion-item>
-
-
-    <!--
-      <ion-row>
-
-      <ion-col>
-
-        <ion-item>
-
-          <ion-icon name="people" item-start></ion-icon>
-          <ion-label>Alumno</ion-label>
-          <ion-radio value="2"></ion-radio>
-
-        </ion-item>
-
-
-      </ion-col>
-
-      <ion-col>
-
-        <ion-item>
-
-          <ion-icon name="man" item-start></ion-icon>
-          <ion-label>Profesor</ion-label>
-          <ion-radio value="1"></ion-radio>
-
-        </ion-item>
-
-      </ion-col>
-    </ion-row>
-
-    -->
-    
-  </ion-list>
-
-  <div>
-
-    <ion-button color= "primary" expand = "block" (click)="Autentificar();">
-      Iniciar sesión
-    </ion-button>
-
+  <div class="back">
+    <ion-img src="assets/img/classpip-icon.png" style="width:250%"></ion-img>
   </div>
+
+  
+
+  <div class="login">
+
+    <ion-list >
+      <ion-item>
+
+        <ion-icon name="person" item-start></ion-icon>
+        <ion-label stacked>Usuario: </ion-label>
+        <ion-input id="nombre" type="text" placeholder="Usuario" [(ngModel)]="nombre"></ion-input>
+      </ion-item>
+
+      <ion-item>
+
+        <ion-icon name="eye" item-start></ion-icon>
+        <ion-label stacked>Contraseña: </ion-label>
+        <ion-input id="pass" placeholder="Contraseña" [(ngModel)]="pass"></ion-input>
+
+      </ion-item>
+      
+    </ion-list>
+
+    <div>
+
+      <ion-button color= "primary" expand = "block" (click)="Autentificar();">
+        Iniciar sesión
+      </ion-button>
+
+    </div>
+  </div>  
 
 
 </ion-content>

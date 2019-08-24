@@ -36,6 +36,7 @@ export class GaleriaPage implements OnInit {
               private http2: Http) { }
 
   ngOnInit() {
+
     this.ContenedoresFotos();
 
     this.dbService.DameFoto('Pelos');
@@ -67,6 +68,11 @@ export class GaleriaPage implements OnInit {
   }
 
   Asignar() {
+
+    this.URLsComplementos = [];
+    this.URLsOjos = [];
+    this.URLsPelos = [];
+
     this.URLsComplementos = this.dbService.DameLogosComp();
     this.URLsOjos = this.dbService.DameLogosOjos();
     this.URLsPelos = this.dbService.DameLogosPelo();

@@ -35,8 +35,7 @@ export class PeloPage implements OnInit {
     private datosService: DatosService,
     private router: Router,
     private dbService: DbServiceService,
-    private http2: Http
-              ) {
+    private http2: Http ) {
   }
 
   ngOnInit() {

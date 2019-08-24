@@ -15,12 +15,45 @@
 
       <div id="activado">
 
-        <p>
+        <!-- <p>
           Juego activado
-        </p>
+        </p> -->
+
+        <ion-list>
+          <ion-list-header>Familia de avatares</ion-list-header>
+          <ion-item>
+            <ion-label>Escoge una familia</ion-label>
+
+            <ion-select [(ngModel)]="familiaescogida">
+
+    
+              <a *ngFor="let Familia of familias">
+                    
+                <ion-select-option value="{{familias.name}}">{{familias.name}}</ion-select-option>
+                
+                  
+              </a>  
+                    
+            </ion-select>
+
+            
+          </ion-item>
+
+          <ion-item>
+            <ion-button (click)="GuardarFamilia();" expand="block">Guardar</ion-button>
+          </ion-item>
+
+          <div id=fam>
+            Has escogido la familia: {{familiaescogida}}
+         </div>
+        </ion-list>
        
         <ion-button expand="block" (click)="IrAPermisos();">Permisos</ion-button>
         <ion-button expand="block" (click)="VerListaAvatares();">Lista de avatares</ion-button>
+            
+        
+          
+         
        
       </div>
 

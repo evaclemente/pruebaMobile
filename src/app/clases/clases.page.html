@@ -15,12 +15,12 @@
         <ion-input [(ngModel)]="NombreEliminar"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-button (click)="Eliminar();">Eliminar asignatura</ion-button>
+        <ion-button (click)="Eliminar(); AbrirInput();">Eliminar asignatura</ion-button>
       </ion-item>
         
     </div>
     <ion-segment  color="secondary">  
-      <ion-segment-button (click)="IrAForm();" color="success">Añadir</ion-segment-button>
+      <ion-segment-button color="success">Añadir</ion-segment-button>
       <ion-segment-button (click)="AbrirInput();">Eliminar</ion-segment-button>
     </ion-segment>
         

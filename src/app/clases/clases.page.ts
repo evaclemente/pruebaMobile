@@ -100,13 +100,6 @@ export class ClasesPage implements OnInit {
       this.ClasesAdmin();
     }
 
-  //   this.dbService.Eliminar(this.NombreEliminar)
-  //   .subscribe();
-  //  // console.log()
-  //   this.dbService.EliminarMatricula(this.FiltraPersona(this.NombreEliminar)).subscribe();
-  //   this.showAlert();
-  //   // this.Mostrar();
-
   }
 
   AbrirInput() {
@@ -135,4 +128,7 @@ export class ClasesPage implements OnInit {
         });
   }
 
+  // AñadirClase() {
+  //   this.router.navigate(['/formclase']);
+  // }
 }
