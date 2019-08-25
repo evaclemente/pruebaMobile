@@ -27,9 +27,9 @@
             <ion-select [(ngModel)]="familiaescogida">
 
     
-              <a *ngFor="let Familia of familias">
+              <a *ngFor="let item of familias">
                     
-                <ion-select-option value="{{familias.name}}">{{familias.name}}</ion-select-option>
+                <ion-select-option value="{{item}}">{{item}}</ion-select-option>
                 
                   
               </a>  

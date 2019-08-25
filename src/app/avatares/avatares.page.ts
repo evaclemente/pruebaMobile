@@ -19,7 +19,7 @@ export class AvataresPage implements OnInit {
   idClase: string;
   clase: Clase;
   familias: Familia[] = new Array();
-  nombrefamilias: string[] = new Array();
+  nombrefamilias = new Array();
   private APIFotos = 'http://localhost:3000/api/imagenes';
   familiaescogida: string;
 
@@ -42,10 +42,10 @@ export class AvataresPage implements OnInit {
     .subscribe( fotoscontainer => {console.log (fotoscontainer);
                                    var i;
                                    for ( i = 0; i < fotoscontainer.length; i ++) {
-                                    this.nombrefamilias[i] = fotoscontainer[i].name;
+                                    this.familias[i] = fotoscontainer[i].name;
                                    }
                                    console.log('Aquí están las familias: ' + this.nombrefamilias);
-                                   this.DivideFamilias(this.nombrefamilias);
+                                   this.DivideFamilias(this.familias);
                                   });
 
 
@@ -54,10 +54,12 @@ export class AvataresPage implements OnInit {
   DivideFamilias(containerfotos: any []) {
 
     var i;
+    console.log('Me ha llegado el container: ' + containerfotos);
     var strn;
     for ( i = 0; i < containerfotos.length; i ++) {
       strn = containerfotos[i];
-      this.familias[i].name = strn.split('_', 1);
+      this.familias[i] = strn.split('_', 1);
+      console.log(this.familias);
     }
 
     console.log(this.familias);

@@ -60,7 +60,7 @@ export class OjosPage implements OnInit {
       x = 'true';
       document.getElementById(direccion.nombre).setAttribute('checked', 'true');
       this.OjosSeleccionados = direccion;
-      console.log('Me he guardado esevalor: ' + this.OjosSeleccionados);
+      console.log('Me he guardado ese valor: ' + this.OjosSeleccionados);
     } else {
       x = 'false';
       document.getElementById(direccion.nombre).setAttribute('checked', 'false');
