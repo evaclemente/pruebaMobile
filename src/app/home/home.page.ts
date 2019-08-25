@@ -35,7 +35,7 @@ export class HomePage {
   URLC: string;
   URLBusto: string;
   Familia: string;
-  posicion: number;
+  archivobusto: string;
 
 
   constructor(
@@ -53,13 +53,11 @@ export class HomePage {
     this.nombre = this.dbService.ReturnNombrePersona();
     this.dbService.DameClase(this.datosService.DameIDClase())
     .subscribe( clase => {this.clase = clase;
-                          console.log('Ya tengo la clase: ' + this.clase); });
+                          console.log('Ya tengo la clase: ' + this.clase);
+                          this.RDameFoto(clase.busto);
+                          });
     // Traigo todas las fotos del contenedor de Bustos
 
-    this.http.get<any>(this.APIBustos + '/files')
-    .subscribe( fotoscontainer => { console.log(fotoscontainer);
-                                    this.FiltraBustoAvatar(this.clase, fotoscontainer);
-                                  });
     this.dbService.DameMatriculaAlumno(this.datosService.DameIDClase())
     .subscribe( matricula => {console.log('Me ha llegado:' + matricula);
                               this.matriculados = matricula;
@@ -83,35 +81,35 @@ export class HomePage {
 
   // Necesito saber qué familia se ha escogido, para poder asignar un busto u otro
 
-  FiltraBustoAvatar(clase: Clase, fotosbustos: any[]) {
+  // FiltraBustoAvatar(clase: Clase, fotosbustos: any[]) {
 
-    console.log(clase.familia);
-    this.Familia = clase.familia;
+  //   console.log(clase.familia);
+  //   this.Familia = clase.familia;
 
-    // Cuando aplique el filtro, me voy a guardar la posición
-    // en la que está el ficheroque queiro descargar, puesto que necesito
-    // el nombre del fichero completo, y con el filtro sólo tengo una parte del nombre
-    // var posicion;
-    var i;
-    var nombre: string;
-    console.log('Llega a entrar en el filtro');
-    for (i = 0; i < fotosbustos.length; i ++) {
+  //   // Cuando aplique el filtro, me voy a guardar la posición
+  //   // en la que está el ficheroque queiro descargar, puesto que necesito
+  //   // el nombre del fichero completo, y con el filtro sólo tengo una parte del nombre
+  //   // var posicion;
+  //   var i;
+  //   var nombre: string;
+  //   console.log('Llega a entrar en el filtro');
+  //   for (i = 0; i < fotosbustos.length; i ++) {
 
-      nombre = fotosbustos[i].name.split('_', 1);
-      console.log('nombre: ' + nombre);
+  //     nombre = fotosbustos[i].name.split('_', 1);
+  //     console.log('nombre: ' + nombre);
 
-      if (nombre === clase.familia) {
-        console.log('Ya ha encontrado la familia');
-        this.posicion = i;
-        console.log('Voy a descargar: ' + fotosbustos[i].name);
-        this.RDameFoto(fotosbustos[i].name);
-      } else {
-        console.log('Esta familia no es');
-      }
+  //     if (nombre === clase.familia) {
+  //       console.log('Ya ha encontrado la familia');
+  //       this.posicion = i;
+  //       console.log('Voy a descargar: ' + fotosbustos[i].name);
+  //       this.RDameFoto(fotosbustos[i].name);
+  //     } else {
+  //       console.log('Esta familia no es');
+  //     }
 
-    }
+  //   }
 
-  }
+  // }
 
   RDameFoto(idfoto: string) {
 

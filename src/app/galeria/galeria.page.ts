@@ -26,23 +26,62 @@ export class GaleriaPage implements OnInit {
   URLsPelos: Img[] = new Array();
   URLsOjos: Img[] = new Array();
   URLsComplementos: Img[] = new Array();
+  ModeloPelos: Imagen[] = new Array();
+  ModeloOjos: Imagen[] = new Array();
+  ModeloComp: Imagen[] = new Array();
+  ModeloBocas: Imagen [] = new Array();
+  ModeloBustos: Imagen [] = new Array();
 
 
   arrayids = new Array();
 
   private APIFotos = 'http://localhost:3000/api/imagenes';
+  private APIBustos = 'http://localhost:3000/api/imagenes/Bustos';
+  private APIOjos = 'http://localhost:3000/api/imagenes/Ojos';
+  private APIPelos = 'http://localhost:3000/api/imagenes/Pelos';
+  private APIComp = 'http://localhost:3000/api/imagenes/Complementos';
+  // private APIFotos = 'http://localhost:3000/api/imagenes'; Aquí tengo que añadir bocas
   constructor(private http: HttpClient,
               private dbService: DbServiceService,
               private http2: Http) { }
 
   ngOnInit() {
 
+    // Me aseguro de que esté vacío el array de Imagenes antes de cargar la vista HTML
+    // porque como hay una función push que se dedica a añadir posiciones a la cola del array,
+    // puede que no esté vacío siempre
+    this.ModeloOjos = [];
+    this.ModeloPelos = [];
+    this.ModeloComp = [];
+
     this.ContenedoresFotos();
 
     this.dbService.DameFoto('Pelos');
     this.dbService.DameFoto('Ojos');
     this.dbService.DameFoto('Complementos');
+    this.http.get<any>(this.APIPelos + '/files')
+    .subscribe( fotoscontainer => { console.log(fotoscontainer);
+                                    var i;
+                                    for ( i = 0; i < fotoscontainer.length; i ++ ) {
+                                      this.RDameFotoP(fotoscontainer[i].name);
+                                    }
+    });
 
+    this.http.get<any>(this.APIOjos + '/files')
+    .subscribe( fotoscontainer => { console.log(fotoscontainer);
+                                    var i;
+                                    for ( i = 0; i < fotoscontainer.length; i ++ ) {
+                                      this.RDameFotoO(fotoscontainer[i].name);
+                                    }
+                                  });
+
+    this.http.get<any>(this.APIComp + '/files')
+    .subscribe( fotoscontainer => { console.log(fotoscontainer);
+                                    var i;
+                                    for ( i = 0; i < fotoscontainer.length; i ++ ) {
+                                      this.RDameFotoC(fotoscontainer[i].name);
+                                    }
+                                  });
 
 
   }
@@ -67,15 +106,137 @@ export class GaleriaPage implements OnInit {
     }
   }
 
-  Asignar() {
+  // Asignar() {
 
-    this.URLsComplementos = [];
-    this.URLsOjos = [];
-    this.URLsPelos = [];
+  //   this.URLsComplementos = this.dbService.DameLogosComp();
+  //   this.URLsOjos = this.dbService.DameLogosOjos();
+  //   this.URLsPelos = this.dbService.DameLogosPelo();
+  // }
 
-    this.URLsComplementos = this.dbService.DameLogosComp();
-    this.URLsOjos = this.dbService.DameLogosOjos();
-    this.URLsPelos = this.dbService.DameLogosPelo();
+  // Estas dos funciones sirven para cargar los logos de las imágenes
+  // almacenadas en el contenedor de Pelos
+
+  RDameFotoP(idfoto: string) {
+
+    this.http2.get(this.APIPelos + '/download/' + idfoto,
+    {responseType: ResponseContentType.Blob} )
+    .subscribe(response => {
+                             console.log(response);
+                             this.CargarLogosP(response, idfoto);
+                            });
+    console.log('Ye he acabado');
+  }
+
+
+  CargarLogosP(response: Response, idfoto: string) {
+
+
+    const blob = new Blob([response.blob()], {type: 'image/jpg'});
+
+    const reader = new FileReader();
+    reader.addEventListener('load', () => {
+     console.log('No sé si entra');
+     this.ModeloPelos.push({nombre: idfoto, direc: reader.result.toString()});
+     console.log(this.ModeloPelos);
+    }, false);
+
+    if (blob) {
+      reader.readAsDataURL(blob);
+    }
+  }
+
+  // Estas dos funciones sirven para cargar los logos de las imágenes
+  // almacenadas en el contenedor de Ojos
+
+  RDameFotoO(idfoto: string) {
+
+    this.http2.get(this.APIOjos + '/download/' + idfoto,
+    {responseType: ResponseContentType.Blob} )
+    .subscribe(response => {
+                             console.log(response);
+                             this.CargarLogosO(response, idfoto);
+                            });
+    console.log('Ye he acabado');
+  }
+
+
+  CargarLogosO(response: Response, idfoto: string) {
+
+
+    const blob = new Blob([response.blob()], {type: 'image/jpg'});
+
+    const reader = new FileReader();
+    reader.addEventListener('load', () => {
+     console.log('No sé si entra');
+     this.ModeloOjos.push({nombre: idfoto, direc: reader.result.toString()});
+     console.log(this.ModeloOjos);
+    }, false);
+
+    if (blob) {
+      reader.readAsDataURL(blob);
+    }
+  }
+
+  // Estas dos funciones sirven para cargar los logos de las imágenes
+  // almacenadas en el contenedor de Complementos
+  RDameFotoC(idfoto: string) {
+
+    this.http2.get(this.APIComp + '/download/' + idfoto,
+    {responseType: ResponseContentType.Blob} )
+    .subscribe(response => {
+                             console.log(response);
+                             this.CargarLogosC(response, idfoto);
+                            });
+    console.log('Ye he acabado');
+  }
+
+
+  CargarLogosC(response: Response, idfoto: string) {
+
+
+    const blob = new Blob([response.blob()], {type: 'image/jpg'});
+
+    const reader = new FileReader();
+    reader.addEventListener('load', () => {
+     console.log('No sé si entra');
+     this.ModeloComp.push({nombre: idfoto, direc: reader.result.toString()});
+     console.log(this.ModeloComp);
+    }, false);
+
+    if (blob) {
+      reader.readAsDataURL(blob);
+    }
+  }
+
+  // Estas dos funciones sirven para cargar los logos de las imágenes
+  // almacenadas en el contenedor de Bustos
+  RDameFotoB(idfoto: string) {
+
+    this.http2.get(this.APIComp + '/download/' + idfoto,
+    {responseType: ResponseContentType.Blob} )
+    .subscribe(response => {
+                             console.log(response);
+                             this.CargarLogosB(response, idfoto);
+                            });
+    console.log('Ye he acabado');
+  }
+
+
+  CargarLogosB(response: Response, idfoto: string) {
+
+
+    const blob = new Blob([response.blob()], {type: 'image/jpg'});
+
+    const reader = new FileReader();
+    reader.addEventListener('load', () => {
+     console.log('No sé si entra');
+     this.ModeloBustos.push({nombre: idfoto, direc: reader.result.toString()});
+     console.log(this.ModeloBustos);
+    }, false);
+
+    if (blob) {
+      reader.readAsDataURL(blob);
+    }
   }
 
   ActivarInput() {

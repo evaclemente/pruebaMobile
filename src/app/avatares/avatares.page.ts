@@ -22,6 +22,7 @@ export class AvataresPage implements OnInit {
   nombrefamilias = new Array();
   private APIFotos = 'http://localhost:3000/api/imagenes';
   familiaescogida: string;
+  familiaBDD: string;
 
   constructor(private http: HttpClient,
               private router: Router,
@@ -34,6 +35,7 @@ export class AvataresPage implements OnInit {
     this.dbService.DameClase(this.idClase).subscribe( clase => {this.clase = clase;
                                                                 console.log('Datos de clase: ' + clase);
                                                                 this.estado = clase.avatares;
+                                                                this.familiaBDD = clase.familia;
                                                                 this.myChange();
                                                                 this.Mostrar();
                                                                 });
@@ -92,16 +94,14 @@ export class AvataresPage implements OnInit {
 
   GuardarFamilia() {
 
-    this.dbService.GuardaFamilia(this.familiaescogida, this.clase).subscribe( () => this.MuestraFamilia());
+    var archivo = this.familiaescogida + '_busto.png';
+    this.dbService.GuardaFamilia(this.familiaescogida, this.clase, archivo).subscribe( () => this.MuestraFamilia());
 
   }
 
   MuestraFamilia() {
 
-    var x = document.getElementById('fam');
-    console.log('Esto Muestro la familia');
-    x.style.display = 'block';
-
+   this.familiaBDD = this.familiaescogida;
   }
 
   IrAPermisos() {

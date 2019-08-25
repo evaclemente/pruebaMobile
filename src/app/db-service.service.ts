@@ -320,9 +320,10 @@ export class DbServiceService {
   // Añadir familias de avatares va a ser tan simple como subir imágenes a la carpeta bustos.
   // Cada imágen tendrá una nomenclatura así: "nombrefamilia_pelo1" por ejemplo.
 
-  GuardaFamilia(familia: string, clase: Clase): Observable<Clase> {
+  GuardaFamilia(familia: string, clase: Clase, archivobusto: string): Observable<Clase> {
 
     clase.familia = familia;
+    clase.busto = archivobusto;
     return this.http.put<any>(this.APIClases + '/' + clase.id, clase);
 
   }

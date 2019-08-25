@@ -4,6 +4,7 @@ export class Clase {
     admin: string;
     avatares: boolean;
     familia: string;
+    busto: string;
     p1: string;
     p2: string;
     p3: string;
@@ -13,6 +14,7 @@ export class Clase {
       this.admin = admin;
       this.avatares = avatares;
       this.familia = 'persona';
+      this.busto = 'persona_busto.png';
       this.p1 = p1;
       this.p2 = p2;
       this.p3 = p3;
