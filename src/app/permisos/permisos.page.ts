@@ -30,6 +30,7 @@ export class PermisosPage implements OnInit {
   p1: string;
   p2: string;
   p3: string;
+  p4: string;
 
   constructor(private http: HttpClient,
               private router: Router,
@@ -45,6 +46,7 @@ export class PermisosPage implements OnInit {
                           this.CargarPermiso1(clase.p1);
                           this.CargarPermiso2(clase.p2);
                           this.CargarPermiso3(clase.p3);
+                          this.CargarPermiso4(clase.p4);
 
                         });
     this.dbService.MuestraFicheros().subscribe(permisos => {console.log('Ya han llegado los permisos ' + permisos);
@@ -102,6 +104,10 @@ export class PermisosPage implements OnInit {
     this.dbService.GuardaFicheroPermiso3(this.Clase, this.p3).subscribe( () => this.CargarPermiso3(this.p3));
   }
 
+  GuardarPermiso4() {
+    this.dbService.GuardaFicheroPermiso4(this.Clase, this.p4).subscribe( () => this.CargarPermiso4(this.p4));
+  }
+
   CargarPermiso1(permiso: string) {
     if (permiso !== 'string' || permiso.length !== 0) {
       this.http2.get(this.APIPermisos + '/download/' + permiso,
@@ -121,6 +127,15 @@ export class PermisosPage implements OnInit {
   }
 
   CargarPermiso3(permiso: string) {
+    if (permiso !== 'string' || permiso.length !== 0) {
+      this.http2.get(this.APIPermisos + '/download/' + permiso,
+                                        {responseType: ResponseContentType.Blob} )
+                                        .subscribe(response => {
+                                                                console.log(response);
+                                                                this.Descargaelementos(response, permiso, 'comp'); }); }
+  }
+
+  CargarPermiso4(permiso: string) {
     if (permiso !== 'string' || permiso.length !== 0) {
       this.http2.get(this.APIPermisos + '/download/' + permiso,
                                         {responseType: ResponseContentType.Blob} )

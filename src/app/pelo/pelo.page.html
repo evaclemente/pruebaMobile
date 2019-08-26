@@ -13,14 +13,19 @@
   <body>
 
     <div class="panel2" id="galeriaPelos">
+
+      <ion-button slot="end" (click)="Reset();">
+        RESET
+        <ion-icon name="trash"></ion-icon>
+      </ion-button>
             
-        <li *ngFor="let Imagen of ModeloPelos">
-          <ion-item>
-            <ion-img [src]="Imagen.direc" style="width:45%"></ion-img>
-            <ion-checkbox checked="false" slot="end" id="{{Imagen.nombre}}" (ionChange)="GuardaValor(Imagen);"></ion-checkbox> 
+      <li *ngFor="let Imagen of ModeloPelos">
+        <ion-item>
+          <ion-img [src]="Imagen.direc" style="width:45%"></ion-img>
+          <ion-checkbox checked="false" slot="end" id="{{Imagen.nombre}}" (ionChange)="GuardaValor(Imagen);"></ion-checkbox> 
             
-          </ion-item>  
-        </li>
+        </ion-item>  
+      </li>
             
     </div>
 

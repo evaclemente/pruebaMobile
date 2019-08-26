@@ -51,7 +51,7 @@ export class FormpersonaPage implements OnInit {
                                                             this.nuevoid = numero ++ ;
                                                             console.log(this.nuevoid);
                                                             this.matricula = new Matricula(0, this.nuevoid, this.nombre
-                                                            , this.idClase, false, false, false, '', '', '');
+                                                            , this.idClase, false, false, false, false, '', '', '', '');
                                                             console.log(this.matricula);
                                                             this.dbService.PonMatricula(this.matricula).subscribe();
                                                           });

@@ -37,7 +37,10 @@
         <li *ngFor="let Imagen of ModeloComp">
           <ion-item>
             <ion-img [src]="Imagen.direc" style="width:45%"></ion-img>
-            <ion-checkbox id="{{Imagen.nombre}}" slot="end" ></ion-checkbox>
+            <!-- <ion-checkbox id="{{Imagen.nombre}}" slot="end" ></ion-checkbox> -->
+            <ion-button slot="end" (click) = "EliminarFoto('Complementos', Imagen.nombre);">
+              <ion-icon name="trash"></ion-icon>
+            </ion-button>
           </ion-item>  
         </li>
         
@@ -78,7 +81,10 @@
         <li *ngFor="let Imagen of ModeloOjos">
           <ion-item>
             <ion-img [src]="Imagen.direc" style="width:45%"></ion-img>
-            <ion-checkbox id={{Imagen.nombre}} slot="end" ></ion-checkbox>
+            <!-- <ion-checkbox id={{Imagen.nombre}} slot="end" ></ion-checkbox> -->
+            <ion-button slot="end" (click) = "EliminarFoto('Ojos', Imagen.nombre);">
+              <ion-icon name="trash"></ion-icon>
+            </ion-button>
           </ion-item>  
         </li>
           
@@ -119,7 +125,10 @@
         <li *ngFor="let Imagen of ModeloPelos">
           <ion-item>
             <ion-img [src]="Imagen.direc" style="width:45%"></ion-img>
-            <ion-checkbox checked="false" slot="end" id={{Imagen.nombre}}></ion-checkbox>
+            <!-- <ion-checkbox checked="false" slot="end" id={{Imagen.nombre}}></ion-checkbox> -->
+            <ion-button slot="end" (click) = "EliminarFoto('Pelos', Imagen.nombre);">
+              <ion-icon name="trash"></ion-icon>
+            </ion-button>
           </ion-item>  
         </li>
             
@@ -156,11 +165,57 @@
             
       </div>
       <div class="panel2" id="galeriaBustos">
-            
+
         <li *ngFor="let Imagen of ModeloBustos">
           <ion-item>
             <ion-img [src]="Imagen.direc" style="width:45%"></ion-img>
-            <ion-checkbox checked="false" slot="end" id={{Imagen.nombre}}></ion-checkbox>
+            <!-- <ion-checkbox checked="false" slot="end" id={{Imagen.nombre}}></ion-checkbox> -->
+            <ion-button slot="end" (click) = "EliminarFoto('Bustos', Imagen.nombre);">
+              <ion-icon name="trash"></ion-icon>
+            </ion-button>
+          </ion-item>  
+        </li>
+            
+      </div>
+      
+    </ion-list>
+  
+  
+  
+  </div>
+
+  <div>
+    <ion-list>
+      <ion-list-header>
+       BOCAS
+      </ion-list-header>
+  
+      <div>
+  
+        <input #file id="inp" type="file" accept='image/*' (change)="Mostrar($event);" style="display:none">
+        <ion-button (click)="ActivarInput(); myFunction('Bocas');" expand="block">Añadir Bocas</ion-button>
+  
+      </div>
+      <div class="panel" id="subirBocas">
+        <ion-item>
+          <ion-button (click)="CargaDeArchivos('Bocas'); myFunction('Bocas');">Subir</ion-button>
+          <ion-img [src]="logo" style="width:25%"></ion-img>
+        </ion-item>
+      </div>
+      <div>
+  
+        <ion-button (click)="CargarFotosContenedor('Bocas'); " expand="block">Mostrar Bocas</ion-button>
+            
+      </div>
+      <div class="panel2" id="galeriaBocas">
+            
+        <li *ngFor="let Imagen of ModeloBocas">
+          <ion-item>
+            <ion-img [src]="Imagen.direc" style="width:45%"></ion-img>
+            <!-- <ion-checkbox checked="false" slot="end" id={{Imagen.nombre}}></ion-checkbox> -->
+            <ion-button slot="end" (click) = "EliminarFoto('Bocas', Imagen.nombre);">
+              <ion-icon name="trash"></ion-icon>
+            </ion-button>
           </ion-item>  
         </li>
             

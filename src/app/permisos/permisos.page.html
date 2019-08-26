@@ -97,5 +97,30 @@
     </ion-item>
   </ion-list>
 
+  <ion-list>
+    <ion-list-header>Permiso Lista de Avatares</ion-list-header>
+    <ion-item>
+
+      <ion-label>Escoge permiso</ion-label>
+        
+      <ion-select [(ngModel)]="p4">
+  
+        <a *ngFor="let Container of ficherospermisos">
+              
+          <ion-select-option value="{{Container.name}}">{{Container.name}}</ion-select-option>
+         
+        </a>  
+              
+      </ion-select>
+      
+     <div id={{Clase.p4}}>
+        {{TextoComp}}
+     </div>
+        
+    </ion-item>
+    <ion-item>
+      <ion-button (click)="GuardarPermiso4();" expand="block">Guardar</ion-button>
+    </ion-item>
+  </ion-list>
 
 </ion-content>

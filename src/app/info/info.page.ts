@@ -24,7 +24,9 @@ export class InfoPage implements OnInit {
   private APIPelos = 'http://localhost:3000/api/imagenes/Pelos';
   private APIOjos = 'http://localhost:3000/api/imagenes/Ojos';
   private APIComplementos = 'http://localhost:3000/api/imagenes/Complementos';
+  private APIBustos = 'http://localhost:3000/api/imagenes/Bustos';
 
+  URLBusto: string;
   URLP: string;
   URLO: string;
   URLC: string;
@@ -41,6 +43,7 @@ export class InfoPage implements OnInit {
     this.dbService.DameClase(this.dbService.ReturnIdClase())
     .subscribe( clase => { console.log('He recibido la clase: ' + clase);
                            this.clase = clase;
+                           this.RDameFotoBus(clase.busto);
                            this.AvatarVisible();
                            this.dbService.DameMatriculaAlumno(clase.id)
                                           .subscribe( lista => {this.matriculados = lista;
@@ -132,6 +135,37 @@ export class InfoPage implements OnInit {
     }
 
 
+  }
+
+  // Estas dos funciones sirven para cargar los logos de las imágenes
+  // almacenadas en el contenedor de Bustos
+  RDameFotoBus(idfoto: string) {
+
+    this.http2.get(this.APIBustos + '/download/' + idfoto,
+    {responseType: ResponseContentType.Blob} )
+    .subscribe(response => {
+                             console.log(response);
+                             this.CargarLogosBus(response, idfoto);
+                            });
+    console.log('Ya he acabado');
+  }
+
+
+  CargarLogosBus(response: Response, idfoto: string) {
+
+
+    const blob = new Blob([response.blob()], {type: 'image/jpg'});
+
+    const reader = new FileReader();
+    reader.addEventListener('load', () => {
+     console.log('No sé si entra');
+     this.URLBusto = reader.result.toString();
+     console.log(this.URLBusto);
+    }, false);
+
+    if (blob) {
+      reader.readAsDataURL(blob);
+    }
   }
 
   IrAAsignaturas() {

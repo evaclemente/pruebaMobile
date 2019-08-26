@@ -5,6 +5,7 @@ import { Imagen } from '../Imagen';
 import { Container } from '../Container';
 import { Http, ResponseContentType, RequestOptions, Response, Headers } from '@angular/http';
 import { Img } from '../Img';
+import swal from 'sweetalert';
 
 @Component({
   selector: 'app-galeria',
@@ -23,9 +24,9 @@ export class GaleriaPage implements OnInit {
   Complementos: Imagen [];
   idcontenedor: string;
   imagenLogo: string;
-  URLsPelos: Img[] = new Array();
-  URLsOjos: Img[] = new Array();
-  URLsComplementos: Img[] = new Array();
+  // URLsPelos: Img[] = new Array();
+  // URLsOjos: Img[] = new Array();
+  // URLsComplementos: Img[] = new Array();
   ModeloPelos: Imagen[] = new Array();
   ModeloOjos: Imagen[] = new Array();
   ModeloComp: Imagen[] = new Array();
@@ -35,12 +36,12 @@ export class GaleriaPage implements OnInit {
 
   arrayids = new Array();
 
-  private APIFotos = 'http://localhost:3000/api/imagenes';
+  // private APIFotos = 'http://localhost:3000/api/imagenes';
   private APIBustos = 'http://localhost:3000/api/imagenes/Bustos';
   private APIOjos = 'http://localhost:3000/api/imagenes/Ojos';
   private APIPelos = 'http://localhost:3000/api/imagenes/Pelos';
   private APIComp = 'http://localhost:3000/api/imagenes/Complementos';
-  // private APIFotos = 'http://localhost:3000/api/imagenes'; Aquí tengo que añadir bocas
+  private APIBocas = 'http://localhost:3000/api/imagenes/Bocas'; // Aquí tengo que añadir bocas
   constructor(private http: HttpClient,
               private dbService: DbServiceService,
               private http2: Http) { }
@@ -53,6 +54,8 @@ export class GaleriaPage implements OnInit {
     this.ModeloOjos = [];
     this.ModeloPelos = [];
     this.ModeloComp = [];
+    this.ModeloBustos = [];
+    this.ModeloBocas = [];
 
     this.ContenedoresFotos();
 
@@ -81,7 +84,24 @@ export class GaleriaPage implements OnInit {
                                     for ( i = 0; i < fotoscontainer.length; i ++ ) {
                                       this.RDameFotoC(fotoscontainer[i].name);
                                     }
-                                  });
+    });
+
+    this.http.get<any>(this.APIBustos + '/files')
+    .subscribe( fotoscontainer => { console.log(fotoscontainer);
+                                    var i;
+                                    for ( i = 0; i < fotoscontainer.length; i ++ ) {
+                                      this.RDameFotoBus(fotoscontainer[i].name);
+                                    }
+    });
+
+    this.http.get<any>(this.APIBocas + '/files')
+    .subscribe( fotoscontainer => { console.log(fotoscontainer);
+                                    var i;
+                                    for ( i = 0; i < fotoscontainer.length; i ++ ) {
+                                      this.RDameFotoBoc(fotoscontainer[i].name);
+                                    }
+    });
+
 
 
   }
@@ -210,19 +230,19 @@ export class GaleriaPage implements OnInit {
 
   // Estas dos funciones sirven para cargar los logos de las imágenes
   // almacenadas en el contenedor de Bustos
-  RDameFotoB(idfoto: string) {
+  RDameFotoBus(idfoto: string) {
 
-    this.http2.get(this.APIComp + '/download/' + idfoto,
+    this.http2.get(this.APIBustos + '/download/' + idfoto,
     {responseType: ResponseContentType.Blob} )
     .subscribe(response => {
                              console.log(response);
-                             this.CargarLogosB(response, idfoto);
+                             this.CargarLogosBus(response, idfoto);
                             });
     console.log('Ye he acabado');
   }
 
 
-  CargarLogosB(response: Response, idfoto: string) {
+  CargarLogosBus(response: Response, idfoto: string) {
 
 
     const blob = new Blob([response.blob()], {type: 'image/jpg'});
@@ -231,6 +251,37 @@ export class GaleriaPage implements OnInit {
     reader.addEventListener('load', () => {
      console.log('No sé si entra');
      this.ModeloBustos.push({nombre: idfoto, direc: reader.result.toString()});
+     console.log(this.ModeloBustos);
+    }, false);
+
+    if (blob) {
+      reader.readAsDataURL(blob);
+    }
+  }
+
+  // Estas dos funciones sirven para cargar los logos de las imágenes
+  // almacenadas en el contenedor de Bocas
+  RDameFotoBoc(idfoto: string) {
+
+    this.http2.get(this.APIBocas + '/download/' + idfoto,
+    {responseType: ResponseContentType.Blob} )
+    .subscribe(response => {
+                             console.log(response);
+                             this.CargarLogosBoc(response, idfoto);
+                            });
+    console.log('Ye he acabado');
+  }
+
+
+  CargarLogosBoc(response: Response, idfoto: string) {
+
+
+    const blob = new Blob([response.blob()], {type: 'image/jpg'});
+
+    const reader = new FileReader();
+    reader.addEventListener('load', () => {
+     console.log('No sé si entra');
+     this.ModeloBocas.push({nombre: idfoto, direc: reader.result.toString()});
      console.log(this.ModeloBustos);
     }, false);
 
@@ -316,6 +367,7 @@ export class GaleriaPage implements OnInit {
 
     var x = document.getElementById('galeria' + idgaleria);
 
+    console.log('El id es: ' + x);
     console.log('Antes de clickar el estado es: ' + x.style.display);
 
     if (x.style.display === 'block') {
@@ -327,5 +379,20 @@ export class GaleriaPage implements OnInit {
     }
   }
 
+  // Para eliminar cualquier imágen de la galería creamos un nuevo método
+  // que acceda a la base de datos, para ello necesito elnombre del contenedor
+  // y el identificador de la foto que se quiere eliminar
 
+  EliminarFoto(galeria: string, idfoto: string) {
+    console.log('Eliminando foto');
+    this.dbService.EliminarFoto(galeria, idfoto).subscribe(() => this.showAlert(galeria) );
+
+  }
+
+  showAlert(galeria: string) {
+    swal({
+          title: 'Has eliminado una foto de ' + galeria,
+          icon: 'success'
+        });
+  }
 }

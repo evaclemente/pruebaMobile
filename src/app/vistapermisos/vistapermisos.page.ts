@@ -19,6 +19,7 @@ export class VistapermisosPage implements OnInit {
   TextoPelos: string;
   TextoOjos: string;
   TextoComp: string;
+  TextoBoca: string;
 
   APIPermisos = 'http://localhost:3000/api/permisos/ArchivosTexto';
 
@@ -36,6 +37,7 @@ export class VistapermisosPage implements OnInit {
                            this.CargarPermiso1(this.clase.p1);
                            this.CargarPermiso2(this.clase.p2);
                            this.CargarPermiso3(this.clase.p3);
+                           this.CargarPermiso4(this.clase.p4);
                           });
   }
 
@@ -44,6 +46,7 @@ export class VistapermisosPage implements OnInit {
     var x = document.getElementById('p1');
     var y = document.getElementById('p2');
     var z = document.getElementById('p3');
+    var j = document.getElementById('p4');
 
     if ( this.matricula.pelo === true) {
       x.setAttribute('checked', 'true');
@@ -61,6 +64,12 @@ export class VistapermisosPage implements OnInit {
       z.setAttribute('checked', 'true');
     } else {
       z.setAttribute('checked', 'false');
+    }
+
+    if ( this.matricula.verclase === true) {
+      j.setAttribute('checked', 'true');
+    } else {
+      j.setAttribute('checked', 'false');
     }
   }
   Back() {
@@ -94,6 +103,15 @@ export class VistapermisosPage implements OnInit {
                                                                 this.Descargaelementos(response, permiso, 'comp'); }); }
   }
 
+  CargarPermiso4(permiso: string) {
+    if (permiso !== 'string' || permiso.length !== 0) {
+      this.http2.get(this.APIPermisos + '/download/' + permiso,
+                                        {responseType: ResponseContentType.Blob} )
+                                        .subscribe(response => {
+                                                                console.log(response);
+                                                                this.Descargaelementos(response, permiso, 'boca'); }); }
+  }
+
   Descargaelementos(response: Response, url: string, variable: string) {
     console.log(url);
     console.log(variable);
@@ -114,6 +132,10 @@ export class VistapermisosPage implements OnInit {
 
       if ( variable === 'comp') {
         this.TextoComp = url;
+      }
+
+      if ( variable === 'boca') {
+        this.TextoBoca = url;
       }
 
     }, false);

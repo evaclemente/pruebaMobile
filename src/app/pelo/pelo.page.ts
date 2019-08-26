@@ -10,6 +10,7 @@ import { Persona } from '../Persona';
 import { Imagen } from '../Imagen';
 import { Http, ResponseContentType, RequestOptions, Response, Headers  } from '@angular/http';
 import { Matricula } from '../Matricula';
+import { Clase } from '../Clase';
 
 @Component({
   selector: 'app-pelo',
@@ -24,6 +25,7 @@ export class PeloPage implements OnInit {
   PeloSeleccionado: Imagen;
   ModeloPelos: Imagen[] = new Array();
   matricula: Matricula;
+  clase: Clase;
 
   private APIFotos = 'http://localhost:3000/api/imagenes/Pelos';
  
@@ -48,6 +50,10 @@ export class PeloPage implements OnInit {
     // Lo primero que tengo que hacer es recuperar la matrícula
     // que la tiene guardada el servicio de la Base de Datos
     this.matricula = this.dbService.ReturnMatri();
+    // Traigo la clase para comprobar qué familia se
+    // ha elegido
+    this.dbService.DameClase(this.matricula.idAsignatura)
+    .subscribe( clase => this.clase = clase );
     // Cargo las fotos disponibles en la galería de peinados
 
     this.http.get<any>(this.APIFotos + '/files')
@@ -99,31 +105,29 @@ export class PeloPage implements OnInit {
 
 
     const blob = new Blob([response.blob()], {type: 'image/jpg'});
-
+    var strn = idfoto.split('_', 1)[0];
+    var fam = this.clase.familia;
+    console.log('strn vale: ' + strn);
     const reader = new FileReader();
     reader.addEventListener('load', () => {
       // console.log('No sé si entra');
-     this.ModeloPelos.push({nombre: idfoto, direc: reader.result.toString()});
-     console.log(this.ModeloPelos);
+      if ( strn === fam ) {
+        this.ModeloPelos.push({nombre: idfoto, direc: reader.result.toString()});
+        console.log(this.ModeloPelos);
+      } else {
+        console.log('Me vuelvo');
+        return;
+      }
     }, false);
 
     if (blob) {
       reader.readAsDataURL(blob);
     }
   }
-  // PasarDatosPelo() {
 
-  //   if (this.PeloSeleccionado === undefined) {
-
-  //     console.log('No has seleccionado ningún pelo');
-
-  //   } else {
-
-  //     this.dbService.ElementoP(this.PeloSeleccionado);
-  //   }
-
-  // }
-
+  Reset() {
+    this.dbService.ResetPelo(this.matricula).subscribe();
+  }
   // Voy a guardar el pelo en la Base de datos, así que necesito la matrícula
   // para pasarla por parámetro a la función que está en dbService. Le paso también
   // la Imagen, con su correspondiente nombre y dirección.

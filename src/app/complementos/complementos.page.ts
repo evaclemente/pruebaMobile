@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { Imagen } from '../Imagen';
 import { Matricula } from '../Matricula';
 import { from } from 'rxjs';
+import { Clase } from '../Clase';
 
 @Component({
   selector: 'app-complementos',
@@ -19,6 +20,7 @@ export class ComplementosPage implements OnInit {
   CompSeleccionado: Imagen;
   ModeloComp: Imagen[] = new Array();
   matricula: Matricula;
+  clase: Clase;
 
   constructor( private http: HttpClient,
                private datosService: DatosService,
@@ -36,6 +38,10 @@ export class ComplementosPage implements OnInit {
     // Lo primero que tengo que hacer es recuperar la matrícula
     // que la tiene guardada el servicio de la Base de Datos
     this.matricula = this.dbService.ReturnMatri();
+    // Traigo la clase para comprobar qué familia se
+    // ha elegido
+    this.dbService.DameClase(this.matricula.idAsignatura)
+    .subscribe( clase => this.clase = clase );
     // Cargo las fotos disponibles en la galería de peinados
 
     this.http.get<any>(this.APIComplementos + '/files')
@@ -82,12 +88,19 @@ export class ComplementosPage implements OnInit {
 
 
     const blob = new Blob([response.blob()], {type: 'image/jpg'});
-
+    var strn = idfoto.split('_', 1)[0];
+    var fam = this.clase.familia;
+    console.log('strn vale: ' + strn);
     const reader = new FileReader();
     reader.addEventListener('load', () => {
       // console.log('No sé si entra');
-     this.ModeloComp.push({nombre: idfoto, direc: reader.result.toString()});
-     console.log(this.ModeloComp);
+      if ( strn === fam ) {
+        this.ModeloComp.push({nombre: idfoto, direc: reader.result.toString()});
+        console.log(this.ModeloComp);
+      } else {
+        console.log('Me vuelvo');
+        return;
+      }  
     }, false);
 
     if (blob) {
@@ -104,6 +117,10 @@ export class ComplementosPage implements OnInit {
     } else {
       console.log('No has seleccionado ningunos ojos');
     }
+  }
+
+  Reset() {
+    this.dbService.ResetComp(this.matricula).subscribe();
   }
 
 }

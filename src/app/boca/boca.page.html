@@ -1,9 +1,35 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>boca</ion-title>
+    <ion-title>BOCAS</ion-title>
+    <ion-back-button defaultHref="home"></ion-back-button>
+    <ion-button slot="end" (click)="GuardarBoca();">OK</ion-button>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
 
+  <body>
+
+    <div id="elementosBoca">
+    
+    </div>
+
+    <div class="panel2" id="galeriaBoca">
+
+      <ion-button slot="end" (click)="Reset();">
+        RESET
+        <ion-icon name="trash"></ion-icon>
+      </ion-button>
+            
+      <li *ngFor="let Imagen of ModeloBoca">
+        <ion-item>
+          <ion-img [src]="Imagen.direc" style="width:45%"></ion-img>
+          <ion-checkbox checked="false" slot="end" id="{{Imagen.nombre}}" (ionChange)="GuardaValor(Imagen);"></ion-checkbox>
+        </ion-item>  
+      </li>
+          
+    </div>
+    
+    
+   </body>
 </ion-content>

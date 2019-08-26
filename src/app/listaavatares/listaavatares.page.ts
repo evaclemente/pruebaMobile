@@ -5,6 +5,8 @@ import { DbServiceService } from '../db-service.service';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Http, ResponseContentType, RequestOptions, Response, Headers } from '@angular/http';
+import { Imagen } from '../Imagen';
+import { Clase } from '../Clase';
 
 @Component({
   selector: 'app-listaavatares',
@@ -15,10 +17,14 @@ export class ListaavataresPage implements OnInit {
 
   idClase: string;
   matriculas: Matricula[];
+  clase: Clase;
+  // Busto: Imagen;
+  URLBusto: string;
 
   private APIPelos = 'http://localhost:3000/api/imagenes/Pelos';
   private APIOjos = 'http://localhost:3000/api/imagenes/Ojos';
   private APIComplementos = 'http://localhost:3000/api/imagenes/Complementos';
+  private APIBustos = 'http://localhost:3000/api/imagenes/Bustos';
 
 
   constructor(private http: HttpClient,
@@ -29,6 +35,9 @@ export class ListaavataresPage implements OnInit {
   ngOnInit() {
 
     this.idClase = this.dbService.ReturnIdClase();
+    this.dbService.DameClase(this.dbService.ReturnIdClase())
+    .subscribe( clase => { this.clase = clase;
+                           this.RDameFotoBus(clase.busto); });
     this.dbService.DameMatriculaAlumno(this.idClase)
     .subscribe( matriculas => {
                                this.matriculas = matriculas;
@@ -144,6 +153,37 @@ export class ListaavataresPage implements OnInit {
     }
 
 
+  }
+
+  // Estas dos funciones sirven para cargar los logos de las imágenes
+  // almacenadas en el contenedor de Bustos
+  RDameFotoBus(idfoto: string) {
+
+    this.http2.get(this.APIBustos + '/download/' + idfoto,
+    {responseType: ResponseContentType.Blob} )
+    .subscribe(response => {
+                             console.log(response);
+                             this.CargarLogosBus(response, idfoto);
+                            });
+    console.log('Ya he acabado');
+  }
+
+
+  CargarLogosBus(response: Response, idfoto: string) {
+
+
+    const blob = new Blob([response.blob()], {type: 'image/jpg'});
+
+    const reader = new FileReader();
+    reader.addEventListener('load', () => {
+     console.log('No sé si entra');
+     this.URLBusto = reader.result.toString();
+     console.log(this.URLBusto);
+    }, false);
+
+    if (blob) {
+      reader.readAsDataURL(blob);
+    }
   }
 
   VolverJuego() {

@@ -15,6 +15,11 @@
     </div>
 
     <div class="panel2" id="galeriaOjos">
+
+      <ion-button slot="end" (click)="Reset();">
+        RESET
+        <ion-icon name="trash"></ion-icon>
+      </ion-button>
             
       <li *ngFor="let Imagen of ModeloOjos">
         <ion-item>

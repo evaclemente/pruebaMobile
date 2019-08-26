@@ -279,6 +279,12 @@ export class DbServiceService {
     return this.http.put<any>('http://localhost:3000/api/matriculas/' +  matricula.id, matricula);
   }
 
+  GuardarBoca(matricula: Matricula, p4: string): Observable<Matricula> {
+
+    matricula.URLboca = p4;
+    return this.http.put<any>('http://localhost:3000/api/matriculas/' +  matricula.id, matricula);
+  }
+
   GuardarP1(matricula: Matricula, valorp1: boolean): Observable<Matricula> {
     matricula.pelo = valorp1;
     return this.http.put<any>('http://localhost:3000/api/matriculas/' +  matricula.id, matricula);
@@ -298,22 +304,34 @@ export class DbServiceService {
 
   }
 
+  GuardarP4(matricula: Matricula, valorp4: any): Observable<Matricula> {
+
+    matricula.verclase = valorp4;
+    return this.http.put<any>('http://localhost:3000/api/matriculas/' +  matricula.id, matricula);
+
+  }
+
   MuestraFicheros(): Observable<Container[]> {
     return this.http.get<Container[]>(this.APIPermisos + '/files');
   }
 
-  GuardaFicheroPermiso1(clase: Clase, archivo: string): Observable<any>{
+  GuardaFicheroPermiso1(clase: Clase, archivo: string): Observable<any> {
     clase.p1 = archivo;
     return this.http.put<any>(this.APIClases + '/' + clase.id, clase);
   }
 
-  GuardaFicheroPermiso2(clase: Clase, archivo: string): Observable<any>{
+  GuardaFicheroPermiso2(clase: Clase, archivo: string): Observable<any> {
     clase.p2 = archivo;
     return this.http.put<any>(this.APIClases + '/' + clase.id, clase);
   }
 
-  GuardaFicheroPermiso3(clase: Clase, archivo: string): Observable<any>{
+  GuardaFicheroPermiso3(clase: Clase, archivo: string): Observable<any> {
     clase.p3 = archivo;
+    return this.http.put<any>(this.APIClases + '/' + clase.id, clase);
+  }
+
+  GuardaFicheroPermiso4(clase: Clase, archivo: string): Observable<any> {
+    clase.p4 = archivo;
     return this.http.put<any>(this.APIClases + '/' + clase.id, clase);
   }
 
@@ -325,6 +343,48 @@ export class DbServiceService {
     clase.familia = familia;
     clase.busto = archivobusto;
     return this.http.put<any>(this.APIClases + '/' + clase.id, clase);
+
+  }
+
+  EliminarFoto(galeria: string, idfoto: string): Observable<any> {
+
+    console.log('Voy a eliminar la foto de: ' + galeria);
+    console.log('La foto es: ' + idfoto);
+    return this.http.delete<any>(this.APIFotos + '/' + galeria + '/files/' + idfoto);
+
+  }
+
+  // Este método borra el archivo que haya
+  // para poner ojos en el avatar
+  ResetOjos(matricula: Matricula): Observable<any> {
+    var reset = '';
+    console.log('Reseteando ojos');
+    matricula.URLojos = reset;
+    return this.http.put<any>('http://localhost:3000/api/matriculas/' +  matricula.id, matricula);
+
+  }
+
+  ResetPelo(matricula: Matricula): Observable<any> {
+    var reset = '';
+    console.log('Reseteando pelo');
+    matricula.URLpelo = reset;
+    return this.http.put<any>('http://localhost:3000/api/matriculas/' +  matricula.id, matricula);
+
+  }
+
+  ResetComp(matricula: Matricula): Observable<any> {
+    var reset = '';
+    console.log('Reseteando complemento');
+    matricula.URLcomplemento = reset;
+    return this.http.put<any>('http://localhost:3000/api/matriculas/' +  matricula.id, matricula);
+
+  }
+
+  ResetBoca(matricula: Matricula): Observable<any> {
+    var reset = '';
+    console.log('Reseteando ojos');
+    matricula.URLboca = reset;
+    return this.http.put<any>('http://localhost:3000/api/matriculas/' +  matricula.id, matricula);
 
   }
 

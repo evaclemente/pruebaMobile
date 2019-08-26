@@ -49,16 +49,20 @@
           
             <div class="avataresActivos">
               <ion-item>
-                <ion-label>P1</ion-label>
+                <ion-label>Permiso para cambiar de peinado</ion-label>
                 <ion-checkbox checked="{{Matricula.pelo}}" id="P1{{Matricula.idAlumno}}" (ionChange)="CambiarPermisoPelo(Matricula.idAlumno);"></ion-checkbox>
               </ion-item>
               <ion-item>
-                <ion-label>P2</ion-label>
+                <ion-label>Permiso para cambiar de ojos</ion-label>
                 <ion-checkbox checked="{{Matricula.ojos}}" id="P2{{Matricula.idAlumno}}" (ionChange)="CambiarPermisoOjos(Matricula.idAlumno);"></ion-checkbox>
               </ion-item>
               <ion-item>
-                <ion-label>P3</ion-label>
+                <ion-label>Permiso para cambiar de complementos</ion-label>
                 <ion-checkbox checked="{{Matricula.complemento}}" id="P3{{Matricula.idAlumno}}" (ionChange)="CambiarPermisoComp(Matricula.idAlumno);"></ion-checkbox>
+              </ion-item>
+              <ion-item>
+                <ion-label>Permiso para ver la lista de avatares</ion-label>
+                <ion-checkbox checked="{{Matricula.verclase}}" id="P4{{Matricula.idAlumno}}" (ionChange)="CambiarPermisoVerLista(Matricula.idAlumno);"></ion-checkbox>
               </ion-item>
   
             </div>

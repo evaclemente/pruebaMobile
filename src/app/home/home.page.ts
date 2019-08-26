@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import {ActivatedRoute} from '@angular/router';
 import { from } from 'rxjs';
@@ -30,6 +30,7 @@ export class HomePage {
   private APIOjos = 'http://localhost:3000/api/imagenes/Ojos';
   private APIComplementos = 'http://localhost:3000/api/imagenes/Complementos';
   private APIBustos = 'http://localhost:3000/api/imagenes/Bustos';
+  private APIBocas = 'http://localhost:3000/api/imagenes/Bocas';
   URLP: string;
   URLO: string;
   URLC: string;
@@ -48,6 +49,34 @@ export class HomePage {
 
   }
 
+  // ngOnchanges() {
+  //   this.matri.URLojos = '';
+  //   this.matri.URLcomplemento = '';
+  //   this.matri.URLpelo = '';
+  //   this.dbService.DameClase(this.datosService.DameIDClase())
+  //   .subscribe( clase => {this.clase = clase;
+  //                         console.log('Ya tengo la clase: ' + this.clase);
+  //                         this.RDameFoto(clase.busto);
+  //                         });
+  //   // Traigo todas las fotos del contenedor de Bustos
+
+  //   this.dbService.DameMatriculaAlumno(this.datosService.DameIDClase())
+  //   .subscribe( matricula => {console.log('Me ha llegado:' + matricula);
+  //                             this.matriculados = matricula;
+  //                             console.log(this.matriculados);
+  //                             this.matri = this.DamePorNombre();
+  //                             console.log('Esta matricula es de: ' + this.matri.idAlumno);
+  //                             // Una vez tenemos la matrícula podemos cargar los elementos de las fotos
+  //                             this.DescargaFotoPelo();
+  //                             this.DescargaFotoOjos();
+  //                             this.DescargaFotoComp();
+  //                             this.PermisoPelo();
+  //                             this.PermisoOjos();
+  //                             this.PermisoComp();
+  //                            });
+
+  // }
+
   // tslint:disable-next-line:use-life-cycle-interface
   ngOnInit() {
     this.nombre = this.dbService.ReturnNombrePersona();
@@ -65,51 +94,30 @@ export class HomePage {
                               this.matri = this.DamePorNombre();
                               console.log('Esta matricula es de: ' + this.matri.idAlumno);
                               // Una vez tenemos la matrícula podemos cargar los elementos de las fotos
-                              this.DescargaFotoPelo();
                               this.DescargaFotoOjos();
+                              this.DescargaFotoBoca();
+                              this.DescargaFotoPelo();
                               this.DescargaFotoComp();
+
                               this.PermisoPelo();
                               this.PermisoOjos();
                               this.PermisoComp();
                              });
                             }
   IrAPelos() {
+    // this.ngOnInit();
     this.dbService.SetMatricula(this.matri);
     console.log('Entro a pelos');
     this.router.navigate(['/pelo']);
   }
 
-  // Necesito saber qué familia se ha escogido, para poder asignar un busto u otro
+  IrABocas() {
+    // this.ngOnInit();
+    this.dbService.SetMatricula(this.matri);
+    console.log('Entro a bocas');
+    this.router.navigate(['/boca']);
+  }
 
-  // FiltraBustoAvatar(clase: Clase, fotosbustos: any[]) {
-
-  //   console.log(clase.familia);
-  //   this.Familia = clase.familia;
-
-  //   // Cuando aplique el filtro, me voy a guardar la posición
-  //   // en la que está el ficheroque queiro descargar, puesto que necesito
-  //   // el nombre del fichero completo, y con el filtro sólo tengo una parte del nombre
-  //   // var posicion;
-  //   var i;
-  //   var nombre: string;
-  //   console.log('Llega a entrar en el filtro');
-  //   for (i = 0; i < fotosbustos.length; i ++) {
-
-  //     nombre = fotosbustos[i].name.split('_', 1);
-  //     console.log('nombre: ' + nombre);
-
-  //     if (nombre === clase.familia) {
-  //       console.log('Ya ha encontrado la familia');
-  //       this.posicion = i;
-  //       console.log('Voy a descargar: ' + fotosbustos[i].name);
-  //       this.RDameFoto(fotosbustos[i].name);
-  //     } else {
-  //       console.log('Esta familia no es');
-  //     }
-
-  //   }
-
-  // }
 
   RDameFoto(idfoto: string) {
 
@@ -151,6 +159,7 @@ export class HomePage {
   }
 
   IrAOjos() {
+    // this.ngOnInit();
     console.log('Me voy a Ojos');
     this.dbService.SetMatricula(this.matri);
     this.router.navigate(['/ojos']);
@@ -163,6 +172,7 @@ export class HomePage {
   }
 
   IrAComp() {
+    // this.ngOnInit();
     this.dbService.SetMatricula(this.matri);
     console.log('Me voy a Alumno');
     this.router.navigate(['/complementos']);
@@ -249,6 +259,16 @@ export class HomePage {
                                         .subscribe(response => {
                                                                 console.log(response);
                                                                 this.Descargaelementos(response, this.matri.URLcomplemento); }); }
+  }
+
+  DescargaFotoBoca() {
+    console.log('Esto hay: ' + this.matri.URLboca);
+    if (this.matri.URLboca !== 'string' || this.matri.URLcomplemento.length !== 0) {
+      this.http2.get(this.APIBocas + '/download/' + this.matri.URLboca,
+                                        {responseType: ResponseContentType.Blob} )
+                                        .subscribe(response => {
+                                                                console.log(response);
+                                                                this.Descargaelementos(response, this.matri.URLboca); }); }
   }
 
   VistaPermisos() {

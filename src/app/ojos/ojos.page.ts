@@ -6,6 +6,7 @@ import { DbServiceService } from '../db-service.service';
 import { Matricula } from '../Matricula';
 import { Imagen } from '../Imagen';
 import { Http, ResponseContentType, RequestOptions, Response, Headers  } from '@angular/http';
+import { Clase } from '../Clase';
 
 @Component({
   selector: 'app-ojos',
@@ -26,6 +27,7 @@ export class OjosPage implements OnInit {
   matricula: Matricula;
   OjosSeleccionados: Imagen;
   // URLsOjos: Img = new Array();
+  clase: Clase;
   Logos: string[];
   val: any;
   private APIFotos = 'http://localhost:3000/api/imagenes/Ojos';
@@ -38,6 +40,10 @@ export class OjosPage implements OnInit {
     // Lo primero que tengo que hacer es recuperar la matrícula
     // que la tiene guardada el servicio de la Base de Datos
     this.matricula = this.dbService.ReturnMatri();
+    // Traigo la clase para comprobar qué familia se
+    // ha elegido
+    this.dbService.DameClase(this.matricula.idAsignatura)
+    .subscribe( clase => this.clase = clase );
     // Cargo las fotos disponibles en la galería de ojos
     this.http.get<any>(this.APIFotos + '/files')
     .subscribe( fotoscontainer => { console.log(fotoscontainer);
@@ -85,12 +91,21 @@ export class OjosPage implements OnInit {
 
 
     const blob = new Blob([response.blob()], {type: 'image/jpg'});
-
+    var strn = idfoto.split('_', 1)[0];
+    var fam = this.clase.familia;
+    console.log('strn vale: ' + strn);
     const reader = new FileReader();
     reader.addEventListener('load', () => {
-     console.log('No sé si entra');
-     this.ModeloOjos.push({nombre: idfoto, direc: reader.result.toString()});
-     console.log(this.ModeloOjos);
+     console.log('familia es: ' + this.clase.familia);
+     console.log('');
+     if ( strn === fam ) {
+        console.log('Pertenece a la familia');
+        this.ModeloOjos.push({nombre: idfoto, direc: reader.result.toString()});
+        console.log(this.ModeloOjos);
+      } else {
+        console.log('Me vuelvo');
+        return;
+      }
     }, false);
 
     if (blob) {
@@ -103,25 +118,22 @@ export class OjosPage implements OnInit {
     if (this.OjosSeleccionados !== undefined || this.OjosSeleccionados.nombre !== '') {
       console.log('Guardando ojos');
       this.dbService.GuardarOjos(this.matricula, this.OjosSeleccionados.nombre).subscribe();
-      this.router.navigate(['/home']);
+      this.showAlert();
+      // this.router.navigate(['/home']);
     } else {
       console.log('No has seleccionado ningunos ojos');
     }
   }
 
-  // PasarDatosOjos() {
+  Reset() {
+    this.dbService.ResetOjos(this.matricula).subscribe();
+  }
 
-  //   if (this.OjosSeleccionados === undefined) {
-
-  //     console.log('No has seleccionado ningún pelo');
-
-  //   } else {
-  //     this.dbService.ElementoO(this.OjosSeleccionados);
-  //   }
-  // }
-
-  // IrAHome() {
-  //   this.router.navigate(['/home']);
-  // }
+  showAlert() {
+    swal({
+          title: 'Has escogido ojos!',
+          icon: 'success'
+        });
+  }
 
 }

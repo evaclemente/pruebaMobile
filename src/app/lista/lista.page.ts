@@ -198,6 +198,29 @@ export class ListaPage implements OnInit {
 
   }
 
+  CambiarPermisoVerLista(idAlumno: string ) {
+    // Compruebo que el id del alumno es el correcto
+    console.log('El id del Alumno que me llega ' + idAlumno);
+    // Escojo elelemento HTML (ion-checkbox) en el que se ha hecho click
+    var x = document.getElementById('P4' + idAlumno);
+
+    // Cargo la matrícula que contiene los datos de la asignatura y alumno que quiero
+    this.matri = this.FiltraPersona(idAlumno);
+    // var y = ;
+    console.log('Esto vale x' + x);
+
+    if (this.matri.verclase === true) {
+      x.setAttribute('checked', 'false');
+      this.dbService.GuardarP4(this.matri, false).subscribe();
+      this.dbService.GuardarBoca(this.matri, ' ').subscribe();
+    } else {
+      x.setAttribute('checked', 'true');
+      this.dbService.GuardarP4(this.matri, true).subscribe();
+      console.log('Tenemos un true' + x);
+    }
+
+  }
+
   VolverAClases() {
     console.log('Cierro la lista');
     this.router.navigate(['/clases']);
