@@ -42,7 +42,6 @@ export class DatosService {
   EnviarPersona(nombre: string) {
     this.nombre = nombre;
     console.log('Estos son los datos de mi persona: ' + nombre);
-    // this.objectSource.next(nombre);
   }
 
 

@@ -27,6 +27,10 @@ export class FormpersonaPage implements OnInit {
  idClase: string;
  nuevoid: any;
  matricula: Matricula;
+ antigualista: Persona[];
+ comparapersona: Persona;
+ comparamatricula: Matricula;
+ listamatriculas: Matricula[];
 
  // APIMatriculas = 'http://localhost:3000/api/matriculas/count';
 
@@ -38,23 +42,61 @@ export class FormpersonaPage implements OnInit {
 
   ngOnInit() {
     this.idClase = this.dbService.ReturnIdClase();
+    this.dbService.dameTodos().subscribe( lista => this.antigualista = lista );
+    this.dbService.DameMatriculaAlumno(this.idClase).subscribe( matriculas => this.listamatriculas = matriculas);
 
   }
 
   Pon() {
     console.log('Estoy añadiendo a: ' + this.nombre + this.pass);
-    this.dbService.PonPersona(new Persona(this.nombre,
-                                          this.pass,
-                                          'Alumno')).subscribe(() => this.Mostrar());
 
-    this.dbService.CuentaMatriculas().subscribe( numero => {console.log(numero);
-                                                            this.nuevoid = numero ++ ;
-                                                            console.log(this.nuevoid);
-                                                            this.matricula = new Matricula(0, this.nuevoid, this.nombre
-                                                            , this.idClase, false, false, false, false, '', '', '', '');
-                                                            console.log(this.matricula);
-                                                            this.dbService.PonMatricula(this.matricula).subscribe();
-                                                          });
+    this.comparapersona = this.antigualista.filter( persona => persona.nombre === this.nombre)[0];
+    this.comparamatricula = this.listamatriculas.filter( matricula => matricula.idAlumno === this.nombre)[0];
+
+    console.log(this.antigualista);
+
+    console.log('Hay alguien ya con ese usuario: ' + this.comparapersona);
+
+    if (this.comparapersona === undefined ) {
+
+      // La persona no existe, por tanto tampoco está matriculada en la asignatura,
+      // así que se añade a ambos modelos de datos
+
+      this.dbService.PonPersona(new Persona(this.nombre,
+        this.pass, 'Alumno')).subscribe(() => this.Mostrar());
+
+      this.dbService.CuentaMatriculas().subscribe( numero => {console.log(numero);
+                                                              this.nuevoid = numero ++ ;
+                                                              console.log(this.nuevoid);
+                                                              this.matricula = new Matricula(0, this.nuevoid, this.nombre
+                                                             , this.idClase, false, false, false, false, '', '', '', '');
+                                                              console.log(this.matricula);
+                                                              this.dbService.PonMatricula(this.matricula).subscribe();
+      });
+
+
+    } else {
+      // Si la persona existe pero no está matriculada en esa asgnatura en concreto,se añade
+      // sólo la matrícula
+      if (this.comparamatricula === undefined) {
+        this.dbService.CuentaMatriculas().subscribe( numero => {console.log(numero);
+                                                                this.nuevoid = numero ++ ;
+                                                                console.log(this.nuevoid);
+                                                                this.matricula = new Matricula(0, this.nuevoid, this.nombre
+                                                                , this.idClase, false, false, false, false, '', '', '', '');
+                                                                console.log(this.matricula);
+                                                                this.dbService.PonMatricula(this.matricula)
+                                                                .subscribe( () => this.showAlert());
+        });
+      } else {
+
+        // La persona existe y además ya está matriculadaen la asignatura
+        this.ExistePersona();
+        return;
+
+      }
+
+    }
 
   }
 
@@ -79,6 +121,14 @@ export class FormpersonaPage implements OnInit {
           title: 'Listo!',
           text: 'Persona añadida con éxito',
           icon: 'success'
+        });
+  }
+
+  ExistePersona() {
+    swal({
+          title: 'Error!',
+          text: 'Este usuario ya existe, prueba con otro',
+          icon: 'error'
         });
   }
 }

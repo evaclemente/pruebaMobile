@@ -128,7 +128,7 @@ export class ClasesPage implements OnInit {
         });
   }
 
-  // AñadirClase() {
-  //   this.router.navigate(['/formclase']);
-  // }
+  AnadirClase() {
+    this.router.navigate(['/formclase']);
+  }
 }

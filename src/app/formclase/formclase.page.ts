@@ -25,7 +25,7 @@ export class FormclasePage implements OnInit {
   ngOnInit() {
 
     this.administrador = this.dbService.ReturnNombrePersona();
-    this.dbService.DameClases().subscribe( clases => this.Clases = clases);
+    this.dbService.DameClases().subscribe( clases => this.Clases = clases.filter( clase => clase.admin === this.administrador) );
   }
 
   CrearClase() {
@@ -57,11 +57,15 @@ export class FormclasePage implements OnInit {
     swal({
           title: 'La clase ' + this.idClase + ' ya existe',
           text: 'Prueba con otro nombre ',
-          icon: 'success'
+          icon: 'error'
         });
   }
 
   VolverAClases() {
+    this.router.navigate(['/clases']);
+  }
+
+  IrAClases() {
     this.router.navigate(['/clases']);
   }
 
