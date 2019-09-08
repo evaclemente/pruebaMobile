@@ -1,4 +1,8 @@
 
+#dropup {
+    display: 'none';
+}
+
 .topnav {
     overflow: hidden;
     background-color: rgb(253, 253, 253);
@@ -12,10 +16,6 @@
   
 .active, .MenuClases:hover {
     background-color: #ccc; 
-}
-
-#dropup {
-    display: 'none';
 }
   
 .panel {

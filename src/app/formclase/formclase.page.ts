@@ -34,10 +34,12 @@ export class FormclasePage implements OnInit {
 
     if ( this.filtroclases === undefined) {
 
-      this.clasenueva = new Clase(this.idClase, this.administrador, false, 'persona', 'persona_busto.png', '', '', '', '');
+      // this.clasenueva = new Clase(this.idClase, this.administrador, false, 'persona', 'persona_busto.png', '', '', '', '');
 
-      this.dbService.CreaClase(this.clasenueva)
-      .subscribe( () => this.showAlert());
+      this.dbService.CreaClase(new Clase(this.idClase, this.administrador, false, 'persona', 'persona_busto.png', '', '', '', ''))
+      .subscribe( () => {this.showAlert();
+                         this.VolverAClases();
+                        });
 
     } else {
       this.ExisteAlert();

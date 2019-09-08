@@ -1,15 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Observable, of, from } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-// import {PersonaComponent} from './persona/persona.component';
 import { Persona } from './Persona';
 import { Clase } from './Clase';
 import { Imagen } from './Imagen';
 import { Container } from './Container';
 import { Img } from './Img';
-import { Http, ResponseContentType, RequestOptions, Response, Headers } from '@angular/http';
 import { Matricula } from './Matricula';
-// Las librerías importadas son para poder realizar operaciones Http
+// Las siguientes librerías importadas son para poder realizar operaciones Http
+import { Http, ResponseContentType, RequestOptions, Response, Headers } from '@angular/http';
+
+
 
 @Injectable({
   providedIn: 'root'
@@ -162,9 +163,9 @@ export class DbServiceService {
     return this.http.put<any>(this.APIClases + '/' + clase.id, clase);
   }
 
-  CreaClase(clase: Clase): Observable<Clase> {
+  CreaClase(clase: Clase): Observable<any> {
     // clase.admin = admin;
-    return this.http.post<Clase>(this.APIClases + '/' + clase.id, clase);
+    return this.http.post<any>(this.APIClases, clase);
   }
 
   PonPass(alumno: Persona, nuevopass: string): Observable<any> {

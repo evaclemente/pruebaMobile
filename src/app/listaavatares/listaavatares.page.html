@@ -7,30 +7,25 @@
 
 <ion-content>
 
-  <body>
+  
 
-   
+  <ion-list *ngFor="let Matricula of matriculas">
+
+    <ion-list-header>
+      {{Matricula.idAlumno}}
+    </ion-list-header>
+
+    <ion-item>
+      <div id="{{Matricula.idAlumno}}">
+
+        <ion-img id="cabeza" [src]="URLBusto"></ion-img>
+
+                                  
+      </div>
+    </ion-item>
+
+  </ion-list>
 
 
-    <ion-list *ngFor="let Matricula of matriculas">
-
-      <ion-list-header>
-        {{Matricula.idAlumno}}
-      </ion-list-header>
-
-      <ion-item>
-        <div id="{{Matricula.idAlumno}}">
-
-          <ion-img id="cabeza" [src]="URLBusto"></ion-img>
-
-          <img />
-                            
-        </div>
-      </ion-item>
-
-    </ion-list>
-
-    
-  </body>
 
 </ion-content>

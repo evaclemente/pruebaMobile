@@ -7,28 +7,27 @@
 </ion-header>
 
 <ion-content>
-  <body>
+  
 
-    <div id="elementosOjos">
+  <div id="elementosOjos">
     
-    </div>
+  </div>
 
-    <div class="panel2" id="galeriaComp">
+  <div class="panel2" id="galeriaComp">
 
-        <ion-button slot="end" (click)="Reset();">
-          RESET
-          <ion-icon name="trash"></ion-icon>
-        </ion-button>
+    <ion-button slot="end" (click)="Reset();">
+      RESET
+      <ion-icon name="trash"></ion-icon>
+    </ion-button>
             
-      <li *ngFor="let Imagen of ModeloComp">
-        <ion-item>
-          <ion-img [src]="Imagen.direc" style="width:45%"></ion-img>
-          <ion-checkbox checked="false" slot="end" id="{{Imagen.nombre}}" (ionChange)="GuardaValor(Imagen);"></ion-checkbox>
-        </ion-item>  
-      </li>
+    <li *ngFor="let Imagen of ModeloComp">
+      <ion-item>
+        <ion-img [src]="Imagen.direc" style="width:45%"></ion-img>
+        <ion-checkbox checked="false" slot="end" id="{{Imagen.nombre}}" (ionChange)="GuardaValor(Imagen);"></ion-checkbox>
+      </ion-item>  
+    </li>
           
-    </div>
+  </div>
     
     
-  </body>
 </ion-content>

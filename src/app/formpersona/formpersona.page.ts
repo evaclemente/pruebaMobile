@@ -71,7 +71,8 @@ export class FormpersonaPage implements OnInit {
                                                               this.matricula = new Matricula(0, this.nuevoid, this.nombre
                                                              , this.idClase, false, false, false, false, '', '', '', '');
                                                               console.log(this.matricula);
-                                                              this.dbService.PonMatricula(this.matricula).subscribe();
+                                                              this.dbService.PonMatricula(this.matricula)
+                                                              .subscribe( () => this.showAlert());
       });
 
 

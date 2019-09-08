@@ -6,6 +6,7 @@ import { DbServiceService } from '../db-service.service';
 import { Clase } from '../Clase';
 import { Http } from '@angular/http';
 import { Familia } from '../Familia';
+import { Persona } from '../Persona';
  // import { from } from 'rxjs';
 
 @Component({
@@ -23,6 +24,8 @@ export class AvataresPage implements OnInit {
   private APIFotos = 'http://localhost:3000/api/imagenes';
   familiaescogida: string;
   familiaBDD: string;
+  // person: Persona;
+  nombre: string;
 
   constructor(private http: HttpClient,
               private router: Router,
@@ -31,6 +34,8 @@ export class AvataresPage implements OnInit {
               private http2: Http) { }
 
   ngOnInit() {
+   // this.dbService.DamePersona(this.dbService.ReturnNombrePersona()).subscribe( persona => this.person = persona);
+    this.nombre = this.dbService.ReturnNombrePersona();
     this.idClase = this.datosService.DameIDClase();
     this.dbService.DameClase(this.idClase).subscribe( clase => {this.clase = clase;
                                                                 console.log('Datos de clase: ' + clase);
@@ -78,6 +83,7 @@ export class AvataresPage implements OnInit {
 
   VerListaAvatares() {
     console.log('Entra');
+    this.dbService.SetNombrePersona(this.nombre);
     this.dbService.SetIdClase(this.idClase);
     this.router.navigate(['/listaavatares']);
   }

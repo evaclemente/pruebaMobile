@@ -73,6 +73,7 @@ export class ClasesPage implements OnInit {
   }
 
   IrAAvatares(idclase: string) {
+    this.dbService.SetNombrePersona(this.nombre);
     this.datosService.GuardaIDClase(idclase);
     console.log('Voy al juego de avatares');
     this.router.navigate(['/avatares']);

@@ -20,11 +20,13 @@ export class ListaavataresPage implements OnInit {
   clase: Clase;
   // Busto: Imagen;
   URLBusto: string;
+  persona: Persona;
 
   private APIPelos = 'http://localhost:3000/api/imagenes/Pelos';
   private APIOjos = 'http://localhost:3000/api/imagenes/Ojos';
   private APIComplementos = 'http://localhost:3000/api/imagenes/Complementos';
   private APIBustos = 'http://localhost:3000/api/imagenes/Bustos';
+  private APIBocas = 'http://localhost:3000/api/imagenes/Bocas';
 
 
   constructor(private http: HttpClient,
@@ -33,7 +35,8 @@ export class ListaavataresPage implements OnInit {
               private http2: Http) { }
 
   ngOnInit() {
-
+    this.dbService.DamePersona(this.dbService.ReturnNombrePersona())
+    .subscribe( persona => this.persona = persona);
     this.idClase = this.dbService.ReturnIdClase();
     this.dbService.DameClase(this.dbService.ReturnIdClase())
     .subscribe( clase => { this.clase = clase;
@@ -71,6 +74,7 @@ export class ListaavataresPage implements OnInit {
       this.DescargaFotoPelo(this.matriculas[i]);
       this.DescargaFotoOjos(this.matriculas[i]);
       this.DescargaFotoComp(this.matriculas[i]);
+      this.DescargaFotoBoca(this.matriculas[i]);
     }
   }
   DescargaFotoOjos(matricula: Matricula) {
@@ -97,7 +101,7 @@ export class ListaavataresPage implements OnInit {
 
 
       console.log('Debería entrar en este bucle ' + matricula.idAlumno);
-      console.log(matricula.idAlumno + 'tiene pelo: ' + matricula.URLcomplemento);
+      console.log(matricula.idAlumno + 'tiene complemento: ' + matricula.URLcomplemento);
       console.log(matricula.URLcomplemento.length);
 
       if (matricula.URLcomplemento.length > 2 && matricula.URLcomplemento !== 'string' ) {
@@ -112,6 +116,26 @@ export class ListaavataresPage implements OnInit {
       }
 
   }
+
+  DescargaFotoBoca(matricula: Matricula) {
+
+
+    console.log('Debería entrar en este bucle ' + matricula.idAlumno);
+    console.log(matricula.idAlumno + 'tiene boca: ' + matricula.URLboca);
+    console.log(matricula.URLboca.length);
+
+    if (matricula.URLboca.length > 2 && matricula.URLboca !== 'string' ) {
+      this.http2.get(this.APIBocas + '/download/' + matricula.URLboca,
+                                        {responseType: ResponseContentType.Blob} )
+                                        .subscribe(response => {console.log('Este es el idAlumno' + matricula.idAlumno);
+                                                                console.log(response);
+                                                                this.Descargaelementos(response, matricula.URLboca,
+                                                                   matricula.idAlumno); });
+    } else {
+      console.log('No hay boca');
+    }
+
+}
 
   Descargaelementos(response: Response, url: string, idAlumno: string) {
     console.log(url);
@@ -187,7 +211,12 @@ export class ListaavataresPage implements OnInit {
   }
 
   VolverJuego() {
-    this.router.navigate(['/avatares']);
+    if ( this.persona.rol === 'Profesor') {
+      this.router.navigate(['/avatares']);
+    } else {
+      this.router.navigate(['/home']);
+    }
+    
   }
 
 }

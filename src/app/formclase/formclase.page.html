@@ -19,7 +19,7 @@
 <ion-content>
   <ion-list>
     <ion-item>
-      <ion-label position="stacked">Nombre de la clase <ion-text color="danger">*</ion-text></ion-label>
+      <ion-label position="stacked" (click)="CrearClase();">Nombre de la clase <ion-text color="danger">*</ion-text></ion-label>
       <ion-input [(ngModel)]="idClase"></ion-input>
     </ion-item>
     <ion-item>

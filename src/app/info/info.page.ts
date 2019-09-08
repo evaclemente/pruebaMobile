@@ -25,6 +25,7 @@ export class InfoPage implements OnInit {
   private APIOjos = 'http://localhost:3000/api/imagenes/Ojos';
   private APIComplementos = 'http://localhost:3000/api/imagenes/Complementos';
   private APIBustos = 'http://localhost:3000/api/imagenes/Bustos';
+  private APIBocas = 'http://localhost:3000/api/imagenes/Bocas';
 
   URLBusto: string;
   URLP: string;
@@ -52,6 +53,7 @@ export class InfoPage implements OnInit {
                                                                 this.DescargaFotoPelo();
                                                                 this.DescargaFotoOjos();
                                                                 this.DescargaFotoComp();
+                                                                this.DescargaFotoBoca();
                                                                 });
                           });
 
@@ -115,6 +117,15 @@ export class InfoPage implements OnInit {
                                         .subscribe(response => {
                                                                 console.log(response);
                                                                 this.Descargaelementos(response, this.matri.URLcomplemento); }); }
+  }
+
+  DescargaFotoBoca() {
+    if (this.matri.URLboca !== undefined || this.matri.URLboca !== '') {
+      this.http2.get(this.APIBocas + '/download/' + this.matri.URLboca,
+                                        {responseType: ResponseContentType.Blob} )
+                                        .subscribe(response => {
+                                                                console.log(response);
+                                                                this.Descargaelementos(response, this.matri.URLboca); }); }
   }
 
   // Despues del inicio de la descarga, necesitamos convertir la respuesta de la anterior función a string

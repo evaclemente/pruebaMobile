@@ -49,35 +49,6 @@ export class HomePage {
 
   }
 
-  // ngOnchanges() {
-  //   this.matri.URLojos = '';
-  //   this.matri.URLcomplemento = '';
-  //   this.matri.URLpelo = '';
-  //   this.dbService.DameClase(this.datosService.DameIDClase())
-  //   .subscribe( clase => {this.clase = clase;
-  //                         console.log('Ya tengo la clase: ' + this.clase);
-  //                         this.RDameFoto(clase.busto);
-  //                         });
-  //   // Traigo todas las fotos del contenedor de Bustos
-
-  //   this.dbService.DameMatriculaAlumno(this.datosService.DameIDClase())
-  //   .subscribe( matricula => {console.log('Me ha llegado:' + matricula);
-  //                             this.matriculados = matricula;
-  //                             console.log(this.matriculados);
-  //                             this.matri = this.DamePorNombre();
-  //                             console.log('Esta matricula es de: ' + this.matri.idAlumno);
-  //                             // Una vez tenemos la matrícula podemos cargar los elementos de las fotos
-  //                             this.DescargaFotoPelo();
-  //                             this.DescargaFotoOjos();
-  //                             this.DescargaFotoComp();
-  //                             this.PermisoPelo();
-  //                             this.PermisoOjos();
-  //                             this.PermisoComp();
-  //                            });
-
-  // }
-
-  // tslint:disable-next-line:use-life-cycle-interface
   ngOnInit() {
     this.nombre = this.dbService.ReturnNombrePersona();
     this.dbService.DameClase(this.datosService.DameIDClase())
@@ -102,6 +73,7 @@ export class HomePage {
                               this.PermisoPelo();
                               this.PermisoOjos();
                               this.PermisoComp();
+                              this.PermisoVerLista();
                              });
                             }
   IrAPelos() {
@@ -178,6 +150,12 @@ export class HomePage {
     this.router.navigate(['/complementos']);
   }
 
+  IrALista() {
+    this.dbService.SetIdClase(this.clase.id);
+    this.dbService.SetNombrePersona(this.matri.idAlumno);
+    this.router.navigate(['/listaavatares']);
+  }
+
   // funciones de permiso, comprueban si el alumno matriculado en la asignatura tiene activados los permisos
   // para poder cambiarse los elementos del avatar. si tiene permiso, podrá hacer click en el botón, y si no lo
   // tiene la función cambiará el atributo del elemento HTML que es un botón, y pondra un valor 'true' en la
@@ -221,6 +199,18 @@ export class HomePage {
     var x = document.getElementById('P3');
 
     if (this.matri.complemento === true) {
+      x.setAttribute('disabled', 'false');
+    } else {
+      x.setAttribute('disabled', 'true');
+    }
+
+  }
+
+  PermisoVerLista() {
+
+    var x = document.getElementById('P4');
+
+    if (this.matri.verclase === true) {
       x.setAttribute('disabled', 'false');
     } else {
       x.setAttribute('disabled', 'true');
