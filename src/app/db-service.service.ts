@@ -164,7 +164,7 @@ export class DbServiceService {
   }
 
   CreaClase(clase: Clase): Observable<any> {
-    // clase.admin = admin;
+    console.log(clase);
     return this.http.post<any>(this.APIClases, clase);
   }
 

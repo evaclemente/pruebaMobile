@@ -36,7 +36,8 @@ export class FormclasePage implements OnInit {
 
       // this.clasenueva = new Clase(this.idClase, this.administrador, false, 'persona', 'persona_busto.png', '', '', '', '');
 
-      this.dbService.CreaClase(new Clase(this.idClase, this.administrador, false, 'persona', 'persona_busto.png', '', '', '', ''))
+      this.dbService.CreaClase( new Clase(this.idClase, this.administrador, false
+      , 'persona', 'persona_busto.png', 'string', 'string', 'string', 'string'))
       .subscribe( () => {this.showAlert();
                          this.VolverAClases();
                         });
